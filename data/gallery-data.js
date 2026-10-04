@@ -1,17 +1,8 @@
-/**
- * Add approved local image paths (for example, /gallery/project-name/before.jpg)
- * after placing each file inside public. Empty paths intentionally render
- * a clear sample placeholder and never imply that a generated image is real work.
- * Set both beforeImage and afterImage to false to hide the comparison section.
- * The treatment carousel will continue to use every entry in imagePaths.
- *
- * @type {import("../lib/content-types").GalleryItem[]}
- */
 export const galleryItems = [
   {
     id: "sample-001",
-    slug: "anos-los-banos-residential-monitoring",
-    title: "Residential Termite Treatment",
+    slug: "anos-los-banos-residential-termite-control-treatment",
+    title: "Residential Termite Control and Treatment",
     imagePaths: [
       "/brand/anos/1.png",
       "/brand/anos/2.png",
@@ -23,9 +14,9 @@ export const galleryItems = [
     beforeImage: false,
     afterImage: false,
     category: "Termite Control",
-    displayCategory: "Termite Treatment",
+    displayCategory: "Termite Control and Treatment",
     propertyType: "Residential",
-    servicePerformed: "Termite Treatment",
+    servicePerformed: "Termite Control and Treatment",
     generalLocation: "Anos, Los Baños, Laguna",
     treatmentDate: "2026-09-03",
     year: 2026,
@@ -34,9 +25,44 @@ export const galleryItems = [
     pest: "Termites",
     customerType: "Residential",
     description:
-      "A residential termite treatment carried out in Anos, Los Baños, Laguna, focusing on affected areas and potential termite entry points. The treatment included inspection of the property, targeted application in termite-affected areas, and removal of termite-infested soil and debris to help eliminate active termite activity and reduce the risk of reinfestation.",
+      "Residential termite control and treatment carried out in Anos, Los Baños, Laguna. The service focused on termite-affected areas and potential termite entry points to help manage active termite activity and protect the property. Termite-infested soil and debris were also removed as part of the cleanup process.",
     shortDescription:
-      "Residential termite treatment and cleanup in Anos, Los Baños, Laguna.",
+      "Residential termite control and treatment in Anos, Los Baños, Laguna.",
+    customerFeedback: "",
+    featured: false,
+    isSample: true,
+  },
+  {
+    id: "sample-002",
+    slug: "marymount-village-anos-los-banos-termite-control-soil-poisoning",
+    title: "Residential Termite Control and Soil Poisoning",
+    imagePaths: [
+      "/brand/marymount/1.png",
+      "/brand/marymount/2.png",
+      "/brand/marymount/3.png",
+      "/brand/marymount/4.png",
+      "/brand/marymount/5.png",
+      "/brand/marymount/6.png",
+      "/brand/marymount/7.png",
+      "/brand/marymount/8.png",
+    ],
+    beforeImage: "/brand/marymount/9.png",
+    afterImage: "/brand/marymount/10.png",
+    category: "Termite Control",
+    displayCategory: "Termite Control and Treatment",
+    propertyType: "Residential",
+    servicePerformed: "Termite Control, Chemical Injection, and Soil Poisoning",
+    generalLocation: "Marymount Village, Anos, Los Baños, Laguna",
+    treatmentDate: "2026-09-23",
+    year: 2026,
+    coordinates: [121.234742444671, 14.171894216801675],
+    region: "Laguna",
+    pest: "Termites",
+    customerType: "Residential",
+    description:
+      "Residential termite control carried out in Marymount Village, Anos, Los Baños, Laguna. The service involved chemical injection in termite-affected areas and soil poisoning to help control termite activity and address potential termite entry points. Termite-infested soil and debris were also removed as part of the cleanup process.",
+    shortDescription:
+      "Residential termite control involving chemical injection and soil poisoning in Marymount Village, Anos, Los Baños, Laguna.",
     customerFeedback: "",
     featured: false,
     isSample: true,

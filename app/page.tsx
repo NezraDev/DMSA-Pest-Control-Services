@@ -72,11 +72,44 @@ export default function Home() {
                 Residential & commercial
               </span>
             </div>
-            <div className="hero-socials" aria-label="DMSA social media and email">
-              <a href={siteConfig.socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="DMSA on Facebook" title="Facebook"><SiFacebook aria-hidden="true" /></a>
-              <span aria-label="Instagram link coming soon" title="Instagram link coming soon" aria-disabled="true"><SiInstagram aria-hidden="true" /></span>
-              <a href={`mailto:${siteConfig.socialLinks.email}`} aria-label="Email DMSA using Gmail" title="Gmail"><SiGmail aria-hidden="true" /></a>
-              <span aria-label="TikTok link coming soon" title="TikTok link coming soon" aria-disabled="true"><SiTiktok aria-hidden="true" /></span>
+            <div
+              className="hero-socials"
+              aria-label="DMSA social media and email"
+            >
+              <a
+                href={siteConfig.socialLinks.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="DMSA on Facebook"
+                title="Facebook"
+              >
+                <SiFacebook aria-hidden="true" />
+              </a>
+              <a
+                href={siteConfig.socialLinks.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="DMSA on Instagram"
+                title="Instagram"
+              >
+                <SiInstagram aria-hidden="true" />
+              </a>
+              <a
+                href={`mailto:${siteConfig.socialLinks.email}`}
+                aria-label="Email DMSA using Gmail"
+                title="Gmail"
+              >
+                <SiGmail aria-hidden="true" />
+              </a>
+              <a
+                href={siteConfig.socialLinks.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="DMSA on Tiktok"
+                title="Tiktok"
+              >
+                <SiTiktok aria-hidden="true" />
+              </a>
             </div>
           </div>
           <aside className="hero-dispatch" aria-label="DMSA service desk">
@@ -104,8 +137,13 @@ export default function Home() {
               <MapPinned aria-hidden="true" />
               <div className="dispatch-coverage-copy">
                 <small>Service Areas</small>
-                <div className="dispatch-coverage-areas" aria-label="DMSA service areas">
-                  {siteConfig.serviceAreas.map((area) => <span key={area}>{area}</span>)}
+                <div
+                  className="dispatch-coverage-areas"
+                  aria-label="DMSA service areas"
+                >
+                  {siteConfig.serviceAreas.map((area) => (
+                    <span key={area}>{area}</span>
+                  ))}
                 </div>
               </div>
             </div>

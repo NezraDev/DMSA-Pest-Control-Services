@@ -20,12 +20,20 @@ export const siteConfig = {
   publicEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
   socialLinks: {
     facebook: "https://www.facebook.com/dmsapestcontrol",
-    instagram: "",
-    tiktok: "",
+    instagram: "https://www.instagram.com/dmsapestcontrol/",
+    tiktok: "https://www.tiktok.com/@dmsapestcontrolservices",
     email: "dmsapestcontrolservices@gmail.com",
   },
   hours: "Monday–Sunday, 8:00 AM–5:00 PM",
-  serviceAreas: ["Bicol Region", "Cavite", "Laguna", "Batangas", "Rizal", "Quezon", "Metro Manila"],
+  serviceAreas: [
+    "Bicol Region",
+    "Cavite",
+    "Laguna",
+    "Batangas",
+    "Rizal",
+    "Quezon",
+    "Metro Manila",
+  ],
   hqCoordinates: [123.145, 13.574],
 };
 
