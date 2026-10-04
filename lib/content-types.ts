@@ -74,17 +74,24 @@ export type GalleryItem = {
   slug: string;
   title: string;
   imagePaths: string[];
-  beforeImage: string | false;
-  afterImage: string | false;
+  beforeImage: string | boolean;
+  afterImage: string | boolean;
   category: string;
   displayCategory: string;
   propertyType: string;
-  servicePerformed: "General Pest Control" | "Termite Control";
+  servicePerformed: string;
   generalLocation: string;
   treatmentDate: string;
   year: number;
   coordinates: [number, number];
-  region: "Bicol Region" | "Cavite" | "Laguna" | "Batangas" | "Rizal" | "Quezon" | "Metro Manila";
+  region:
+    | "Bicol Region"
+    | "Cavite"
+    | "Laguna"
+    | "Batangas"
+    | "Rizal"
+    | "Quezon"
+    | "Metro Manila";
   pest: "Ants" | "Cockroaches" | "Flies" | "Rodents" | "Termites";
   customerType: "Residential" | "Commercial" | "Other";
   customerTypeOther?: string;

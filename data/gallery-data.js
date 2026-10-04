@@ -1,3 +1,4 @@
+/** @type {import("../lib/content-types").GalleryItem[]} */
 export const galleryItems = [
   {
     id: "sample-001",
