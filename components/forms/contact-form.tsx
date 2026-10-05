@@ -1,10 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle2, LoaderCircle, Send } from "lucide-react";
+import { AlertCircle, LoaderCircle, Send } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import { SubmissionSuccessDialog } from "@/components/forms/submission-success-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -38,7 +39,7 @@ export function ContactForm() {
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.message || "The message could not be sent.");
-      setSubmitState({ type: "success", message: "Your message was sent to DMSA." });
+      setSubmitState({ type: "success" });
     } catch (error) {
       setSubmitState({ type: "error", message: error instanceof Error ? error.message : "The message could not be sent. Please call or Viber DMSA instead." });
     }
@@ -58,9 +59,16 @@ export function ContactForm() {
       )} />
       <div className="honeypot" aria-hidden="true"><Label htmlFor="contactWebsite">Website</Label><Input id="contactWebsite" tabIndex={-1} autoComplete="off" {...register("website")} /></div>
       <input type="hidden" {...register("startedAt")} /><input type="hidden" {...register("type")} />
-      {submitState.type !== "idle" ? <div className={`form-status ${submitState.type}`} role="status" aria-live="polite">{submitState.type === "success" ? <CheckCircle2 aria-hidden="true" /> : <AlertCircle aria-hidden="true" />}<p>{submitState.message}</p></div> : null}
+      {submitState.type === "error" ? <div className="form-status error" role="status" aria-live="polite"><AlertCircle aria-hidden="true" /><p>{submitState.message}</p></div> : null}
       <Button type="submit" size="lg" disabled={isSubmitting} aria-busy={isSubmitting}>{isSubmitting ? <LoaderCircle className="spin" aria-hidden="true" /> : <Send aria-hidden="true" />}{isSubmitting ? "Sending…" : "Send message"}</Button>
       <p className="submit-note">Messages are sent by email and are not stored on this website.</p>
+      <SubmissionSuccessDialog
+        open={submitState.type === "success"}
+        onOpenChange={(open) => {
+          if (!open) setSubmitState({ type: "idle" });
+        }}
+        type="message"
+      />
     </form>
   );
 }

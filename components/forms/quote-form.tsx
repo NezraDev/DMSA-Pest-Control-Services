@@ -1,10 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertCircle, CheckCircle2, LoaderCircle, MapPin, SearchCheck, Send } from "lucide-react";
+import { AlertCircle, LoaderCircle, MapPin, SearchCheck, Send } from "lucide-react";
 import { useCallback, useState } from "react";
 import { Controller, type FieldErrors, type FieldPath, useForm, useWatch } from "react-hook-form";
 
+import { SubmissionSuccessDialog } from "@/components/forms/submission-success-dialog";
 import { MapCanvas } from "@/components/maps/map-canvas";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -162,10 +163,7 @@ export function QuoteForm({
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.message || "The request could not be sent.");
-      setSubmitState({
-        type: "success",
-        message: "Your quotation request was sent to DMSA. The free ocular inspection can be arranged during follow-up.",
-      });
+      setSubmitState({ type: "success" });
     } catch (error) {
       setSubmitState({
         type: "error",
@@ -288,9 +286,9 @@ export function QuoteForm({
         <input type="hidden" {...register("type")} />
       </div>
 
-      {submitState.type !== "idle" ? (
-        <div className={`form-status ${submitState.type}`} role="status" aria-live="polite">
-          {submitState.type === "success" ? <CheckCircle2 aria-hidden="true" /> : <AlertCircle aria-hidden="true" />}
+      {submitState.type === "error" ? (
+        <div className="form-status error" role="status" aria-live="polite">
+          <AlertCircle aria-hidden="true" />
           <p>{submitState.message}</p>
         </div>
       ) : null}
@@ -299,6 +297,13 @@ export function QuoteForm({
         {isSubmitting ? "Sending request…" : "Send quotation request"}
       </Button>
       <p className="submit-note">Your request is emailed securely to DMSA. No form data is stored by this website.</p>
+      <SubmissionSuccessDialog
+        open={submitState.type === "success"}
+        onOpenChange={(open) => {
+          if (!open) setSubmitState({ type: "idle" });
+        }}
+        type="quotation"
+      />
     </form>
   );
 }

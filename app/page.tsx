@@ -151,6 +151,33 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section dmsa-video-section" aria-labelledby="dmsa-video-title">
+        <div className="site-container dmsa-video-layout">
+          <div className="dmsa-video-copy">
+            <h2 id="dmsa-video-title">Want to know more about DMSA?</h2>
+            <p>
+              See how DMSA provides effective, safe and reliable pest-control
+              solutions for homes and businesses with environmentally
+              responsible care.
+            </p>
+          </div>
+          <div className="dmsa-video-frame">
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              width={3840}
+              height={2160}
+              aria-label="DMSA Pest Control Services introduction video"
+            >
+              <source src="/brand/video/dmsa-video.mp4" type="video/mp4" />
+              Your browser does not support HTML video. You can also{" "}
+              <a href="/brand/video/dmsa-video.mp4">open the DMSA video</a>.
+            </video>
+          </div>
+        </div>
+      </section>
+
       <section className="trust-strip" aria-label="Why customers consider DMSA">
         <div className="site-container trust-grid">
           {trustPoints.map(({ title, detail, icon }) => {
