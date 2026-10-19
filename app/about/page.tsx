@@ -46,7 +46,7 @@ export default function AboutPage() {
           <div>
             <SectionHeading
               eyebrow="Our purpose"
-              title="Committed to Quality Service and Excellence."
+              title="Committed to Quality Service and Excellence"
               description="DMSA helps homeowners, business operators and property teams through effective solutions, safe and reliable service, and environmentally responsible planning."
             />
             <p className="body-copy">

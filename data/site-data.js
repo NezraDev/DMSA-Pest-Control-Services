@@ -7,7 +7,7 @@ export const siteConfig = {
   // Use separate files when the header/footer logo and browser/page icon differ.
   // Place both files in public/brand, then update only these two paths.
   logos: {
-    website: "/brand/logo-reds.png",
+    website: "/brand/dmsa-logo-red-profile.png",
     pageIcon: "/brand/dmsa-logo-red.png",
   },
   address:
@@ -90,25 +90,25 @@ export const processSteps = [
   {
     number: "01",
     title: "Request a quotation",
-    text: "Tell us what you have noticed and where the property is located.",
+    text: "Share your concern and property location.",
     icon: "message",
   },
   {
     number: "02",
     title: "Free ocular inspection",
-    text: "As part of the quotation process, an on-site review may be arranged to confirm the service scope.",
+    text: "Arrange a free site review for your quotation.",
     icon: "search",
   },
   {
     number: "03",
     title: "Review the quotation",
-    text: "DMSA explains the recommended approach, schedule and price.",
+    text: "Review the approach, schedule and price.",
     icon: "clipboard",
   },
   {
     number: "04",
     title: "Service & guidance",
-    text: "Treatment is followed by practical monitoring and prevention advice.",
+    text: "Get service and practical prevention guidance.",
     icon: "calendar",
   },
 ];

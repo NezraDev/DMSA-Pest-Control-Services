@@ -1,6 +1,6 @@
 /**
- * Add only permission-cleared customer feedback here. Keeping this array empty
- * prevents the public site from displaying an invented testimonial.
- * @type {{ id: string; quote: string; customerLabel: string; location: string }[]}
+ * Add only permission-cleared customer feedback here. The public page derives
+ * its anonymous attribution from the general service area, never a name.
+ * @type {{ id: string; quote: string; rating: 1 | 2 | 3 | 4 | 5; location: string }[]}
  */
 export const testimonials = [];

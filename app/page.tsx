@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, MapPinned, Phone } from "lucide-react";
-import { SiFacebook, SiGmail, SiInstagram, SiTiktok } from "react-icons/si";
+import { ArrowDown, ArrowRight } from "lucide-react";
 
 import {
   FinalCta,
@@ -19,9 +18,10 @@ import { Button } from "@/components/ui/button";
 import { faqs } from "@/data/faq-data";
 import { homeContent } from "@/data/page-content-data";
 import { services } from "@/data/services-data";
-import { processSteps, siteConfig, trustPoints } from "@/data/site-data";
+import { processSteps, trustPoints } from "@/data/site-data";
 import { treatedLocations } from "@/data/treated-locations-data";
 import { iconMap } from "@/lib/icon-map";
+import { HomepageSlideshow } from "@/components/site/homepage-slideshow";
 
 export const metadata: Metadata = {
   title: { absolute: "DMSA Pest Control Services | Pest & Termite Control" },
@@ -33,121 +33,44 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main id="main-content">
-      <section className="home-hero">
+      <section className="home-hero home-hero-cinematic">
+        <HomepageSlideshow />
         <div className="site-container hero-shell">
-          <div className="hero-copy">
-            <p className="eyebrow">
-              <span aria-hidden="true" />
-              {homeContent.eyebrow}
-            </p>
-            <h1>{homeContent.title}</h1>
-            <p className="hero-lead">{homeContent.lead}</p>
-            <div className="hero-actions">
-              <Button asChild size="lg">
-                <Link href="/request-quote">
-                  {homeContent.primaryAction} <ArrowRight aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/services">{homeContent.secondaryAction}</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href={`tel:${siteConfig.phoneViberHref}`}>
-                  <Phone aria-hidden="true" />
-                  Call 0918 299 5218
-                </a>
-              </Button>
-            </div>
-            <div className="hero-proof" aria-label="Service highlights">
-              <span>
-                <CheckCircle2 aria-hidden="true" />
-                Free ocular inspection with quotation
-              </span>
-              <span>
-                <CheckCircle2 aria-hidden="true" />
-                Open seven days
-              </span>
-              <span>
-                <CheckCircle2 aria-hidden="true" />
-                Residential & commercial
-              </span>
-            </div>
-            <div
-              className="hero-socials"
-              aria-label="DMSA social media and email"
-            >
-              <a
-                href={siteConfig.socialLinks.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="DMSA on Facebook"
-                title="Facebook"
-              >
-                <SiFacebook aria-hidden="true" />
-              </a>
-              <a
-                href={siteConfig.socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="DMSA on Instagram"
-                title="Instagram"
-              >
-                <SiInstagram aria-hidden="true" />
-              </a>
-              <a
-                href={`mailto:${siteConfig.socialLinks.email}`}
-                aria-label="Email DMSA using Gmail"
-                title="Gmail"
-              >
-                <SiGmail aria-hidden="true" />
-              </a>
-              <a
-                href={siteConfig.socialLinks.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="DMSA on Tiktok"
-                title="Tiktok"
-              >
-                <SiTiktok aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-          <aside className="hero-dispatch" aria-label="DMSA service desk">
-            <div className="dispatch-heading">
-              <span>Quotation desk</span>
-              <strong>Start your quotation</strong>
-              <p>
-                Choose a concern below. The free ocular inspection is included
-                in the process.
+          <div className="hero-main">
+            <div className="hero-copy">
+              <p className="eyebrow">
+                {homeContent.eyebrow}
               </p>
+              <h1>{homeContent.title}</h1>
             </div>
-            <nav aria-label="Service shortcuts">
-              {services.map((service, index) => (
-                <Link
-                  key={service.slug}
-                  href={`/request-quote?service=${encodeURIComponent(service.title)}`}
-                >
-                  <span>0{index + 1}</span>
-                  <strong>{service.shortTitle}</strong>
-                  <ArrowRight aria-hidden="true" />
-                </Link>
-              ))}
-            </nav>
-            <div className="dispatch-coverage">
-              <MapPinned aria-hidden="true" />
-              <div className="dispatch-coverage-copy">
-                <small>Service Areas</small>
-                <div
-                  className="dispatch-coverage-areas"
-                  aria-label="DMSA service areas"
-                >
-                  {siteConfig.serviceAreas.map((area) => (
-                    <span key={area}>{area}</span>
-                  ))}
-                </div>
+            <div className="hero-brief">
+              <p className="hero-lead">{homeContent.lead}</p>
+              <div className="hero-actions">
+                <Button asChild size="lg" className="hero-book-button">
+                  <Link href="/request-quote">
+                    {homeContent.primaryAction} <ArrowRight aria-hidden="true" />
+                  </Link>
+                </Button>
               </div>
             </div>
-          </aside>
+          </div>
+
+          <div className="hero-bottom-row">
+            <Link className="hero-explore-link" href="#services">
+              Explore our services <ArrowDown aria-hidden="true" />
+            </Link>
+          </div>
+
+          <ol className="hero-process" aria-label="How DMSA works">
+            {processSteps.map(({ title, text }) => (
+              <li key={title}>
+                <div>
+                  <h2>{title}</h2>
+                  <p>{text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -195,7 +118,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section services-preview">
+      <section className="section services-preview" id="services">
         <div className="site-container">
           <div className="heading-row">
             <SectionHeading
@@ -237,38 +160,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section process-section">
-        <div className="site-container">
-          <div className="heading-row">
-            <SectionHeading
-              eyebrow="How it works"
-              title="A direct path from concern to service plan."
-              description="The process gathers the information needed before timing, treatment and price are confirmed."
-            />
-            <Button asChild variant="outline">
-              <Link href="/about">
-                How DMSA works <ArrowRight aria-hidden="true" />
-              </Link>
-            </Button>
-          </div>
-          <ol className="process-grid">
-            {processSteps.map(({ number, title, text, icon }) => {
-              const Icon = iconMap[icon];
-              return (
-                <li key={number}>
-                  <span className="process-number">{number}</span>
-                  <Icon aria-hidden="true" />
-                  <div>
-                    <h3>{title}</h3>
-                    <p>{text}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-      </section>
-
       <section className="section map-preview-section">
         <div className="site-container">
           <div className="heading-row">
@@ -295,9 +186,14 @@ export default function Home() {
               title="Service entries for homes and businesses."
               description="Browse pest-control entries by property type, service and general location."
             />
-            <Link className="text-link" href="/gallery">
-              View gallery <ArrowRight aria-hidden="true" />
-            </Link>
+            <div className="heading-row-actions">
+              <Link className="text-link" href="/gallery">
+                View gallery <ArrowRight aria-hidden="true" />
+              </Link>
+              <Link className="text-link" href="/testimonials">
+                Client testimonials <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
           </div>
           <div className="project-grid">
             {treatedLocations.slice(0, 3).map((location) => (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 import { MobileActionBar, SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { Chatbot } from "@/components/site/chatbot";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
 import { siteConfig } from "@/data/site-data";
 import { services } from "@/data/services-data";
@@ -137,6 +138,7 @@ export default function RootLayout({
         {children}
         <SiteFooter />
         <MobileActionBar />
+        <Chatbot />
       </body>
     </html>
   );

@@ -99,14 +99,6 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="utility-bar">
-        <div className="site-container utility-inner">
-          <span className="utility-highlight"><ShieldCheck aria-hidden="true" /> Free ocular inspection with quotation</span>
-          <span><MapPin aria-hidden="true" /> San Fernando, Camarines Sur</span>
-          <span><Clock3 aria-hidden="true" /> Daily · 8:00 AM–5:00 PM</span>
-          <a href={`tel:${siteConfig.phoneViberHref}`}><Phone aria-hidden="true" /> 0918 299 5218</a>
-        </div>
-      </div>
       <header className="site-header">
         <div className="site-container header-inner">
           <BrandLogo />
