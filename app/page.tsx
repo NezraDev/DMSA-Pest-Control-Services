@@ -38,9 +38,7 @@ export default function Home() {
         <div className="site-container hero-shell">
           <div className="hero-main">
             <div className="hero-copy">
-              <p className="eyebrow">
-                {homeContent.eyebrow}
-              </p>
+              <p className="eyebrow">{homeContent.eyebrow}</p>
               <h1>{homeContent.title}</h1>
             </div>
             <div className="hero-brief">
@@ -89,6 +87,7 @@ export default function Home() {
               controls
               playsInline
               preload="metadata"
+              poster="/brand/video/dmsa-poster.jpg"
               width={3840}
               height={2160}
               aria-label="DMSA Pest Control Services introduction video"

@@ -7,57 +7,73 @@ export function ScrollReveal() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const sections = Array.from(document.querySelectorAll<HTMLElement>("main > section, .site-footer"));
-    const staggerSelector = [
-      ".trust-grid > *",
-      ".service-grid > *",
-      ".process-grid > *",
-      ".project-grid > *",
-      ".values-grid > *",
-      ".coverage-grid > *",
-      ".story-grid > *",
-      ".detail-hero-grid > *",
-      ".before-after-grid > *",
-      ".project-detail-grid > *",
-      ".final-cta-actions > *",
-      ".footer-grid > *",
-      ".footer-bottom > *",
-    ].join(",");
-
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // Animate small headings, never a section containing images, forms or a WebGL map.
+    const headings = Array.from(document.querySelectorAll<HTMLElement>(
+      "main .section-heading, main .dmsa-video-copy, main .proof-carousel-heading",
+    ));
+    const slideshows = new Set<Element>(document.querySelectorAll(".project-slideshow"));
+    const visibleSlideshows = new Set<Element>();
+    const syncPlayback = () => {
+      slideshows.forEach((element) => element.classList.toggle(
+        "is-in-view", visibleSlideshows.has(element) && !document.hidden && !motion.matches,
+      ));
+      if (motion.matches) headings.forEach((element) => element.classList.add("is-revealed"));
+    };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add("is-revealed");
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -10%" });
-
-    sections.forEach((section) => {
-      const staggerItems = Array.from(section.querySelectorAll<HTMLElement>(staggerSelector));
-      staggerItems.forEach((item, index) => {
-        item.classList.add("scroll-reveal-item");
-        item.style.setProperty("--reveal-delay", `${Math.min(index, 6) * 70}ms`);
+    }, { threshold: 0, rootMargin: "0px 0px 64px" });
+    const playbackObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleSlideshows.add(entry.target);
+        else visibleSlideshows.delete(entry.target);
       });
-
-      if (section.getBoundingClientRect().top <= window.innerHeight * 0.92) {
-        section.classList.add("is-revealed");
-        return;
-      }
-      section.classList.add("scroll-reveal");
-      observer.observe(section);
+      syncPlayback();
     });
+    const trackSlideshows = (node: Node, added: boolean) => {
+      if (!(node instanceof Element)) return;
+      const elements = [...node.querySelectorAll(".project-slideshow")];
+      if (node.matches(".project-slideshow")) elements.push(node);
+      elements.forEach((element) => {
+        if (added) {
+          slideshows.add(element);
+          playbackObserver.observe(element);
+        } else {
+          playbackObserver.unobserve(element);
+          slideshows.delete(element);
+          visibleSlideshows.delete(element);
+        }
+      });
+    };
+    // Filtered cards and portal previews mount after navigation. Register only
+    // added/removed slideshow nodes; attributes and scrolling are not observed.
+    const mountsObserver = new MutationObserver((records) => records.forEach((record) => {
+      record.removedNodes.forEach((node) => trackSlideshows(node, false));
+      record.addedNodes.forEach((node) => trackSlideshows(node, true));
+    }));
+
+    if (!motion.matches) headings.forEach((heading) => {
+      if (heading.getBoundingClientRect().top < window.innerHeight) return;
+      heading.classList.add("scroll-reveal");
+      observer.observe(heading);
+    });
+    slideshows.forEach((element) => playbackObserver.observe(element));
+    mountsObserver.observe(document.body, { childList: true, subtree: true });
+    document.addEventListener("visibilitychange", syncPlayback);
+    motion.addEventListener("change", syncPlayback);
 
     return () => {
       observer.disconnect();
-      sections.forEach((section) => {
-        section.classList.remove("scroll-reveal", "is-revealed");
-        section.querySelectorAll<HTMLElement>(staggerSelector).forEach((item) => {
-          item.classList.remove("scroll-reveal-item");
-          item.style.removeProperty("--reveal-delay");
-        });
-      });
+      playbackObserver.disconnect();
+      mountsObserver.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      motion.removeEventListener("change", syncPlayback);
+      headings.forEach((element) => element.classList.remove("scroll-reveal", "is-revealed"));
+      slideshows.forEach((element) => element.classList.remove("is-in-view"));
     };
   }, [pathname]);
 

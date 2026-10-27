@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const slides = [
   {
@@ -43,13 +43,33 @@ const slides = [
 
 export function HomepageSlideshow() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const slideshowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % slides.length);
-    }, 6500);
-    return () => window.clearInterval(timer);
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+    let timer: number | undefined;
+    const syncPlayback = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+      if (!visible || document.hidden || motion.matches) return;
+      timer = window.setInterval(() => {
+        setActiveIndex((current) => (current + 1) % slides.length);
+      }, 6500);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      syncPlayback();
+    });
+    if (slideshowRef.current) observer.observe(slideshowRef.current);
+    document.addEventListener("visibilitychange", syncPlayback);
+    motion.addEventListener("change", syncPlayback);
+    return () => {
+      window.clearInterval(timer);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      motion.removeEventListener("change", syncPlayback);
+    };
   }, []);
 
   const showSlide = (index: number) => {
@@ -58,6 +78,7 @@ export function HomepageSlideshow() {
 
   return (
     <div
+      ref={slideshowRef}
       className="homepage-slideshow"
       role="region"
       aria-roledescription="carousel"
@@ -73,8 +94,9 @@ export function HomepageSlideshow() {
             src={slide.src}
             alt={index === activeIndex ? slide.alt : ""}
             fill
-            loading="eager"
-            fetchPriority={index === 0 ? "high" : "auto"}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "low"}
+            decoding="async"
             sizes="100vw"
           />
         </div>

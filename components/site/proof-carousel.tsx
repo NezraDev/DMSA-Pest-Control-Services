@@ -24,7 +24,8 @@ export function ProofCarousel({
     const nextIndex = Math.max(0, Math.min(index, images.length - 1));
     const track = trackRef.current;
     if (!track) return;
-    track.scrollTo({ left: track.clientWidth * nextIndex, behavior: "smooth" });
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    track.scrollTo({ left: track.clientWidth * nextIndex, behavior: reducedMotion ? "auto" : "smooth" });
     setActiveIndex(nextIndex);
   };
 
@@ -34,8 +35,9 @@ export function ProofCarousel({
 
     let frame = 0;
     const updateActiveSlide = () => {
-      cancelAnimationFrame(frame);
+      if (frame) return;
       frame = requestAnimationFrame(() => {
+        frame = 0;
         const width = track.clientWidth || 1;
         setActiveIndex(Math.max(0, Math.min(Math.round(track.scrollLeft / width), images.length - 1)));
       });

@@ -146,6 +146,7 @@ export function MapCanvas({
     let localMap: MapLibreMap | null = null;
     const renderedMarkers: MapLibreMarker[] = [];
     const markerRoots: Root[] = [];
+    const sizeObserver = new ResizeObserver(() => localMap?.resize());
 
     async function initializeMap() {
       try {
@@ -168,6 +169,7 @@ export function MapCanvas({
           attributionControl: false,
         });
         mapRef.current = localMap;
+        sizeObserver.observe(containerRef.current);
         localMap.addControl(
           new maplibregl.NavigationControl({ visualizePitch: true }),
           "top-right",
@@ -331,9 +333,19 @@ export function MapCanvas({
       }
     }
 
-    void initializeMap();
+    // Let nearby content paint before downloading and creating an offscreen map.
+    // The quotation picker initializes immediately so coordinate entry stays synchronous.
+    const proximityObserver = mode !== "picker" ? new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      proximityObserver?.disconnect();
+      sizeObserver.disconnect();
+      void initializeMap();
+    }, { rootMargin: "480px" }) : null;
+    if (proximityObserver) proximityObserver.observe(containerRef.current);
+    else void initializeMap();
     return () => {
       cancelled = true;
+      proximityObserver?.disconnect();
       popupRef.current?.remove();
       renderedMarkers.forEach((marker) => marker.remove());
       markerRoots.forEach((root) => root.unmount());
