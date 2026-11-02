@@ -5,12 +5,13 @@ import { FinalCta, PageHero } from "@/components/site/page-elements";
 import { ProofCarousel } from "@/components/site/proof-carousel";
 import { galleryItems } from "@/data/gallery-data";
 import { pageHeroes } from "@/data/page-content-data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Pest Control Treatment Gallery",
-  description: "Browse DMSA treatment records with privacy-safe locations and space for approved customer feedback.",
-  alternates: { canonical: "/gallery" },
-};
+  description: "See photos of completed DMSA termite and pest control work, including before-and-after images of soil poisoning and treatment in Los Baños, Laguna.",
+  path: "/gallery",
+});
 
 const galleryProofImages = galleryItems.flatMap((item) =>
   item.imagePaths.map((src, index) => ({

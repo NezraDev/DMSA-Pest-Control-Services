@@ -6,12 +6,13 @@ import { PageHero } from "@/components/site/page-elements";
 import { formOptions } from "@/data/form-options-data";
 import { pageHeroes } from "@/data/page-content-data";
 import { siteConfig } from "@/data/site-data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Request a Quotation",
-  description: "Request a DMSA pest control quotation with a free ocular inspection, property details, location pin and preferred date.",
-  alternates: { canonical: "/request-quote" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Request a Pest Control Quotation",
+  description: "Request a pest control or termite treatment quotation from DMSA, with a free ocular inspection included. Pin your property and share your concern.",
+  path: "/request-quote",
+});
 
 export default async function RequestQuotePage({
   searchParams,

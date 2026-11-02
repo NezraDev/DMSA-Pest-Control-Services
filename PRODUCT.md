@@ -38,7 +38,7 @@ Customers can request a quotation online, contact DMSA by phone or Viber, or sen
 ## Evidence on Hand
 
 - Existing service descriptions, coverage details, quote flow, contact details, and supplied DMSA photography are in the project.
-- Gallery records and images are marked as sample content; do not attach unapproved locations, outcomes, or customer statements to them.
+- Gallery records and images are real jobs confirmed by the owner; do not attach unapproved locations, outcomes, or customer statements to them.
 - The testimonials data is empty. No permission-cleared customer quotes or ratings were provided for this revision.
 
 ## Product Principles

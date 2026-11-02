@@ -8,12 +8,13 @@ import { PageHero } from "@/components/site/page-elements";
 import { Button } from "@/components/ui/button";
 import { pageHeroes } from "@/data/page-content-data";
 import { siteConfig } from "@/data/site-data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact DMSA",
-  description: "Contact DMSA in San Fernando, Camarines Sur by phone, Viber or secure website message.",
-  alternates: { canonical: "/contact" },
-};
+  description: "Contact DMSA Pest Control Services in San Fernando, Camarines Sur or Los Baños, Laguna. Call 0955 562 9226 or Viber 0918 299 5218. Open daily, 8 AM to 5 PM.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Inter, Poppins } from "next/font/google";
 import Script from "next/script";
 
 import { MobileActionBar, SiteFooter, SiteHeader } from "@/components/site/site-chrome";
@@ -6,9 +7,13 @@ import { Chatbot } from "@/components/site/chatbot";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
 import { siteConfig } from "@/data/site-data";
 import { services } from "@/data/services-data";
+import { defaultShareImage, organizationId } from "@/lib/seo";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-inter", display: "swap" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--font-poppins", display: "swap" });
 
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim()
   || "jpHM_YYoRPyNfR6LYeipOGhyzRLByHZ4yUBcoB5WrnI";
@@ -21,18 +26,15 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  keywords: ["DMSA Pest Control Services", "DMSA Pest Control", "pest control Philippines", "termite control", "anay control", "Bicol", "Camarines Sur", "Cavite", "Laguna", "Batangas", "Rizal", "Quezon", "Metro Manila"],
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    url: "/",
     locale: "en_PH",
     siteName: siteConfig.name,
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [{ url: siteConfig.logos.website, alt: `${siteConfig.name} logo` }],
+    images: [defaultShareImage],
   },
-  twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: [siteConfig.logos.website] },
+  twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description, images: [defaultShareImage.url] },
   robots: {
     index: true,
     follow: true,
@@ -66,35 +68,41 @@ const structuredData = {
       name: siteConfig.name,
       alternateName: ["DMSA Pest Control", siteConfig.shortName],
       inLanguage: "en-PH",
-      publisher: { "@id": `${siteUrl}/#organization` },
+      publisher: { "@id": organizationId },
     },
     {
       "@type": "LocalBusiness",
-      "@id": `${siteUrl}/#organization`,
+      "@id": organizationId,
       url: siteUrl,
       name: siteConfig.name,
       alternateName: "DMSA Pest Control",
       description: siteConfig.description,
       logo: absoluteUrl(siteConfig.logos.website),
-      image: absoluteUrl(siteConfig.logos.website),
-      telephone: [siteConfig.phoneViberHref, siteConfig.phoneMobileHref],
+      image: absoluteUrl(defaultShareImage.url),
+      telephone: siteConfig.phoneMobileHref,
       email: siteConfig.publicEmail || siteConfig.socialLinks.email,
-      address: [
-        {
-          "@type": "PostalAddress",
-          streetAddress: "Zone 3, Pamukid",
-          addressLocality: "San Fernando",
-          addressRegion: "Camarines Sur",
-          addressCountry: "PH",
-        },
-        {
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Zone 3, Pamukid",
+        addressLocality: "San Fernando",
+        addressRegion: "Camarines Sur",
+        addressCountry: "PH",
+      },
+      department: {
+        "@type": "LocalBusiness",
+        "@id": `${siteUrl}/#los-banos-branch`,
+        name: `${siteConfig.name} - Los Baños Branch`,
+        url: absoluteUrl("/service-areas/laguna"),
+        image: absoluteUrl(defaultShareImage.url),
+        telephone: siteConfig.phoneViberHref,
+        address: {
           "@type": "PostalAddress",
           streetAddress: "San Antonio",
           addressLocality: "Los Baños",
           addressRegion: "Laguna",
           addressCountry: "PH",
         },
-      ],
+      },
       geo: {
         "@type": "GeoCoordinates",
         longitude: siteConfig.hqCoordinates[0],
@@ -113,7 +121,7 @@ const structuredData = {
         name: "Pest control services",
         itemListElement: services.map((service) => ({
           "@type": "Offer",
-          itemOffered: { "@type": "Service", name: service.title, description: service.description },
+          itemOffered: { "@type": "Service", name: service.title, description: service.description, url: absoluteUrl(`/services/${service.slug}`) },
         })),
       },
     },
@@ -126,7 +134,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-PH" suppressHydrationWarning>
+    <html lang="en-PH" className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
         <Script id="theme-init" strategy="beforeInteractive">{themeScript}</Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />

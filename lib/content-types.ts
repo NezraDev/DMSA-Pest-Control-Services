@@ -51,6 +51,24 @@ export type Service = {
   process: string[];
   prevention: string[];
   icon: IconName;
+  quoteService: string;
+  metaTitle: string;
+  metaDescription: string;
+  heading: string;
+  overview: string[];
+  faqs: Faq[];
+};
+
+export type ServiceArea = {
+  name: string;
+  summary: string;
+  page?: {
+    slug: string;
+    metaTitle: string;
+    metaDescription: string;
+    heading: string;
+    intro: string[];
+  };
 };
 
 export type ContentPoint = {
@@ -73,9 +91,10 @@ export type GalleryItem = {
   id: string;
   slug: string;
   title: string;
+  metaTitle: string;
   imagePaths: string[];
-  beforeImage: string | boolean;
-  afterImage: string | boolean;
+  beforeImage: string | false;
+  afterImage: string | false;
   category: string;
   displayCategory: string;
   propertyType: string;
@@ -99,11 +118,9 @@ export type GalleryItem = {
   shortDescription: string;
   customerFeedback: string;
   featured: boolean;
-  isSample: true;
 };
 
 export type PageHeroContent = {
-  eyebrow: string;
   title: string;
   description: string;
 };

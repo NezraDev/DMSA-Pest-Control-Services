@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-02T00:00:00.000Z",
+  "title": "Design System: DMSA Pest Control Services",
+  "extensions": {
+    "colorMeta": {
+      "wine-red": { "role": "primary", "displayName": "Wine Red", "canonical": "#7b1113", "tonalRamp": ["#2e0506", "#4d0a0b", "#7b1113", "#9c2a2d", "#b63a3e", "#d56f72", "#e58b8e", "#f4e9e9"] },
+      "charcoal": { "role": "neutral", "displayName": "Charcoal", "canonical": "#273239", "tonalRamp": ["#151c20", "#1d272c", "#273239", "#3d494f", "#596660", "#b1bcc1", "#dce1dc", "#f7f7f5"] }
+    },
+    "typographyMeta": {
+      "hero": { "displayName": "Hero", "purpose": "The homepage heading, over photography." },
+      "body": { "displayName": "Body", "purpose": "Running text, limited to about 70 characters per line." }
+    },
+    "shadows": [
+      { "name": "soft-light", "value": "0 8px 24px rgba(22, 30, 34, 0.06)", "purpose": "Floating elements in light mode." },
+      { "name": "soft-dark", "value": "0 14px 32px rgba(0, 0, 0, 0.28)", "purpose": "Floating elements in dark mode." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Entrances and state changes." },
+      { "name": "ease-standard", "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "purpose": "General transitions." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "640px" },
+      { "name": "small-phone", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main forward action, such as requesting a quotation.",
+      "html": "<button class=\"ds-btn-primary\">Request a quotation</button>",
+      "css": ".ds-btn-primary { min-height: 44px; padding: 0 20px; background: var(--primary, #7b1113); color: #fff; border: 0; border-radius: 8px; font-weight: 600; cursor: pointer; transition: opacity 180ms; } .ds-btn-primary:hover { opacity: .9; } .ds-btn-primary:focus-visible { outline: 3px solid #7b1113; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard form field.",
+      "html": "<input class=\"ds-input\" placeholder=\"Barangay, city/municipality, province\" />",
+      "css": ".ds-input { min-height: 48px; width: 100%; padding: 0 12px; background: #fff; color: #273239; border: 1px solid #c5cdc6; border-radius: 8px; font-size: 16px; } .ds-input:focus-visible { outline: 3px solid #7b1113; outline-offset: 1px; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Grouped content, outlined rather than edged in colour.",
+      "html": "<div class=\"ds-panel\"><h3>Prefer to talk?</h3><p>Call or message DMSA directly.</p></div>",
+      "css": ".ds-panel { padding: 24px; background: #fff; color: #273239; border: 1px solid #dce1dc; border-radius: 16px; } .ds-panel h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; } .ds-panel p { margin: 0; color: #596660; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Site Inspection",
+    "overview": "The site behaves like a good technician on a first visit: calm, plain and led by what the property shows. Real job photographs carry the proof, numbered steps explain what happens next, and quotation and phone actions stay close at hand.",
+    "keyCharacteristics": [
+      "Real DMSA photography, never stock imagery or illustration standing in for work.",
+      "One brand colour, used for actions, labels and icons.",
+      "Plain language grounded in confirmed service details.",
+      "Light mode by default, with a full dark theme."
+    ],
+    "rules": [
+      { "name": "The Two Reds Rule", "body": "--primary is for fills and --primary-text is for text and icons. Any section that overrides one must override the other.", "section": "colors" },
+      { "name": "The Photo Exception", "body": "White text and translucent white or black values on photographs and on the wine-red band stay hard-coded, because they don't change with the theme.", "section": "colors" },
+      { "name": "The Search Words Rule", "body": "Headings name the service and place in customers' own words, including \"anay\", rather than a slogan.", "section": "typography" }
+    ],
+    "dos": [
+      "Do use real, approved DMSA photos and generalized locations.",
+      "Do use --primary-text for any red text or icon.",
+      "Do keep colour changes and loading spinners working when reduced motion is on, and drop movement instead.",
+      "Do give tap targets at least 24px, and 44px on touch devices where space allows."
+    ],
+    "donts": [
+      "Don't add a small label above a heading.",
+      "Don't add thick coloured edges to cards or callouts. Use a tint or a one-pixel divider.",
+      "Don't nest a card inside a card.",
+      "Don't introduce colours outside the wine-red, charcoal, white and neutral-gray palette.",
+      "Don't publish exact customer addresses, or unverified ratings, guarantees, certifications or prices."
+    ]
+  }
+}

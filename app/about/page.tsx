@@ -11,13 +11,14 @@ import { Button } from "@/components/ui/button";
 import { pageHeroes } from "@/data/page-content-data";
 import { companyValues, siteConfig } from "@/data/site-data";
 import { iconMap } from "@/lib/icon-map";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About DMSA",
   description:
-    "Learn about DMSA Pest Control Services, its inspection-led approach and regional service coverage.",
-  alternates: { canonical: "/about" },
-};
+    "DMSA Pest Control Services provides pest and termite control from San Fernando, Camarines Sur and Los Baños, Laguna, for homes and businesses across Luzon.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -45,7 +46,6 @@ export default function AboutPage() {
           </div>
           <div>
             <SectionHeading
-              eyebrow="Our purpose"
               title="Committed to Quality Service and Excellence"
               description="DMSA helps homeowners, business operators and property teams through effective solutions, safe and reliable service, and environmentally responsible planning."
             />
@@ -61,7 +61,6 @@ export default function AboutPage() {
         <div className="site-container">
           <SectionHeading
             centered
-            eyebrow="Working values"
             title="What guides each service conversation."
           />
           <div className="values-grid">
@@ -82,7 +81,6 @@ export default function AboutPage() {
         <div className="site-container coverage-grid">
           <div>
             <SectionHeading
-              eyebrow="Service coverage"
               title="Based in Bicol. Available across key Luzon regions."
               description="Scheduling depends on location, property needs and the required service scope."
             />

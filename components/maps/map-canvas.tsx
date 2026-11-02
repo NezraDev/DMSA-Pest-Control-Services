@@ -493,7 +493,7 @@ export function MapCanvas({
             ? "Property location map"
             : mode === "hq"
               ? "DMSA headquarters map"
-              : "Sample treated locations map"
+              : "DMSA treated locations map"
         }
       />
       {status === "loading" ? (

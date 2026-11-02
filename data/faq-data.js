@@ -1,6 +1,14 @@
 /** @type {import("../lib/content-types").Faq[]} */
 export const faqs = [
   {
+    question: "What pests does DMSA treat?",
+    answer: "DMSA provides pest control for ants, cockroaches, flies, rodents and termites (anay) in residential and commercial properties.",
+  },
+  {
+    question: "Where is DMSA located?",
+    answer: "DMSA is based in Zone 3, Pamukid, San Fernando, Camarines Sur, with a branch in San Antonio, Los Baños, Laguna.",
+  },
+  {
     question: "Is the ocular inspection really free?",
     answer: "Yes. The free ocular inspection is included in DMSA’s quotation process and may be arranged to review the property before the scope, schedule and price are confirmed.",
   },

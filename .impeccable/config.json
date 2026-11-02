@@ -1,3 +1,45 @@
 {
-  "buildPath": "code"
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "app/api/contact/route.ts"
+        ],
+        "createdAt": "2026-11-02T05:26:10.573Z",
+        "reason": "agent triage: inline HTML email template, where system fonts and fixed sizes are required by email clients"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "app/api/contact/route.ts"
+        ],
+        "createdAt": "2026-11-02T05:26:10.834Z",
+        "reason": "agent triage: inline HTML email template, where system fonts and fixed sizes are required by email clients"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "app/api/contact/route.ts"
+        ],
+        "createdAt": "2026-11-02T05:26:11.036Z",
+        "reason": "agent triage: inline HTML email template, where system fonts and fixed sizes are required by email clients"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "app/api/contact/route.ts"
+        ],
+        "createdAt": "2026-11-02T05:26:11.201Z",
+        "reason": "agent triage: inline HTML email template, where system fonts and fixed sizes are required by email clients"
+      }
+    ]
+  }
 }

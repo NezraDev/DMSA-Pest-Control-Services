@@ -22,23 +22,37 @@ import { processSteps, trustPoints } from "@/data/site-data";
 import { treatedLocations } from "@/data/treated-locations-data";
 import { iconMap } from "@/lib/icon-map";
 import { HomepageSlideshow } from "@/components/site/homepage-slideshow";
+import { JsonLd } from "@/components/site/json-ld";
+import { serviceAreas } from "@/data/service-areas-data";
+import { pageMetadata } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site-url";
 
-export const metadata: Metadata = {
-  title: { absolute: "DMSA Pest Control Services | Pest & Termite Control" },
+export const metadata: Metadata = pageMetadata({
+  absoluteTitle: "DMSA Pest Control Services | Pest & Termite (Anay) Control",
   description:
-    "DMSA Pest Control Services provides pest and termite control for residential and commercial properties across Bicol, Cavite, Laguna, Batangas, Rizal, Quezon and Metro Manila.",
-  alternates: { canonical: "/" },
+    "Pest and termite (anay) control for homes and businesses in Bicol, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila. Free ocular inspection.",
+  path: "/",
+});
+
+const videoSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: "DMSA Pest Control Services introduction",
+  description: "How DMSA provides effective, safe and reliable pest control for homes and businesses.",
+  thumbnailUrl: absoluteUrl("/brand/video/dmsa-poster.jpg"),
+  contentUrl: absoluteUrl("/brand/video/dmsa-video.mp4"),
+  uploadDate: "2026-10-05",
 };
 
 export default function Home() {
   return (
     <main id="main-content">
+      <JsonLd data={videoSchema} />
       <section className="home-hero home-hero-cinematic">
         <HomepageSlideshow />
         <div className="site-container hero-shell">
           <div className="hero-main">
             <div className="hero-copy">
-              <p className="eyebrow">{homeContent.eyebrow}</p>
               <h1>{homeContent.title}</h1>
             </div>
             <div className="hero-brief">
@@ -121,8 +135,7 @@ export default function Home() {
         <div className="site-container">
           <div className="heading-row">
             <SectionHeading
-              eyebrow="Core services"
-              title="Focused control for the pests that disrupt your space."
+              title="Pest control and termite treatment for the pests that disrupt your space."
               description="Start with the service that fits. If you are unsure, DMSA can help identify the right inspection path."
             />
             <Link className="text-link" href="/services">
@@ -138,16 +151,16 @@ export default function Home() {
                     index < 2 ? "service-card featured" : "service-card"
                   }
                   key={service.slug}
-                  href={`/services#${service.slug}`}
+                  href={`/services/${service.slug}`}
                 >
                   <span className="service-index">0{index + 1}</span>
                   <span className="service-icon">
                     <Icon aria-hidden="true" />
                   </span>
                   <div>
-                    <p>{service.eyebrow}</p>
                     <h3>{service.title}</h3>
                     <p>{service.description}</p>
+                    <p className="service-card-tag">{service.eyebrow}</p>
                   </div>
                   <span className="service-row-action" aria-hidden="true">
                     <ArrowRight />
@@ -159,12 +172,36 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="site-container seo-copy">
+          <h2>Your pest control company for homes and businesses in Luzon</h2>
+          <p>
+            DMSA Pest Control Services provides termite control, anay treatment
+            and general pest control for ants, cockroaches, flies and rodents.
+            We work with houses, apartments, condominiums, offices, retail
+            spaces, warehouses and construction sites, including pre-construction
+            anti-termite soil treatment for new builds.
+          </p>
+          <p>
+            We are based in San Fernando, Camarines Sur, with a branch in Los
+            Baños, Laguna, and serve{" "}
+            {serviceAreas.map((area, index) => (
+              <span key={area.name}>
+                {index > 0 ? (index === serviceAreas.length - 1 ? " and " : ", ") : null}
+                {area.page ? <Link href={`/service-areas/${area.page.slug}`}>{area.name}</Link> : area.name}
+              </span>
+            ))}
+            . Every quotation includes a free ocular inspection, so the
+            recommended treatment is based on what your property actually needs.
+          </p>
+        </div>
+      </section>
+
       <section className="section map-preview-section">
         <div className="site-container">
           <div className="heading-row">
             <SectionHeading
-              eyebrow="Coverage in view"
-              title="Explore service locations by region."
+              title="Pest control service locations by region."
               description="Location pins are generalized to protect property and customer privacy."
             />
             <Button asChild variant="outline">
@@ -181,9 +218,8 @@ export default function Home() {
         <div className="site-container">
           <div className="heading-row">
             <SectionHeading
-              eyebrow="Gallery & feedback"
-              title="Service entries for homes and businesses."
-              description="Browse pest-control entries by property type, service and general location."
+              title="Completed termite and pest control jobs."
+              description="Browse DMSA's pest control work by property type, service and general location."
             />
             <div className="heading-row-actions">
               <Link className="text-link" href="/gallery">
@@ -206,8 +242,7 @@ export default function Home() {
         <div className="site-container faq-grid">
           <div>
             <SectionHeading
-              eyebrow="Common questions"
-              title="Helpful answers before you request a visit."
+              title="Pest control questions and answers."
             />
             <p className="faq-contact">
               Need a different answer? <Link href="/contact">Contact DMSA</Link>

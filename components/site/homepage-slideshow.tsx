@@ -1,41 +1,42 @@
 "use client";
 
 import Image from "next/image";
+import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const slides = [
   {
-    src: "/slide/slide-1.png",
+    src: "/slide/slide-1.jpg",
     alt: "A DMSA technician applying treatment to a timber door frame.",
     caption: "Treatment at the entryway",
   },
   {
-    src: "/slide/slide-2.png",
+    src: "/slide/slide-2.jpg",
     alt: "A DMSA technician treating the interior of a kitchen cabinet.",
     caption: "Treatment inside cabinetry",
   },
   {
-    src: "/slide/slide-3.png",
+    src: "/slide/slide-3.jpg",
     alt: "A close view of a technician examining damaged timber on a door frame.",
     caption: "A closer look at timber damage",
   },
   {
-    src: "/slide/slide-4.png",
+    src: "/slide/slide-4.jpg",
     alt: "Damaged timber exposed along the top of a doorway.",
     caption: "Inspecting affected timber",
   },
   {
-    src: "/slide/slide-5.png",
+    src: "/slide/slide-5.jpg",
     alt: "A close view of damaged timber during a property inspection.",
     caption: "Reviewing affected areas",
   },
   {
-    src: "/slide/slide-6.png",
+    src: "/slide/slide-6.jpg",
     alt: "A DMSA technician and another person reviewing a residential doorway.",
     caption: "Property review on site",
   },
   {
-    src: "/slide/slide-7.png",
+    src: "/slide/slide-7.jpg",
     alt: "A DMSA technician applying treatment beneath a timber frame.",
     caption: "Treatment beneath timber framing",
   },
@@ -43,6 +44,8 @@ const slides = [
 
 export function HomepageSlideshow() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [userPaused, setUserPaused] = useState(false);
+  const [interacting, setInteracting] = useState(false);
   const slideshowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -52,7 +55,7 @@ export function HomepageSlideshow() {
     const syncPlayback = () => {
       window.clearInterval(timer);
       timer = undefined;
-      if (!visible || document.hidden || motion.matches) return;
+      if (!visible || document.hidden || motion.matches || userPaused || interacting) return;
       timer = window.setInterval(() => {
         setActiveIndex((current) => (current + 1) % slides.length);
       }, 6500);
@@ -70,7 +73,7 @@ export function HomepageSlideshow() {
       document.removeEventListener("visibilitychange", syncPlayback);
       motion.removeEventListener("change", syncPlayback);
     };
-  }, []);
+  }, [userPaused, interacting]);
 
   const showSlide = (index: number) => {
     setActiveIndex((index + slides.length) % slides.length);
@@ -80,6 +83,10 @@ export function HomepageSlideshow() {
     <div
       ref={slideshowRef}
       className="homepage-slideshow"
+      onMouseEnter={() => setInteracting(true)}
+      onMouseLeave={() => setInteracting(false)}
+      onFocus={() => setInteracting(true)}
+      onBlur={() => setInteracting(false)}
       role="region"
       aria-roledescription="carousel"
       aria-label="DMSA service photography"
@@ -109,17 +116,27 @@ export function HomepageSlideshow() {
             <strong>{slides[activeIndex].caption}</strong>
           </div>
           <div className="homepage-slide-controls" role="group" aria-label="Slideshow indicators">
-            <div className="homepage-slide-dots" role="group" aria-label="Choose a photo">
-              {slides.map((slide, index) => (
-                <button
-                  type="button"
-                  key={slide.src}
-                  className={index === activeIndex ? "is-active" : ""}
-                  aria-label={`Show photo ${index + 1}`}
-                  aria-current={index === activeIndex ? "true" : undefined}
-                  onClick={() => showSlide(index)}
-                />
-              ))}
+            <div className="homepage-slide-controls">
+              <button
+                type="button"
+                className="homepage-slide-pause"
+                aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
+                onClick={() => setUserPaused((current) => !current)}
+              >
+                {userPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+              </button>
+              <div className="homepage-slide-dots" role="group" aria-label="Choose a photo">
+                {slides.map((slide, index) => (
+                  <button
+                    type="button"
+                    key={slide.src}
+                    className={index === activeIndex ? "is-active" : ""}
+                    aria-label={`Show photo ${index + 1}`}
+                    aria-current={index === activeIndex ? "true" : undefined}
+                    onClick={() => showSlide(index)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

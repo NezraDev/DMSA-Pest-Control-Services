@@ -1,9 +1,10 @@
 /** @type {import("../lib/content-types").GalleryItem[]} */
 export const galleryItems = [
   {
-    id: "sample-001",
+    id: "job-001",
     slug: "anos-los-banos-residential-termite-control-treatment",
     title: "Residential Termite Control and Treatment",
+    metaTitle: "Termite Treatment in Anos, Los Baños, Laguna | DMSA",
     imagePaths: [
       "/brand/anos/1.png",
       "/brand/anos/2.png",
@@ -31,12 +32,12 @@ export const galleryItems = [
       "Residential termite control and treatment in Anos, Los Baños, Laguna.",
     customerFeedback: "",
     featured: false,
-    isSample: true,
   },
   {
-    id: "sample-002",
+    id: "job-002",
     slug: "marymount-village-anos-los-banos-termite-control-soil-poisoning",
     title: "Residential Termite Control and Soil Poisoning",
+    metaTitle: "Soil Poisoning in Marymount Village, Los Baños | DMSA",
     imagePaths: [
       "/brand/marymount/1.png",
       "/brand/marymount/2.png",
@@ -66,6 +67,5 @@ export const galleryItems = [
       "Residential termite control involving chemical injection and soil poisoning in Marymount Village, Anos, Los Baños, Laguna.",
     customerFeedback: "",
     featured: false,
-    isSample: true,
   },
 ];

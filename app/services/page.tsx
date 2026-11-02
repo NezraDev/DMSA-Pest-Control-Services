@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 import { pageHeroes } from "@/data/page-content-data";
 import { services } from "@/data/services-data";
 import { iconMap } from "@/lib/icon-map";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Pest Control Services",
-  description: "Explore DMSA general pest, termite, residential and commercial pest control services.",
-  alternates: { canonical: "/services" },
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Pest & Termite Control Services",
+  description: "General pest control, termite (anay) treatment, and residential and commercial pest control across Luzon, with a free ocular inspection.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
@@ -27,10 +28,11 @@ export default function ServicesPage() {
                 <div className="service-detail-intro">
                   <span className="service-index">0{index + 1}</span>
                   <span className="service-icon large"><Icon aria-hidden="true" /></span>
-                  <p className="eyebrow"><span aria-hidden="true" />{service.eyebrow}</p>
-                  <h2>{service.title}</h2>
+                  <h2><Link href={`/services/${service.slug}`}>{service.title}</Link></h2>
                   <p>{service.description}</p>
-                  <Button asChild><Link href={`/request-quote?service=${encodeURIComponent(service.title)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button>
+                  <p className="service-detail-tag">{service.eyebrow}</p>
+                  <p><Link className="text-link" href={`/services/${service.slug}`}>More about {service.shortTitle.toLowerCase()} <ArrowRight aria-hidden="true" /></Link></p>
+                  <Button asChild><Link href={`/request-quote?service=${encodeURIComponent(service.quoteService)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button>
                 </div>
                 <div className="service-detail-columns">
                   <div><h3><CircleAlert aria-hidden="true" />Signs to mention</h3><Checklist items={service.signs} /></div>

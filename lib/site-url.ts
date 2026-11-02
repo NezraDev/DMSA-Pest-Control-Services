@@ -1,6 +1,7 @@
 const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 const configuredUrlIsPlaceholder = !configuredUrl || /your-domain\.example/i.test(configuredUrl);
 const netlifyUrl = process.env.URL?.trim() || process.env.DEPLOY_PRIME_URL?.trim();
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
 
 function normalizeSiteUrl(value: string) {
   const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
@@ -14,7 +15,7 @@ function normalizeSiteUrl(value: string) {
 }
 
 export const siteUrl = normalizeSiteUrl(
-  configuredUrlIsPlaceholder ? netlifyUrl || "http://localhost:3000" : configuredUrl,
+  configuredUrlIsPlaceholder ? netlifyUrl || vercelUrl || "http://localhost:3000" : configuredUrl,
 );
 
 export function absoluteUrl(path = "/") {

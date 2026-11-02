@@ -10,6 +10,19 @@ export const services = [
     process: ["Quotation request", "Included free ocular inspection", "Treatment plan", "Careful application", "Prevention guidance"],
     prevention: ["Keep food and waste sealed", "Repair gaps and moisture sources", "Schedule follow-up checks when advised"],
     icon: "bug",
+    quoteService: "General Pest Control",
+    metaTitle: "Ant, Cockroach & Rodent Control",
+    metaDescription: "Pest control for ants, cockroaches, flies and rodents in homes and businesses across Bicol, Laguna, Cavite and Metro Manila. Free ocular inspection.",
+    heading: "General pest control for ants, cockroaches, flies and rodents",
+    overview: [
+      "DMSA Pest Control Services treats the common pests that disrupt homes and workplaces: ants (langgam), cockroaches (ipis), flies (langaw), and rodents such as rats and mice (daga). If you are looking for a pest control company or pest exterminator for a house, apartment, condominium, office, shop or warehouse, the first step is a quotation request with a free ocular inspection.",
+      "Treatment depends on what the inspection finds, including the type of pest, where activity is concentrated and how the property is used. DMSA then explains the recommended approach, schedule and price, and shares prevention guidance to help keep pests from returning.",
+    ],
+    faqs: [
+      { question: "Which pests does general pest control cover?", answer: "General pest control covers common pests such as ants, cockroaches, flies and rodents. If you are unsure what you are seeing, select Unsure in the quotation form and describe the signs." },
+      { question: "Can DMSA treat both homes and businesses?", answer: "Yes. DMSA provides pest control for houses, apartments and condominiums, as well as offices, retail spaces, warehouses and other commercial properties." },
+      { question: "How much does pest control cost?", answer: "The price is confirmed after DMSA reviews the property, because cost depends on the pest, the property and the scope of work. The ocular inspection is free and included in the quotation process." },
+    ],
   },
   {
     slug: "termite-control",
@@ -21,6 +34,19 @@ export const services = [
     process: ["Quotation request", "Included free ocular inspection", "Risk assessment", "Appropriate treatment", "Monitoring advice"],
     prevention: ["Reduce soil-to-wood contact", "Address leaks and damp areas", "Inspect renovations before work is enclosed"],
     icon: "shield",
+    quoteService: "Termite Control",
+    metaTitle: "Termite Control & Anay Treatment",
+    metaDescription: "Termite control and anay treatment for homes, businesses and construction sites: soil poisoning, wood treatment and inspection. Free ocular inspection.",
+    heading: "Termite control and anay treatment",
+    overview: [
+      "Termites, known locally as anay, can damage timber and other wood in a property. DMSA Pest Control Services provides termite inspection and treatment for existing homes and commercial buildings, along with pre-construction anti-termite soil treatment for properties still being built.",
+      "Depending on the site and construction stage, treatment options include anti-termite soil treatment or soil poisoning, chemical injection in affected areas, wood treatment and colony-focused systems. The approach is confirmed after a free ocular inspection, and DMSA gives monitoring advice once treatment is done.",
+    ],
+    faqs: [
+      { question: "What are the signs of termites (anay)?", answer: "Common signs include mud tubes on walls, posts or foundations, hollow-sounding or damaged timber, and discarded wings or swarming insects." },
+      { question: "Can termite treatment be done before construction?", answer: "Yes. DMSA provides pre-construction anti-termite soil treatment, as well as post-construction inspection and treatment options." },
+      { question: "What is soil poisoning for termites?", answer: "Soil poisoning is a soil treatment used to help control termite activity and address potential entry points. DMSA confirms whether it suits your property after an inspection." },
+    ],
   },
   {
     slug: "residential-pest-control",
@@ -32,6 +58,19 @@ export const services = [
     process: ["Quotation request", "Included free ocular inspection", "Household review", "Proportionate treatment", "After-care briefing"],
     prevention: ["Store food securely", "Declutter likely nesting zones", "Seal likely entry points"],
     icon: "home",
+    quoteService: "Unsure",
+    metaTitle: "Home Pest Control for Houses & Condos",
+    metaDescription: "Home pest control for houses, apartments and condominiums. Treatment for termites, ants, cockroaches and rodents, starting with a free ocular inspection.",
+    heading: "Home pest control for houses, apartments and condominiums",
+    overview: [
+      "Pests at home can show up as repeated sightings, noises in the ceiling or activity around the kitchen and garden. DMSA Pest Control Services provides residential pest control for houses, apartments and condominiums, covering termites (anay), ants, cockroaches, flies and rodents.",
+      "Service is planned around your household. A free ocular inspection comes first, followed by a clear recommendation, any preparation you need to do before the visit and an after-care briefing for the people living in the home.",
+    ],
+    faqs: [
+      { question: "What should I prepare before a home visit?", answer: "Note the affected areas, pest signs and any access considerations. DMSA will give you specific preparation instructions when the visit is confirmed." },
+      { question: "Do you treat condominiums and apartments?", answer: "Yes. Residential service covers houses, apartments and condominiums." },
+      { question: "Is the ocular inspection free for homeowners?", answer: "Yes. The free ocular inspection is included in the quotation process, so the property can be reviewed before scope, schedule and price are confirmed." },
+    ],
   },
   {
     slug: "commercial-pest-control",
@@ -43,5 +82,18 @@ export const services = [
     process: ["Quotation request", "Included free ocular inspection", "Operations review", "Coordinated service", "Action summary"],
     prevention: ["Improve stock rotation", "Maintain cleaning routines", "Close structural access points"],
     icon: "building",
+    quoteService: "Unsure",
+    metaTitle: "Commercial Pest Control for Businesses",
+    metaDescription: "Commercial pest control for offices, retail spaces, warehouses and construction sites. Coordinated service with a free ocular inspection and action summary.",
+    heading: "Commercial pest control for offices, shops and warehouses",
+    overview: [
+      "Pests in a workplace can damage stock and wiring and lead to repeated complaints from staff and visitors. DMSA Pest Control Services provides commercial pest control for offices, retail spaces, warehouses, construction sites and other business properties.",
+      "Service begins with a free ocular inspection and a review of how the site operates, so that treatment can be coordinated with your operations. Afterwards, DMSA provides an action summary and practical guidance on stock rotation, cleaning routines and closing structural access points.",
+    ],
+    faqs: [
+      { question: "What types of businesses does DMSA serve?", answer: "DMSA serves offices, retail spaces, warehouses, construction sites and other commercial properties." },
+      { question: "Can treatment be coordinated around our operations?", answer: "Service is coordinated after an operations review. Share any access or scheduling needs when you request a quotation." },
+      { question: "Do you offer termite treatment for construction sites?", answer: "Yes. DMSA provides pre-construction anti-termite soil treatment, along with post-construction inspection and treatment options." },
+    ],
   },
 ];

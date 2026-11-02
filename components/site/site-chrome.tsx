@@ -166,7 +166,7 @@ export function SiteFooter() {
         <div>
           <h2>Services</h2>
           <nav aria-label="Service links">
-            {services.map((service) => <Link key={service.slug} href={`/services#${service.slug}`}>{service.shortTitle}</Link>)}
+            {services.map((service) => <Link key={service.slug} href={`/services/${service.slug}`}>{service.shortTitle}</Link>)}
           </nav>
         </div>
         <div className="footer-contact">

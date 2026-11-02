@@ -120,15 +120,14 @@ Ready with supplied/verified information:
 - company name, location, phone/Viber numbers and operating hours;
 - general pest and termite service descriptions;
 - Bicol Region, Cavite, Laguna, Batangas, Rizal, Quezon and Metro Manila coverage;
-- supplied DMSA logo.
+- supplied DMSA logo;
+- the Anos and Marymount Village treatment records and photos, confirmed by the owner as real, approved jobs.
 
-Clearly marked sample or placeholder content:
+Still empty until approved text is supplied:
 
-- all treated-location pins and treatment records;
-- all treatment image panels (“Add approved local photo”);
-- all customer-feedback fields, which are empty until approved text is supplied.
+- all customer-feedback fields and testimonials. The testimonials page stays out of search results and the sitemap until `data/testimonials-data.js` has reviews.
 
-Before launch, replace these items only with approved DMSA records, generalized coordinates, permission-cleared photos and consented feedback. Do not publish exact customer addresses or unverified ratings, certifications, guarantees, prices or treatment outcomes.
+Add new records only with approved DMSA details, generalized coordinates, permission-cleared photos and consented feedback. Do not publish exact customer addresses or unverified ratings, certifications, guarantees, prices or treatment outcomes.
 
 ## Privacy and spam protection
 
@@ -147,4 +146,4 @@ npm run build:vercel
 npm test
 ```
 
-The automated tests cover DMSA form rules, required “Other” details, the sample-data privacy contract and the Windows-safe Tailwind dependency contract.
+The automated tests cover DMSA form rules, required “Other” details, the public-location privacy contract and the Windows-safe Tailwind dependency contract.

@@ -35,7 +35,7 @@ function LocationDetails({ location }: { location: GalleryItem }) {
     <article className="map-location-detail">
       <ProjectVisual location={location} />
       <div className="project-meta"><span>{location.servicePerformed}</span><span>{location.year}</span></div>
-      <h3>{location.title}</h3>
+      <h2>{location.title}</h2>
       <p className="location-line"><MapPin aria-hidden="true" />{location.generalLocation}</p>
       <dl>
         <div><dt>Pest</dt><dd>{location.pest}</dd></div>

@@ -70,10 +70,9 @@ test("every applicable option list keeps Other at the end", () => {
   }
 });
 
-test("public location records remain explicit sample data with unique slugs", () => {
+test("public location records have unique slugs and generalized locations", () => {
   assert.ok(galleryItems.length > 0);
   assert.equal(new Set(galleryItems.map((item) => item.slug)).size, galleryItems.length);
-  assert.equal(galleryItems.every((item) => item.isSample === true), true);
   assert.equal(galleryItems.every((item) => !/zone|street|house no\.?/i.test(item.generalLocation)), true);
   assert.equal(
     galleryItems.every((item) =>
@@ -185,7 +184,7 @@ test("website logo and page icon are independently configurable", async () => {
   assert.match(brandLogo, /height=\{1152\}/);
   assert.match(css, /\.brand-crop\s*\{[^}]*background:\s*transparent;/s);
   assert.match(css, /\.brand-crop\s*\{[^}]*padding:\s*0;[^}]*overflow:\s*hidden;/s);
-  assert.match(css, /\.brand-crop img\s*\{[^}]*top:\s*50%;[^}]*width:\s*calc\(100% \+ 60px\);[^}]*height:\s*auto;[^}]*transform:\s*translate\(-50%, -50%\);/s);
+  assert.match(css, /\.brand-crop img\s*\{[^}]*top:\s*50%;[^}]*width:\s*calc\(100% \+ 4px\);[^}]*height:\s*auto;[^}]*transform:\s*translate\(-50%, -50%\);/s);
   assert.doesNotMatch(css, /\.brand-crop\s*\{[^}]*background:\s*#970000;/s);
   assert.doesNotMatch(css, /\.brand-crop img\s*\{[^}]*(?:height:\s*370%|top:\s*-135%);/s);
   assert.match(layout, /siteConfig\.logos\.pageIcon/);
@@ -231,7 +230,7 @@ test("device location provides secure, accessible fallback handling", async () =
   assert.match(map, /enableHighAccuracy:\s*false/);
   assert.match(map, /isValidLngLat\(next\)/);
   assert.match(map, /error\.PERMISSION_DENIED/);
-  assert.match(map, /role="status" aria-live="polite"/);
+  assert.match(map, /role="status"\s+aria-live="polite"/);
   assert.match(map, /status === "loading"/);
 });
 

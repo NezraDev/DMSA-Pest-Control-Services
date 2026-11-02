@@ -5,13 +5,16 @@ import { ArrowRight, MessageSquareQuote, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FinalCta, PageHero } from "@/components/site/page-elements";
 import { testimonials } from "@/data/testimonials-data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Client Testimonials",
   description:
-    "Read permission-cleared DMSA customer feedback, shared with names omitted and locations kept general.",
-  alternates: { canonical: "/testimonials" },
-};
+    "Read approved customer feedback on DMSA pest and termite control services, shared with names omitted and locations kept general.",
+  path: "/testimonials",
+  // Kept out of search results until there are real reviews to show.
+  noindex: testimonials.length === 0,
+});
 
 function RatingStars({ rating }: { rating: number }) {
   return (
@@ -31,7 +34,6 @@ export default function TestimonialsPage() {
   return (
     <main id="main-content">
       <PageHero
-        eyebrow="Client testimonials"
         title="Feedback shared with care."
         description="Customer ratings and comments are published only after approval. Every review is credited by general service area, without a customer name."
       />
@@ -51,7 +53,6 @@ export default function TestimonialsPage() {
           ) : (
             <div className="testimonial-empty-state">
               <div className="testimonial-empty-copy">
-                <p className="eyebrow"><span aria-hidden="true" />Client feedback</p>
                 <h2>Client stories are being prepared.</h2>
                 <p>
                   This page is ready for approved star ratings and written comments.

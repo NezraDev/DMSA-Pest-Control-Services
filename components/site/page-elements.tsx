@@ -6,17 +6,11 @@ import { Button } from "@/components/ui/button";
 import type { GalleryItem } from "@/lib/content-types";
 import { pestIconMap } from "@/lib/icon-map";
 
-export function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="eyebrow"><span aria-hidden="true" />{children}</p>;
-}
-
 export function PageHero({
-  eyebrow,
   title,
   description,
   actions,
 }: {
-  eyebrow: string;
   title: string;
   description: string;
   actions?: React.ReactNode;
@@ -24,7 +18,6 @@ export function PageHero({
   return (
     <section className="page-hero">
       <div className="site-container page-hero-inner">
-        <Eyebrow>{eyebrow}</Eyebrow>
         <h1>{title}</h1>
         <p>{description}</p>
         {actions ? <div className="hero-actions">{actions}</div> : null}
@@ -34,19 +27,16 @@ export function PageHero({
 }
 
 export function SectionHeading({
-  eyebrow,
   title,
   description,
   centered = false,
 }: {
-  eyebrow: string;
   title: string;
   description?: string;
   centered?: boolean;
 }) {
   return (
     <div className={centered ? "section-heading centered" : "section-heading"}>
-      <Eyebrow>{eyebrow}</Eyebrow>
       <h2>{title}</h2>
       {description ? <p>{description}</p> : null}
     </div>
@@ -64,7 +54,7 @@ export function Checklist({ items }: { items: string[] }) {
 export function ProjectVisual({ location, large = false }: { location: GalleryItem; large?: boolean }) {
   const Icon = pestIconMap[location.pest];
   const comparisonImages =
-    location.isSample && typeof location.beforeImage === "string" && typeof location.afterImage === "string"
+    typeof location.beforeImage === "string" && typeof location.afterImage === "string"
       ? { before: location.beforeImage, after: location.afterImage }
       : null;
   const previewImage = location.imagePaths[0];
@@ -85,7 +75,6 @@ export function ProjectVisual({ location, large = false }: { location: GalleryIt
           <span className="photo-placeholder"><Camera aria-hidden="true" />{location.displayCategory}</span>
         </>
       )}
-      {location.isSample ? <span className="sample-chip">Sample record</span> : null}
     </div>
   );
 }
@@ -110,7 +99,6 @@ export function FinalCta() {
     <section className="final-cta">
       <div className="site-container final-cta-inner">
         <div className="final-cta-copy">
-          <Eyebrow>Quotation with site review</Eyebrow>
           <h2>Request a quotation with a free ocular inspection.</h2>
           <p>Share the location and pest concern. DMSA can arrange the included inspection during follow-up before confirming scope and price.</p>
         </div>

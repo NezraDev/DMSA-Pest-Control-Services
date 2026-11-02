@@ -8,6 +8,8 @@ import { BackLink, FinalCta, ProjectVisual } from "@/components/site/page-elemen
 import { ProofCarousel } from "@/components/site/proof-carousel";
 import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/gallery-data";
+import { JsonLd } from "@/components/site/json-ld";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 function formatTreatmentDate(value: string) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
@@ -46,11 +48,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const location = findLocation(slug);
   if (!location) return { title: "Treatment not found" };
-  return {
-    title: `${location.title} — Gallery`,
+  const path = `/gallery/${location.slug}`;
+  return pageMetadata({
+    absoluteTitle: location.metaTitle,
     description: location.shortDescription,
-    alternates: { canonical: `/gallery/${location.slug}` },
-  };
+    path,
+    image: { url: location.imagePaths[0], alt: `${location.title} in ${location.generalLocation}` },
+  });
 }
 
 export default async function GalleryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -65,16 +69,17 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
   const treatmentImages = location.imagePaths.map((src, index) => ({
     src,
     label: location.title,
-    alt: `${location.title}, treatment image ${index + 1}`,
+    alt: `${location.servicePerformed} in ${location.generalLocation}, photo ${index + 1}`,
   }));
 
   return (
     <main id="main-content">
+      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }, { name: location.title, path: `/gallery/${location.slug}` }])} />
       <section className="detail-hero">
         <div className="site-container">
           <BackLink href="/gallery">Back to gallery</BackLink>
           <div className="detail-hero-grid">
-            <div className="detail-hero-copy"><div className="sample-chip inline-chip">Sample record</div><h1>{location.title}</h1><p>{location.shortDescription}</p><Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(location.servicePerformed)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button></div>
+            <div className="detail-hero-copy"><h1>{location.title}</h1><p>{location.shortDescription}</p><Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(location.servicePerformed)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button></div>
             <ProjectVisual location={location} large />
           </div>
         </div>
