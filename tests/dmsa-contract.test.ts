@@ -49,6 +49,14 @@ test("free ocular inspection is included in quotation instead of a separate requ
   assert.equal("requestType" in formOptions, false);
 });
 
+test("Other options are still checked while consent is unticked, as on the early form steps", () => {
+  const result = quoteSchema.safeParse({ ...baseQuote, service: "Other", serviceOther: "", consent: false });
+  assert.equal(result.success, false);
+  const paths = result.error.issues.map((issue) => issue.path[0]);
+  assert.ok(paths.includes("serviceOther"));
+  assert.ok(paths.includes("consent"));
+});
+
 test("every selected Other option requires its specification", () => {
   for (const [choice, detail] of [
     ["preferredContact", "preferredContactOther"],

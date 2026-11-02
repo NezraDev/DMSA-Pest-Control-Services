@@ -21,7 +21,7 @@ export const pageHeroes = {
   },
   request: {
     title: "Request a pest control quotation for your property.",
-    description: "Pin the property and describe the concern in one quotation request. A free ocular inspection is included in the process; submission does not confirm a booking or final price.",
+    description: "Pin the property and describe the concern in four short steps. A free ocular inspection is included in the process; submission does not confirm a booking or final price.",
   },
   gallery: {
     title: "Termite and pest control work by DMSA.",

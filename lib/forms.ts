@@ -27,7 +27,9 @@ export const quoteSchema = z
     longitude: z.coerce.number().min(-180).max(180),
     preferredDate: z.string().min(1, "Choose a preferred date."),
     details: z.string().trim().min(10, "Tell us a little more about the concern.").max(2000),
-    consent: z.literal(true, { errorMap: () => ({ message: "Consent is required to submit." }) }),
+    // A refine, not z.literal(true): a failed literal stops the "Other" checks below
+    // from running, and consent stays unticked until the last step of the form.
+    consent: z.boolean().refine((value) => value, "Consent is required to submit."),
     website: z.string().max(0),
     startedAt: z.coerce.number(),
   })
