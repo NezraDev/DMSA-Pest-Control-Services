@@ -92,6 +92,7 @@ const structuredData = {
         addressCountry: "PH",
       },
       department: { "@id": branchId },
+      ...(siteConfig.googleMapsUrl ? { hasMap: siteConfig.googleMapsUrl } : {}),
       ...(trustFacts.foundedYear ? { foundingDate: trustFacts.foundedYear } : {}),
       knowsAbout: ["Pest control", "Termite control", "Anay treatment", "Soil poisoning", "Anti-termite soil treatment", "Cockroach control", "Ant control", "Rodent control"],
       geo: {

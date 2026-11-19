@@ -4,6 +4,7 @@ import { ArrowRight, MessageSquareQuote, Star } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { FinalCta, PageHero } from "@/components/site/page-elements";
+import { siteConfig } from "@/data/site-data";
 import { testimonials } from "@/data/testimonials-data";
 import { pageMetadata } from "@/lib/seo";
 
@@ -57,13 +58,25 @@ export default function TestimonialsPage() {
                 <p>
                   This page is ready for approved star ratings and written comments.
                   Reviews will use a general service area only, with no customer
-                  names or property details.
+                  names or property details. Had a treatment from DMSA? Your Google
+                  review helps other families and businesses find a pest control
+                  service they can trust.
                 </p>
-                <Button asChild size="lg">
-                  <Link href="/request-quote">
-                    Request a quotation <ArrowRight aria-hidden="true" />
-                  </Link>
-                </Button>
+                <div className="hero-actions">
+                  {siteConfig.googleReviewUrl ? (
+                    <Button asChild size="lg">
+                      <a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer">
+                        <Star aria-hidden="true" /> Leave a Google review
+                      </a>
+                    </Button>
+                  ) : null}
+                  <Button asChild size="lg" variant={siteConfig.googleReviewUrl ? "outline" : "default"}>
+                    <Link href="/request-quote">
+                      Request a quotation <ArrowRight aria-hidden="true" />
+                    </Link>
+                  </Button>
+                </div>
+                {siteConfig.googleMapsUrl ? <p><a className="text-link" href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer">Read DMSA reviews on Google <ArrowRight aria-hidden="true" /></a></p> : null}
               </div>
               <aside className="testimonial-format" aria-label="Review display format">
                 <span className="testimonial-format-label">Review format</span>

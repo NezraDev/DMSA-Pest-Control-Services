@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Clock3, Mail, MapPin, MessageCircle, Phone, SearchCheck } from "lucide-react";
+import { ArrowRight, Clock3, Mail, MapPin, MessageCircle, Phone, SearchCheck, Star } from "lucide-react";
 
 import { ContactForm } from "@/components/forms/contact-form";
 import { MapCanvas } from "@/components/maps/map-canvas";
@@ -43,6 +43,12 @@ export default function ContactPage() {
             <div className="contact-social"><p>Follow DMSA on Facebook, Instagram and TikTok</p><SocialLinks /></div>
             <MapCanvas mode="hq" coordinates={siteConfig.hqCoordinates} className="contact-map" />
             <p className="map-caption">Main office pin is approximate. Contact DMSA for visit directions.</p>
+            {siteConfig.googleMapsUrl || siteConfig.googleReviewUrl ? (
+              <div className="google-profile-links">
+                {siteConfig.googleMapsUrl ? <Button asChild variant="outline"><a href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer"><MapPin aria-hidden="true" /> View the main office on Google Maps</a></Button> : null}
+                {siteConfig.googleReviewUrl ? <Button asChild variant="outline"><a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true" /> Leave a Google review</a></Button> : null}
+              </div>
+            ) : null}
           </div>
           <div className="contact-form-card"><p className="form-kicker">Secure email form</p><h2>Send a message</h2><p>Your message is sent to DMSA through the website’s server-side email service. A success notice appears only after delivery is accepted.</p><ContactForm /></div>
         </div>

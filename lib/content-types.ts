@@ -37,6 +37,10 @@ export type SiteConfig = {
   hours: string;
   serviceAreas: string[];
   hqCoordinates: [number, number];
+  /** Google Maps link of the main office's Business Profile. */
+  googleMapsUrl?: string;
+  /** "Write a review" link from the Business Profile. */
+  googleReviewUrl?: string;
 };
 
 export type TrustFacts = {

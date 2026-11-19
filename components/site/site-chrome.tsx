@@ -12,6 +12,7 @@ import {
   Moon,
   Phone,
   ShieldCheck,
+  Star,
   Sun,
 } from "lucide-react";
 import { useEffect, useSyncExternalStore } from "react";
@@ -194,6 +195,7 @@ export function SiteFooter({ towns = [] }: { towns?: { name: string; path: strin
           <a href={`tel:${siteConfig.phoneMobileHref}`}><Phone aria-hidden="true" /><span>{siteConfig.phoneMobile}</span></a>
           {siteConfig.publicEmail ? <a href={`mailto:${siteConfig.publicEmail}`}><MessageCircle aria-hidden="true" /><span>{siteConfig.publicEmail}</span></a> : null}
           <p><Clock3 aria-hidden="true" /><span>{siteConfig.hours}</span></p>
+          {siteConfig.googleReviewUrl ? <a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true" /><span>Review DMSA on Google</span></a> : null}
         </div>
       </div>
       <div className="site-container footer-bottom">

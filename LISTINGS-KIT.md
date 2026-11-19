@@ -51,7 +51,11 @@ When the other offices have profiles, move each area to its nearest office.
 
 **Posts:** one a week. A finished job ("Termite treatment in [barangay], [town]"), a tip from the guides, or a rainy-season reminder about gamu-gamo. Link each post to the matching page on the website.
 
-After both profiles are verified, send me their Google Maps links. I'll add them to the website's business data (`hasMap`) and link them from the contact page.
+**Status (November 2026):** the San Fernando main office profile is live.
+- Maps link: https://share.google/lmiBH1J2hpkeuoI4U
+- Review link: https://g.page/r/CY61rhsMxv0sECE/review
+
+Both links are now on the website. The Maps link is in the business data (`hasMap`) and on the contact page and Bicol town pages. The review link is on the contact and testimonials pages and in the footer. When the Los Baños branch profile is verified, send its Maps link too.
 
 ## 3. Asking for reviews
 
@@ -73,7 +77,7 @@ Once there are real reviews, send me a few to publish (with the customer's permi
 
 | Done | Listing | Notes |
 |---|---|---|
-| ☐ | Google Business Profile, San Fernando | Primary category: Pest control service |
+| ☑ | Google Business Profile, San Fernando | Live. Linked from the website. |
 | ☐ | Google Business Profile, Los Baños | Same name and phone, branch address |
 | ☐ | Facebook page "About" | Same NAP, website link, hours, short description |
 | ☐ | Instagram and TikTok bios | Website link plus "Free ocular inspection" |

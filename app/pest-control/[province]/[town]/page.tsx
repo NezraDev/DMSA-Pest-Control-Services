@@ -9,6 +9,7 @@ import { BackLink, FinalCta, ProjectCard, SectionHeading } from "@/components/si
 import { TrustFacts } from "@/components/site/trust-facts";
 import { Button } from "@/components/ui/button";
 import { industries } from "@/data/industries-data";
+import { siteConfig } from "@/data/site-data";
 import { pests } from "@/data/pests-data";
 import { townContent } from "@/lib/location-content";
 import { isTownIndexable } from "@/lib/location-quality";
@@ -86,6 +87,12 @@ export default async function TownPage({ params }: Props) {
         <div className="site-container seo-copy">
           <h2>{content.officeHeading}</h2>
           {content.officeParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {town.servedFrom === "main" && siteConfig.googleMapsUrl ? (
+            <p>
+              <a href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer">See DMSA&apos;s main office on Google Maps</a>
+              {siteConfig.googleReviewUrl ? <> · <a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer">Leave a Google review</a></> : null}
+            </p>
+          ) : null}
           <h2>{content.overviewHeading}</h2>
           {content.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           <h2>How service works in {town.name}</h2>
