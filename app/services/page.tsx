@@ -34,7 +34,7 @@ export default function ServicesPage() {
                   <p>{service.description}</p>
                   <p className="service-detail-tag">{service.eyebrow}</p>
                   <p><Link className="text-link" href={`/services/${service.slug}`}>More about {service.shortTitle.toLowerCase()} <ArrowRight aria-hidden="true" /></Link></p>
-                  <Button asChild><Link href={`/request-quote?service=${encodeURIComponent(service.quoteService)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button>
+                  <Button asChild><Link href={`/request-quote#service=${encodeURIComponent(service.quoteService)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button>
                 </div>
                 <div className="service-detail-columns">
                   <div><h3><CircleAlert aria-hidden="true" />Signs to mention</h3><Checklist items={service.signs} /></div>

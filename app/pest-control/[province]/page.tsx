@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { industries } from "@/data/industries-data";
 import { pests } from "@/data/pests-data";
 import { provinceContent } from "@/lib/location-content";
+import { isTownPublished } from "@/lib/location-quality";
 import { findProvince, launchedLocationProvinces, type LocationTown } from "@/lib/locations";
 import { pageMetadata, pageSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site-url";
@@ -43,8 +44,8 @@ function TownLinks({ title, towns }: { title: string; towns: LocationTown[] }) {
       <h3>{title}</h3>
       <ul className="town-link-grid">
         {towns.map((town) => (
-          <li key={town.key}>
-            <Link href={town.path}>{town.name}</Link>
+          <li key={town.key} className={isTownPublished(town) ? undefined : "no-page"}>
+            {isTownPublished(town) ? <Link href={town.path}>{town.name}</Link> : <strong>{town.name}</strong>}
             <span>{town.barangays.length} barangays</span>
           </li>
         ))}
@@ -69,8 +70,8 @@ export default async function ProvincePage({ params }: Props) {
           "@type": "ItemList",
           "@id": `${absoluteUrl(content.path)}#towns`,
           name: `${sentence(content.townWord)} in ${province.name} served by DMSA`,
-          numberOfItems: province.towns.length,
-          itemListElement: province.towns.map((town, index) => ({
+          numberOfItems: province.towns.filter(isTownPublished).length,
+          itemListElement: province.towns.filter(isTownPublished).map((town, index) => ({
             "@type": "ListItem",
             position: index + 1,
             name: `Pest control in ${town.name}, ${province.name}`,
@@ -114,7 +115,7 @@ export default async function ProvincePage({ params }: Props) {
         <div className="site-container">
           <SectionHeading
             title={`${sentence(content.townWord)} in ${province.name}`}
-            description={`DMSA accepts requests from all ${province.towns.length} ${content.townWord} in ${province.name}, covering ${content.barangayCount.toLocaleString("en-PH")} barangays. Choose your town for the serving office, distance, barangays and local questions.`}
+            description={`DMSA accepts requests from all ${province.towns.length} ${content.townWord} in ${province.name}, covering ${content.barangayCount.toLocaleString("en-PH")} barangays. Linked towns have their own page with completed jobs and local details; for any other town, request a quotation and DMSA confirms the visit.`}
           />
           <TownLinks title="Cities" towns={content.cities} />
           <TownLinks title="Municipalities" towns={content.municipalities} />

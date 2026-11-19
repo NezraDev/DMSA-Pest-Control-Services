@@ -7,6 +7,7 @@ import { FinalCta, PageHero, SectionHeading } from "@/components/site/page-eleme
 import { Button } from "@/components/ui/button";
 import { officeTowns, regions } from "@/data/locations/provinces";
 import { siteConfig } from "@/data/site-data";
+import { isTownPublished } from "@/lib/location-quality";
 import { allTowns, locationProvinces, offices } from "@/lib/locations";
 import { pageMetadata, pageSchema } from "@/lib/seo";
 
@@ -71,12 +72,12 @@ export default function ServiceAreasPage() {
                   <p>
                     {province.towns.length} cities and municipalities.{" "}
                     {province.launched
-                      ? "Choose a town for local details."
+                      ? <>Linked towns have their own page. For any town, <Link href={province.path}>see {province.name}</Link> or request a quotation.</>
                       : <>Request a quotation for any town in {province.name}; <Link href="/request-quote">start here</Link>.</>}
                   </p>
                   <ul className="town-name-list">
                     {province.towns.map((town) => (
-                      <li key={town.key}>{province.launched ? <Link href={town.path}>{town.name}</Link> : town.name}</li>
+                      <li key={town.key}>{isTownPublished(town) ? <Link href={town.path}>{town.name}</Link> : town.name}</li>
                     ))}
                   </ul>
                 </article>

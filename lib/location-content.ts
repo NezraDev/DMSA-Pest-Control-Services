@@ -153,7 +153,7 @@ export function townContent(town: LocationTown): TownContent {
 
   return {
     path: town.path,
-    heading: `Pest control and termite (anay) treatment in ${place}`,
+    heading: `Pest and termite (anay) control in ${place}`,
     title,
     metaDescription,
     intro,

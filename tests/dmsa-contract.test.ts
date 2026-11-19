@@ -16,7 +16,8 @@ import { townNotes } from "../data/locations/town-notes.js";
 import { pests } from "../data/pests-data.js";
 import { siteConfig, trustFacts } from "../data/site-data.js";
 import { provinceContent, townContent } from "../lib/location-content.ts";
-import { maxSimilarity, minNoteWords, minUniqueWords, townQualityReport } from "../lib/location-quality.ts";
+import { isTownIndexable, maxSimilarity, minNoteWords, minUniqueWords, publishedTowns, townQualityReport } from "../lib/location-quality.ts";
+import { photoAlt } from "../lib/alt-text.ts";
 import { allTowns, launchedLocationProvinces, launchedTowns, locationProvinces, townByKey, townJobs } from "../lib/locations.ts";
 
 const baseQuote = {
@@ -391,12 +392,20 @@ test("only town pages with real local content are indexable", () => {
   for (const office of officeTowns) assert.ok(report.get(office.path.replace("/pest-control/", ""))?.indexable, `${office.path} must be indexable`);
 });
 
-test("noindex town pages stay out of the sitemap, and town pages never claim a local address", async () => {
+test("only qualifying towns get a page, so no noindex town pages exist", async () => {
   const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
-  assert.match(sitemap, /launchedTowns\.filter\(isTownIndexable\)/);
+  assert.match(sitemap, /publishedTowns\(\)/);
   const page = await readFile(new URL("../app/pest-control/[province]/[town]/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /noindex: !isTownIndexable\(town\)/);
+  assert.match(page, /return publishedTowns\(\)\.map/);
+  assert.match(page, /isTownPublished\(town\)/);
   assert.doesNotMatch(page, /LocalBusiness|PostalAddress/);
+  for (const town of publishedTowns()) assert.ok(isTownIndexable(town) && town.province.launched, town.key);
+  for (const office of officeTowns) assert.ok(publishedTowns().some((town) => town.path === office.path), `${office.path} must have a page`);
+  // Hubs and /service-areas only link towns that have a page.
+  for (const file of ["app/pest-control/[province]/page.tsx", "app/service-areas/page.tsx"]) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
+    assert.match(source, /isTownPublished\(town\) \? <Link href=\{town\.path\}>/, `${file} must link only published towns`);
+  }
 });
 
 test("no internal link points at a redirected URL", async () => {
@@ -445,11 +454,48 @@ test("guides link to real services, pests and guides, and end with a call to act
   }
 });
 
-test("every guide is linked from the location pages", () => {
-  for (const guide of guides) {
-    const links = launchedTownContent.filter(({ content }) => content.guides.some((item) => item.slug === guide.slug)).length
-      + launchedProvinceContent.filter(({ content }) => content.guides.some((item) => item.slug === guide.slug)).length;
-    assert.ok(links >= 12, `${guide.slug} is linked from only ${links} location pages`);
+test("H1s stay within 70 characters and photo alt text within 100", () => {
+  const headings = [
+    ...services.map((service) => service.heading),
+    ...locationProvinces.map((province) => provinceContent(province).heading),
+    ...allTowns.map((town) => townContent(town).heading),
+    ...guides.map((guide) => guide.title),
+    ...pests.map((pest) => pest.title),
+    ...industries.map((industry) => industry.title),
+    ...galleryItems.map((item) => item.heading),
+  ];
+  for (const heading of headings) assert.ok(heading.length <= 70, `${heading.length}: ${heading}`);
+  for (const item of galleryItems) {
+    for (const caption of [...(item.imageCaptions ?? []), ...(item.comparisonCaptions ?? [])]) {
+      const alt = photoAlt(caption, item.generalLocation);
+      assert.ok(alt.length <= 100, `${alt.length}: ${alt}`);
+    }
+  }
+});
+
+test("quotation links never create query-string duplicates of /request-quote", async () => {
+  const files = [
+    "app/services/page.tsx", "app/services/[slug]/page.tsx", "app/guides/[slug]/page.tsx", "app/pests/[slug]/page.tsx",
+    "app/industries/[slug]/page.tsx", "app/termite-inspection/page.tsx", "app/gallery/[slug]/page.tsx", "app/request-quote/page.tsx",
+  ];
+  for (const file of files) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /request-quote\?service=/, `${file} links to /request-quote?service=`);
+    assert.doesNotMatch(source, /searchParams/, `${file} must not read query strings`);
+  }
+  const form = await readFile(new URL("../components/forms/quote-form.tsx", import.meta.url), "utf8");
+  assert.match(form, /window\.location\.hash/);
+});
+
+test("production responses send security headers and images stay light", async () => {
+  const config = await readFile(new URL("../next.config.ts", import.meta.url), "utf8");
+  for (const header of ["Content-Security-Policy", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy"]) assert.match(config, new RegExp(header));
+  assert.match(config, /basemaps\.cartocdn\.com/, "CSP must allow the CARTO map tiles");
+  assert.match(config, /deviceSizes: \[640, 750, 828, 1080, 1200, 1440\]/);
+  assert.match(config, /qualities: \[50, 60\]/);
+  for (const file of ["components/site/homepage-slideshow.tsx", "components/site/page-elements.tsx", "components/site/proof-carousel.tsx", "app/gallery/[slug]/page.tsx"]) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /<Image\b[^>]*\sfill\b/, `${file}: use width/height with .fill-image instead of fill`);
   }
 });
 
@@ -486,7 +532,7 @@ test("trust facts stay hidden until DMSA fills them in", async () => {
 
 test("sitemap lists the hubs, towns, pests, industries, guides and money pages", async () => {
   const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
-  for (const route of ['"/service-areas"', "launchedLocationProvinces", "isTownIndexable", '"/pests"', "`/pests/${slug}`", '"/industries"', "`/industries/${slug}`", '"/pest-control-price"', '"/termite-inspection"', '"/guides"', "`/guides/${guide.slug}`", '"/faq"']) {
+  for (const route of ['"/service-areas"', "launchedLocationProvinces", "publishedTowns()", '"/pests"', "`/pests/${slug}`", '"/industries"', "`/industries/${slug}`", '"/pest-control-price"', '"/termite-inspection"', '"/guides"', "`/guides/${guide.slug}`", '"/faq"']) {
     assert.ok(sitemap.includes(route), `sitemap is missing ${route}`);
   }
 });

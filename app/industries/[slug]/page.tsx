@@ -53,7 +53,7 @@ export default async function IndustryPage({ params }: Props) {
           <h1>{title}</h1>
           <p>{industry.cardSummary}</p>
           <div className="hero-actions">
-            <Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(isConstruction ? "Termite Control" : "General Pest Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
+            <Button asChild size="lg"><Link href={`/request-quote#service=${encodeURIComponent(isConstruction ? "Termite Control" : "General Pest Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
           </div>
         </div>
       </section>

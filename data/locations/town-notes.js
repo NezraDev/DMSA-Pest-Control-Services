@@ -1,10 +1,10 @@
 // Local details for individual towns, written by DMSA. Keyed "province-slug/town-slug",
 // the same as the page URL: /pest-control/laguna/los-banos → "laguna/los-banos".
 //
-// A town page goes into Google (indexable and in the sitemap) once it has real local content:
-// a DMSA office, a completed job in data/gallery-data.js, or at least 120 words of localNotes.
-// Until then it stays visible to visitors but is marked noindex. Run `npm run seo:locations`
-// to see every town's status.
+// A town gets its own page (and goes into the sitemap) once it has real local content: a DMSA
+// office, a completed job in data/gallery-data.js, or at least 120 words of localNotes. Until
+// then it is listed by name on its province page and on /service-areas. Run
+// `npm run seo:locations` to see every town's status.
 //
 // Only write what is true for that town: jobs done (no client names or exact addresses),
 // barangays or subdivisions served, how far ahead to book, travel or access details.

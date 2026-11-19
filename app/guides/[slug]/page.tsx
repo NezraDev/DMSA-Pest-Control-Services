@@ -66,7 +66,7 @@ export default async function GuidePage({ params }: Props) {
         quickAnswer={guide.summary}
         renderAfter={(section) => section.id === "when-to-call" ? (
           <div className="guide-actions">
-            <Button asChild><Link href={`/request-quote${service ? `?service=${encodeURIComponent(service.quoteService)}` : ""}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
+            <Button asChild><Link href={`/request-quote${service ? `#service=${encodeURIComponent(service.quoteService)}` : ""}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
             {service ? <Link className="text-link" href={`/services/${service.slug}`}>About {service.title.toLowerCase()} <ArrowRight aria-hidden="true" /></Link> : null}
           </div>
         ) : null}

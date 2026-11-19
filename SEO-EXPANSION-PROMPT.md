@@ -433,14 +433,14 @@ Cross-check against the latest PSA PSGC publication before building (P2 step A1)
 
 ## Part 6. Implementation status (updated November 19, 2026)
 
-P1–P7 are implemented, but not committed or deployed. `npm test` (40 tests), `npm run lint` and `npm run build` (114 pages) all pass. The P7 check of the production build found **0 problems** across 43 sitemap URLs and 64 noindex town pages.
+P1–P7 are implemented and committed; the commits are waiting to be pushed. `npm test` (42 tests), `npm run lint` and `npm run build` all pass. A Screaming-Frog-style crawl of the production build from the homepage found **0 issues** across 43 HTML pages: 0 non-indexable, 0 canonicalised, 0 redirects or broken links, every H1 at 70 characters or less, every alt text at 100 or less, every image under 100 KB with width/height attributes, and security headers on every response.
 
 ### What was built
 
 | Prompt | Result |
 |---|---|
 | **P1 crawl fixes** | Every gallery H1 is unique and names its place. All meta descriptions are 120–155 characters (enforced by a test). The thin pages were expanded (body words, before → after): `/request-quote` 181 → 418, `/contact` 190 → 369, `/guides` 270 → 378, `/about` 281 → 522. Each guide now has 36–75 internal links. Images are served as AVIF/WebP with a 1920px cap. The homepage copy uses shorter sentences. |
-| **P2 locations** | All 273 cities and municipalities come from the PSA PSGC list via `scripts/fetch-psgc.mjs`. Calaca and Carmona are corrected to cities, because the source predates their cityhood laws. Town-centre coordinates come from OpenStreetMap. Each province has a hub page, each town has a page, and permanent redirects cover the old URLs. The quality gate lives in `lib/location-quality.ts`, with a report from `npm run seo:locations`. **Wave 1 (Laguna and Camarines Sur) is live**: 2 hubs and 67 town pages. Of these, 3 are indexable: Los Baños, Biñan and San Fernando. |
+| **P2 locations** | All 273 cities and municipalities come from the PSA PSGC list via `scripts/fetch-psgc.mjs`. Calaca and Carmona are corrected to cities, because the source predates their cityhood laws. Town-centre coordinates come from OpenStreetMap. Each province has a hub page, each town has a page, and permanent redirects cover the old URLs. The quality gate lives in `lib/location-quality.ts`, with a report from `npm run seo:locations`. **Wave 1 (Laguna and Camarines Sur) is live**: 2 province hubs plus town pages for Los Baños, Biñan and San Fernando. The owner chose to publish a town page only once it qualifies, so there are no noindex pages. Every other town is listed by name (with its barangay count) on its province hub and on `/service-areas`. |
 | **P3 pests** | `/pests` plus five pest pages: anay/gamu-gamo, ipis, langgam, daga and langaw. Each is 985–1,254 words with a table and 5 FAQs. Mosquitoes and bed bugs were not built, because they are not in the services data. |
 | **P4 money and trust pages** | `/pest-control-price` and `/termite-inspection`. Four industry pages under `/industries`: offices, retail shops, warehouses and construction sites. A trust block and business schema facts that stay hidden until `trustFacts` in `data/site-data.js` is filled. |
 | **P5 guides** | The 6 guides are now 974–1,157 words. Each has a quick answer, a table, three FAQs and a "When to call a professional" ending. 12 outlines are in `data/guide-drafts.js` (never built into pages), and the schedule is in `GUIDE-CALENDAR.md`. |
@@ -457,7 +457,20 @@ Wait until most wave-1 pages show as indexed in Search Console → Pages before 
 
 ### How a town page gets into Google
 
-Add a completed job to `data/gallery-data.js` (with `town: "province/town"`), or add at least 120 words of `localNotes` for that town in `data/locations/town-notes.js`. Then rebuild. The page becomes indexable and is added to the sitemap automatically.
+Add a completed job to `data/gallery-data.js` (with `town: "province/town"`), or add at least 120 words of `localNotes` for that town in `data/locations/town-notes.js`. Then rebuild. The town's page is created, linked from its province hub and `/service-areas`, and added to the sitemap automatically.
+
+### Screaming Frog fixes (November 19, 2026)
+
+| Crawl finding | Fix |
+|---|---|
+| 64 noindex town pages, 1 noindex testimonials page | Town pages exist only for qualifying towns. Testimonials is hidden from the menu until there is an approved review. |
+| 5 canonicalised `/request-quote?service=` URLs | Quotation links use `#service=…`. The form reads the hash (and still reads old `?service=` links), so there is one static `/request-quote` URL. |
+| 56 alt texts over 100 characters | `lib/alt-text.ts` builds photo alt text from the caption plus a short place, capped at 100. |
+| 4 H1s and 1 H2 over 70 characters | Town H1 is now "Pest and termite (anay) control in {Town}, {Province}". A test caps every data-driven H1 at 70. |
+| 25 images over 100 KB (as crawlers download them) | Photos capped at 1440px, quality 60 (slides) / 50 (job photos). Two grainy Biñan photos were lightly denoised. |
+| 28 images missing width/height | next/image `fill` replaced by width/height plus the `.fill-image` class. |
+| Missing CSP, X-Frame-Options, Referrer-Policy | Added in `next.config.ts` (production only). The CSP allows the CARTO map tiles and MapLibre's blob worker, with no violations on any page. |
+| External link answering 403 to crawlers | The National Privacy Commission is named as text (privacy.gov.ph) instead of linked. |
 
 ### Owner items still open
 

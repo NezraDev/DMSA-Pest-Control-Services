@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { faqs } from "@/data/faq-data";
+import { testimonials } from "@/data/testimonials-data";
 import { homeContent } from "@/data/page-content-data";
 import { services } from "@/data/services-data";
 import { processSteps, trustPoints } from "@/data/site-data";
@@ -141,7 +142,7 @@ export default function Home() {
         <div className="site-container">
           <div className="heading-row">
             <SectionHeading
-              title="Pest control and termite treatment for the pests that disrupt your space."
+              title="Pest and termite control for the pests that disrupt your space."
               description="Start with the service that fits. If you are unsure, DMSA can help identify the right inspection path."
             />
             <Link className="text-link" href="/services">
@@ -241,9 +242,9 @@ export default function Home() {
               <Link className="text-link" href="/gallery">
                 View gallery <ArrowRight aria-hidden="true" />
               </Link>
-              <Link className="text-link" href="/testimonials">
+              {testimonials.length > 0 ? <Link className="text-link" href="/testimonials">
                 Client testimonials <ArrowRight aria-hidden="true" />
-              </Link>
+              </Link> : null}
             </div>
           </div>
           <div className="project-grid">

@@ -6,6 +6,7 @@ import { ProofCarousel } from "@/components/site/proof-carousel";
 import { galleryItems } from "@/data/gallery-data";
 import { pageHeroes } from "@/data/page-content-data";
 import { JsonLd } from "@/components/site/json-ld";
+import { photoAlt } from "@/lib/alt-text";
 import { pageMetadata, pageSchema } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -18,9 +19,7 @@ const galleryProofImages = galleryItems.flatMap((item) =>
   item.imagePaths.map((src, index) => ({
     src,
     label: item.imageCaptions?.[index] ?? (item.imagePaths.length > 1 ? `${item.title} - Photo ${index + 1}` : item.title),
-    alt: item.imageCaptions?.[index]
-      ? `${item.imageCaptions[index]}, ${item.generalLocation}`
-      : `${item.title}, photo ${index + 1}, in ${item.generalLocation}`,
+    alt: photoAlt(item.imageCaptions?.[index] ?? `${item.title}, photo ${index + 1}`, item.generalLocation),
   })),
 );
 

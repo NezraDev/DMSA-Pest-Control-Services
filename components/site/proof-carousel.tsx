@@ -69,7 +69,7 @@ export function ProofCarousel({
       <div ref={trackRef} className="proof-carousel-track">
         {images.map((image, index) => (
           <figure className="proof-carousel-slide" key={`${image.src}-${image.label}`} aria-roledescription="slide" aria-label={`${index + 1} of ${images.length}: ${image.label}`}>
-            <div><Image src={image.src} alt={image.alt ?? image.label} fill sizes="(max-width: 860px) 100vw, 900px" priority={index === 0} /></div>
+            <div><Image className="fill-image" src={image.src} alt={image.alt ?? image.label} width={1920} height={1080} quality={50} sizes="(max-width: 860px) 100vw, 900px" priority={index === 0} /></div>
             <figcaption><span>{String(index + 1).padStart(2, "0")}</span>{image.label}</figcaption>
           </figure>
         ))}

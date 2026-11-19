@@ -12,8 +12,8 @@ import { industries } from "@/data/industries-data";
 import { siteConfig } from "@/data/site-data";
 import { pests } from "@/data/pests-data";
 import { townContent } from "@/lib/location-content";
-import { isTownIndexable } from "@/lib/location-quality";
-import { findTown, launchedTowns } from "@/lib/locations";
+import { isTownIndexable, isTownPublished, publishedTowns } from "@/lib/location-quality";
+import { findTown } from "@/lib/locations";
 import { branchId, organizationId, pageMetadata, pageSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site-url";
 
@@ -24,13 +24,13 @@ export const dynamicParams = false;
 const sentence = (text: string) => text.replace(/^./, (letter) => letter.toUpperCase());
 
 export function generateStaticParams() {
-  return launchedTowns.map((town) => ({ province: town.province.slug, town: town.slug }));
+  return publishedTowns().map((town) => ({ province: town.province.slug, town: town.slug }));
 }
 
 async function load(params: Props["params"]) {
   const { province, town: slug } = await params;
   const town = findTown(province, slug);
-  return town?.province.launched ? town : undefined;
+  return town && isTownPublished(town) ? town : undefined;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -53,6 +53,7 @@ export default async function TownPage({ params }: Props) {
   const { province } = town;
   const { named, numbered } = content.barangayList;
   const officeProfile = siteConfig.googleProfiles[town.servedFrom];
+  const publishedPaths = new Set(publishedTowns().map((item) => item.path));
 
   return (
     <main id="main-content">
@@ -155,7 +156,9 @@ export default async function TownPage({ params }: Props) {
           <ul>
             {content.neighbours.map((item) => (
               <li key={item.path}>
-                <Link href={item.path}>Pest control in {item.name}, {item.province}</Link>
+                {publishedPaths.has(item.path)
+                  ? <Link href={item.path}>Pest control in {item.name}, {item.province}</Link>
+                  : <>{item.name}, {item.province}</>}
                 {item.km > 0 ? <> · about {item.km} km away</> : null}
               </li>
             ))}

@@ -99,7 +99,10 @@ export function HomepageSlideshow() {
           <Image
             src={slide.src}
             alt={index === activeIndex ? slide.alt : ""}
-            fill
+            width={1920}
+            height={1080}
+            className="fill-image"
+            quality={60}
             loading={index === 0 ? "eager" : "lazy"}
             fetchPriority={index === 0 ? "high" : "low"}
             decoding="async"

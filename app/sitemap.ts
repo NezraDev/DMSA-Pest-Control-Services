@@ -6,11 +6,11 @@ import { industries } from "@/data/industries-data";
 import { pests } from "@/data/pests-data";
 import { testimonials } from "@/data/testimonials-data";
 import { treatedLocations } from "@/data/treated-locations-data";
-import { isTownIndexable } from "@/lib/location-quality";
-import { launchedLocationProvinces, launchedTowns } from "@/lib/locations";
+import { publishedTowns } from "@/lib/location-quality";
+import { launchedLocationProvinces } from "@/lib/locations";
 import { absoluteUrl } from "@/lib/site-url";
 
-/** Every indexable page. Town pages that are still noindex (see lib/location-quality.ts) are left out. */
+/** Every indexable page. Only published town pages exist (see lib/location-quality.ts). */
 function sitemapRoutes() {
   return [
     "/",
@@ -25,7 +25,7 @@ function sitemapRoutes() {
     "/treated-locations",
     "/service-areas",
     ...launchedLocationProvinces.map(({ path }) => path),
-    ...launchedTowns.filter(isTownIndexable).map(({ path }) => path),
+    ...publishedTowns().map(({ path }) => path),
     "/guides",
     "/faq",
     "/gallery",

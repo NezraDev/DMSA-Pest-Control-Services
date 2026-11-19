@@ -117,3 +117,16 @@ export function townQualityReport(): Map<string, TownQuality> {
 export function isTownIndexable(town: LocationTown) {
   return townQualityReport().get(town.key)?.indexable ?? false;
 }
+
+/**
+ * A town gets its own page only when its province is launched AND it passes the gate, so the
+ * site never publishes noindex town pages. Every other town is still listed by name on its
+ * province page and on /service-areas, and gains a page automatically once it qualifies.
+ */
+export function isTownPublished(town: LocationTown) {
+  return town.province.launched && isTownIndexable(town);
+}
+
+export function publishedTowns() {
+  return allTowns.filter(isTownPublished);
+}

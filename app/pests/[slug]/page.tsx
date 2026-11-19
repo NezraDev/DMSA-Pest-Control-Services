@@ -52,7 +52,7 @@ export default async function PestPage({ params }: Props) {
           <h1>{title}</h1>
           <p>{pest.cardSummary}</p>
           <div className="hero-actions">
-            <Button asChild size="lg"><Link href={`/request-quote${service ? `?service=${encodeURIComponent(service.quoteService)}` : ""}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
+            <Button asChild size="lg"><Link href={`/request-quote${service ? `#service=${encodeURIComponent(service.quoteService)}` : ""}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
           </div>
         </div>
       </section>

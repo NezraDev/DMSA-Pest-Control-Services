@@ -1,5 +1,32 @@
 import type { NextConfig } from "next";
 
+// Only what the site loads: its own files, inline Next.js/theme scripts and styles, CARTO map
+// tiles, and MapLibre's blob worker. Applied in production so local development is unaffected.
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://basemaps.cartocdn.com",
+  "font-src 'self' data:",
+  "connect-src 'self' https://basemaps.cartocdn.com",
+  "worker-src 'self' blob:",
+  "child-src 'self' blob:",
+  "media-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+const securityHeaders = [
+  { key: "Content-Security-Policy", value: contentSecurityPolicy },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  // The quotation map can use the visitor's location; nothing else needs device features.
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), payment=(), geolocation=(self)" },
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
@@ -9,8 +36,15 @@ const nextConfig: NextConfig = {
   images: {
     // Smaller modern formats for browsers that support them.
     formats: ["image/avif", "image/webp"],
-    // The source photos are 1920px wide, so larger variants only add bytes.
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    // Photos are 1920px wide; 1440px is sharp on screen and keeps every variant small.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1440],
+    // 60 for the homepage slides, 50 for job photos. Keeps the JPEG fallback (what crawlers
+    // download) under 100 KB per photo.
+    qualities: [50, 60],
+  },
+  async headers() {
+    if (process.env.NODE_ENV !== "production") return [];
+    return [{ source: "/:path*", headers: securityHeaders }];
   },
   async redirects() {
     // Location URLs moved to /pest-control/<province>/<town> when every city and

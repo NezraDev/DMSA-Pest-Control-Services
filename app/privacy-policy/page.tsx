@@ -125,7 +125,7 @@ const sections: LegalSection[] = [
           <li>have inaccurate or incomplete information corrected;</li>
           <li>object to processing, or ask us to delete or block your information;</li>
           <li>receive a copy of your information in a commonly used format; and</li>
-          <li>file a complaint with the <a href="https://privacy.gov.ph" rel="noopener noreferrer" target="_blank">National Privacy Commission</a>.</li>
+          <li>file a complaint with the National Privacy Commission (privacy.gov.ph).</li>
         </ul>
         <p>To use any of these rights, contact us using the details below. We may ask you to confirm your identity first.</p>
       </>

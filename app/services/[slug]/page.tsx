@@ -67,7 +67,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           <h1>{service.heading}</h1>
           <p>{service.description}</p>
           <div className="hero-actions">
-            <Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(service.quoteService)}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
+            <Button asChild size="lg"><Link href={`/request-quote#service=${encodeURIComponent(service.quoteService)}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>
           </div>
         </div>
       </section>

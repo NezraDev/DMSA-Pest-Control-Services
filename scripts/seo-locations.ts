@@ -17,7 +17,7 @@ const rows = allTowns
       live: town.province.launched ? "yes" : "no",
       words: quality.words,
       similarity: `${Math.round(quality.similarity * 100)}%`,
-      indexable: quality.indexable ? "YES" : "no",
+      page: quality.indexable && town.province.launched ? "LIVE" : quality.indexable ? "ready" : "listed only",
       reason: quality.reason,
     };
   });
@@ -26,5 +26,5 @@ console.table(rows);
 for (const province of locationProvinces.filter((item) => showAll || item.launched)) {
   const towns = province.towns.map((town) => report.get(town.key));
   const indexable = towns.filter((quality) => quality?.indexable).length;
-  console.log(`${province.name.padEnd(16)} wave ${province.launchWave}${province.launched ? " (live)" : "       "}  ${indexable}/${towns.length} town pages indexable`);
+  console.log(`${province.name.padEnd(16)} wave ${province.launchWave}${province.launched ? " (live)" : "       "}  ${indexable}/${towns.length} towns qualify for their own page`);
 }

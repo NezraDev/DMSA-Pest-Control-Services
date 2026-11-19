@@ -95,7 +95,7 @@ export default function TermiteInspectionPage() {
           <h1>{title.replace(/^./, (letter) => letter.toUpperCase())}</h1>
           <p>Before any termite treatment, DMSA inspects the property to find where termites are active and how they are getting in. The inspection is free and included in every quotation.</p>
           <div className="hero-actions">
-            <Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent("Termite Control")}`}>Book a free inspection <ArrowRight aria-hidden="true" /></Link></Button>
+            <Button asChild size="lg"><Link href={`/request-quote#service=${encodeURIComponent("Termite Control")}`}>Book a free inspection <ArrowRight aria-hidden="true" /></Link></Button>
           </div>
         </div>
       </section>
@@ -106,7 +106,7 @@ export default function TermiteInspectionPage() {
           if (section.id === "what-dmsa-checks") return <p><Link href="/pests/termites-anay">How to recognise anay and gamu-gamo</Link> · <Link href="/guides/signs-of-anay-termites-in-your-house">Signs of anay in your house</Link></p>;
           if (section.id === "what-you-receive") return <p><Link href="/services/termite-control">Termite control and anay treatment</Link> · <Link href="/pest-control-price">What affects the price</Link></p>;
           if (section.id === "when-to-book") return <p><Link href="/industries/construction-sites">Termite treatment for construction sites</Link></p>;
-          if (section.id === "when-to-call") return <div className="guide-actions"><Button asChild><Link href={`/request-quote?service=${encodeURIComponent("Termite Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button><Link className="text-link" href="/service-areas">Check your area <ArrowRight aria-hidden="true" /></Link></div>;
+          if (section.id === "when-to-call") return <div className="guide-actions"><Button asChild><Link href={`/request-quote#service=${encodeURIComponent("Termite Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link></Button><Link className="text-link" href="/service-areas">Check your area <ArrowRight aria-hidden="true" /></Link></div>;
           return null;
         }}
       />

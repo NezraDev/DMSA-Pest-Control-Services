@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 import type { GalleryItem } from "@/lib/content-types";
 import { pestIconMap } from "@/lib/icon-map";
 
+/** Job photos are 1920×1080. The attributes reserve space; CSS (.fill-image) sizes the image to its frame. */
+export const photoWidth = 1920;
+export const photoHeight = 1080;
+
 export function PageHero({
   title,
   description,
@@ -63,11 +67,11 @@ export function ProjectVisual({ location, large = false }: { location: GalleryIt
     <div className={`${large ? "project-visual project-visual-large" : "project-visual"}${comparisonImages ? " project-slideshow" : ""}`} role={previewImage ? undefined : "img"} aria-label={previewImage ? undefined : `${location.displayCategory} gallery visual for ${location.generalLocation}`}>
       {comparisonImages ? (
         <>
-          <Image className="project-slide project-slide-before" src={comparisonImages.before} alt={`${location.title} before and after slideshow in ${location.generalLocation}`} fill sizes={imageSizes} />
-          <Image className="project-slide project-slide-after" src={comparisonImages.after} alt="" fill sizes={imageSizes} />
+          <Image className="fill-image project-slide project-slide-before" src={comparisonImages.before} alt={`${location.heading}: before and after`} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
+          <Image className="fill-image project-slide project-slide-after" src={comparisonImages.after} alt="" width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
         </>
       ) : previewImage ? (
-        <Image src={previewImage} alt={`${location.title} in ${location.generalLocation}`} fill sizes={imageSizes} />
+        <Image className="fill-image" src={previewImage} alt={location.heading} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
       ) : (
         <>
           <div className="visual-grid" aria-hidden="true" />

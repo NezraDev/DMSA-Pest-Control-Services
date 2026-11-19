@@ -210,6 +210,27 @@ export function QuoteForm({
     requestAnimationFrame(tryFocus);
   }, []);
 
+  // Links such as /request-quote#service=Termite%20Control (or the older ?service=) preselect
+  // the service. Using the hash keeps one crawlable URL for the quotation page.
+  useEffect(() => {
+    let timer: number | undefined;
+    const readService = () => {
+      const value = new URLSearchParams(window.location.hash.slice(1)).get("service")
+        ?? new URLSearchParams(window.location.search).get("service");
+      if (!value || !(formOptions.service as readonly string[]).includes(value)) return;
+      // The select registers its options just after mount; setting a value before then makes
+      // it reset to empty, so wait for the next frame.
+      window.cancelAnimationFrame(timer ?? 0);
+      timer = window.requestAnimationFrame(() => setValue("service", value as QuoteFormValues["service"]));
+    };
+    readService();
+    window.addEventListener("hashchange", readService);
+    return () => {
+      window.cancelAnimationFrame(timer ?? 0);
+      window.removeEventListener("hashchange", readService);
+    };
+  }, [setValue]);
+
   // Runs after a new step has rendered, so its fields exist to receive focus.
   useEffect(() => {
     if (focus === "invalid") {

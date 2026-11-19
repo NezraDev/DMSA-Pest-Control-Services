@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/gallery-data";
 import { JsonLd } from "@/components/site/json-ld";
 import { services } from "@/data/services-data";
+import { photoAlt } from "@/lib/alt-text";
 import { townByKey } from "@/lib/locations";
 import { organizationId, pageMetadata, pageSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site-url";
@@ -82,9 +83,7 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
   const treatmentImages = location.imagePaths.map((src, index) => ({
     src,
     label: captionFor(index) ?? location.title,
-    alt: captionFor(index)
-      ? `${captionFor(index)}, ${location.generalLocation}`
-      : `${location.servicePerformed} in ${location.generalLocation}, photo ${index + 1}`,
+    alt: photoAlt(captionFor(index) ?? `${location.servicePerformed}, photo ${index + 1}`, location.generalLocation),
   }));
   const path = `/gallery/${location.slug}`;
   const study = location.caseStudy ?? {};
@@ -134,7 +133,7 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
         <div className="site-container">
           <BackLink href="/gallery">Back to gallery</BackLink>
           <div className="detail-hero-grid">
-            <div className="detail-hero-copy"><h1>{location.heading}</h1><p>{location.shortDescription}</p><Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(location.servicePerformed)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button></div>
+            <div className="detail-hero-copy"><h1>{location.heading}</h1><p>{location.shortDescription}</p><Button asChild size="lg"><Link href={`/request-quote#service=${encodeURIComponent(location.category === "Termite Control" ? "Termite Control" : "General Pest Control")}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button></div>
             <ProjectVisual location={location} large />
           </div>
         </div>
@@ -149,11 +148,11 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
                 </div>
                 <div className="before-after-grid">
                   <figure>
-                    <div className="before-after-image"><Image src={comparisonImages.before} alt={location.comparisonCaptions?.[0] ?? `Before treatment image for ${location.title}`} fill sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
+                    <div className="before-after-image"><Image className="fill-image" src={comparisonImages.before} alt={location.comparisonCaptions?.[0] ?? `Before treatment image for ${location.title}`} width={1920} height={1080} quality={50} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
                     <figcaption>Before image</figcaption>
                   </figure>
                   <figure>
-                    <div className="before-after-image"><Image src={comparisonImages.after} alt={location.comparisonCaptions?.[1] ?? `After treatment image for ${location.title}`} fill sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
+                    <div className="before-after-image"><Image className="fill-image" src={comparisonImages.after} alt={location.comparisonCaptions?.[1] ?? `After treatment image for ${location.title}`} width={1920} height={1080} quality={50} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
                     <figcaption>After image</figcaption>
                   </figure>
                 </div>
@@ -203,7 +202,7 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
                 <li>Request a quotation with a pin on the map. The ocular inspection is free and included.</li>
               </ol>
               <p className="detail-links">
-                <Link className="text-link" href={`/request-quote?service=${encodeURIComponent("Termite Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link>
+                <Link className="text-link" href={`/request-quote#service=${encodeURIComponent("Termite Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link>
                 <Link className="text-link" href="/guides/signs-of-anay-termites-in-your-house">Signs of anay in your house <ArrowRight aria-hidden="true" /></Link>
               </p>
             </div>
