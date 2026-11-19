@@ -32,7 +32,7 @@ export const provinces = [
     ],
     faqs: [
       { question: "Does DMSA have a branch in Laguna?", answer: "Yes. DMSA's Laguna branch is in San Antonio, Los Baños. Call 0955 562 9226 or message 0918 299 5218 on Viber." },
-      { question: "Which towns in Laguna does DMSA serve?", answer: "DMSA accepts requests from all 30 cities and municipalities in Laguna, including San Pedro, Biñan, Santa Rosa, Calamba, Los Baños and Santa Cruz. Find your town on this page." },
+      { question: "Which towns in Laguna does DMSA serve?", answer: "DMSA accepts requests from all 30 cities and towns in Laguna, including San Pedro, Biñan, Santa Rosa, Calamba, Los Baños and Santa Cruz. Find your town on this page." },
       { question: "Which towns in Laguna has DMSA worked in?", answer: "Completed jobs shown on this site include Anos and Marymount Village in Los Baños, and South Langkiwa in Biñan. For other towns, request a quotation; availability depends on the location and scope." },
       { question: "Does DMSA do soil poisoning in Laguna?", answer: "Yes. DMSA has carried out soil poisoning together with chemical injection in Marymount Village, Los Baños, and in South Langkiwa, Biñan." },
     ],
@@ -185,7 +185,7 @@ export const provinces = [
     ],
     faqs: [
       { question: "Where is DMSA's office in Camarines Sur?", answer: "DMSA's main office is in Zone 3, Pamukid, San Fernando, Camarines Sur." },
-      { question: "Which towns in Camarines Sur does DMSA serve?", answer: "DMSA accepts requests from all 37 cities and municipalities in Camarines Sur, including Naga, Iriga, Pili and Libmanan. Find your town on this page." },
+      { question: "Which towns in Camarines Sur does DMSA serve?", answer: "DMSA accepts requests from all 37 cities and towns in Camarines Sur, including Naga, Iriga, Pili and Libmanan. Find your town on this page." },
       { question: "Does DMSA serve areas outside San Fernando?", answer: "Yes. DMSA serves homes and businesses across Camarines Sur and the wider Bicol Region. Availability depends on the location and required scope." },
       { question: "Is the ocular inspection free in the Bicol Region?", answer: "Yes. The free ocular inspection is included in the quotation process for properties DMSA can serve." },
     ],

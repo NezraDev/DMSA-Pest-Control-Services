@@ -492,7 +492,7 @@ test("production responses send security headers and images stay light", async (
   for (const header of ["Content-Security-Policy", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy"]) assert.match(config, new RegExp(header));
   assert.match(config, /basemaps\.cartocdn\.com/, "CSP must allow the CARTO map tiles");
   assert.match(config, /deviceSizes: \[640, 750, 828, 1080, 1200, 1440\]/);
-  assert.match(config, /qualities: \[50, 60\]/);
+  assert.match(config, /qualities: \[50\]/);
   for (const file of ["components/site/homepage-slideshow.tsx", "components/site/page-elements.tsx", "components/site/proof-carousel.tsx", "app/gallery/[slug]/page.tsx"]) {
     const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
     assert.doesNotMatch(source, /<Image\b[^>]*\sfill\b/, `${file}: use width/height with .fill-image instead of fill`);

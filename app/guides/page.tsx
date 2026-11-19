@@ -21,14 +21,14 @@ const sentence = (text: string) => text.replace(/^./, (letter) => letter.toUpper
 const groups = [
   {
     id: "termites",
-    title: "Termites (anay)",
+    title: "Termite (anay) guides",
     intro: "Termites do their damage out of sight, so most questions are about spotting them early, telling them apart from ants, protecting a new build and what treatment costs. Start with the signs, then read about the inspection and soil treatment.",
     match: (service: string) => service === "termite-control",
     pest: "termites-anay",
   },
   {
     id: "prevention",
-    title: "Prevention and preparation",
+    title: "Prevention and preparation guides",
     intro: "Cockroaches, ants, flies and rodents come in for food, water and shelter. These guides cover the everyday habits that keep them out, and how to get your home or business ready when a treatment is booked.",
     match: (service: string) => service !== "termite-control",
     pest: "cockroaches-ipis",

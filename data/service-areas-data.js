@@ -13,22 +13,22 @@ export const serviceAreas = [
   },
   {
     name: "Cavite",
-    summary: "Termite treatment and general pest control for homes, offices and shops in Cavite, with pre-construction soil treatment for new builds.",
+    summary: "Termite treatment and pest control for homes, offices and shops in Cavite, plus soil treatment for new builds before the slab is poured.",
   },
   {
     name: "Batangas",
-    summary: "Pest control in Batangas for houses and commercial properties, including ants, cockroaches, flies, rodents and termites.",
+    summary: "Pest control in Batangas for houses, shops and offices: ants, cockroaches, flies, rats and termites.",
   },
   {
     name: "Rizal",
-    summary: "Residential and commercial pest control in Rizal, starting with a quotation request and a free ocular inspection of the property.",
+    summary: "Pest control for homes and businesses in Rizal, starting with a free ocular inspection of the property.",
   },
   {
     name: "Quezon",
-    summary: "Anay treatment and pest management in Quezon province for homes, retail spaces, warehouses and other properties.",
+    summary: "Anay treatment and pest control in Quezon province for homes, shops, warehouses and more.",
   },
   {
     name: "Metro Manila",
-    summary: "Pest control and termite treatment in Metro Manila for condominiums, apartments, houses, offices and retail spaces.",
+    summary: "Pest control and termite treatment in Metro Manila for condos, apartments, houses, offices and shops.",
   },
 ];

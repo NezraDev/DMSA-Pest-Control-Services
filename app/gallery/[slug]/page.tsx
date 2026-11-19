@@ -148,25 +148,25 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
                 </div>
                 <div className="before-after-grid">
                   <figure>
-                    <div className="before-after-image"><Image className="fill-image" src={comparisonImages.before} alt={location.comparisonCaptions?.[0] ?? `Before treatment image for ${location.title}`} width={1920} height={1080} quality={50} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
+                    <div className="before-after-image"><Image className="fill-image" src={comparisonImages.before} alt={location.comparisonCaptions?.[0] ?? `Before treatment image for ${location.title}`} title={location.comparisonCaptions?.[0] ?? "Before treatment"} width={1920} height={1080} quality={50} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
                     <figcaption>Before image</figcaption>
                   </figure>
                   <figure>
-                    <div className="before-after-image"><Image className="fill-image" src={comparisonImages.after} alt={location.comparisonCaptions?.[1] ?? `After treatment image for ${location.title}`} width={1920} height={1080} quality={50} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
+                    <div className="before-after-image"><Image className="fill-image" src={comparisonImages.after} alt={location.comparisonCaptions?.[1] ?? `After treatment image for ${location.title}`} title={location.comparisonCaptions?.[1] ?? "After treatment"} width={1920} height={1080} quality={50} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
                     <figcaption>After image</figcaption>
                   </figure>
                 </div>
               </section>
           ) : null}
           <ProofCarousel
-            title="Treatment gallery"
+            title={`Photos from ${location.generalLocation}`}
             description="Swipe or use the arrow controls to browse this treatment's proof images."
             images={treatmentImages}
           />
           <div className="project-detail-grid">
             <div className="detail-main">
             <div className="treatment-overview">
-              <h2>Treatment overview</h2>
+              <h2>Treatment overview for {location.generalLocation}</h2>
               <p>{location.description}</p>
               <dl className="detail-list">
               <div><MapPin aria-hidden="true" /><dt>General location</dt><dd>{location.generalLocation}</dd></div>

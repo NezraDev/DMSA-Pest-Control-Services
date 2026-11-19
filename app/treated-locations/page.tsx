@@ -23,7 +23,7 @@ export default function TreatedLocationsPage() {
       <section className="section treated-page-section"><div className="site-container"><TreatedMapExplorer /></div></section>
       <section className="section">
         <div className="site-container">
-          <SectionHeading title="Pest and termite control by area" description="Availability depends on the location and required scope." />
+          <SectionHeading title="Pest and termite control by area" description="We confirm the visit once we know your area and the work." />
           <p><Link className="text-link" href="/service-areas">All service areas and towns</Link></p>
           <div className="area-grid">
             {serviceAreas.map((area) => (

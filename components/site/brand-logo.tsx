@@ -10,6 +10,7 @@ export function BrandLogo({ compact = false }: { compact?: boolean }) {
         <Image
           src={siteConfig.logos.website}
           alt="DMSA Pest Control Services"
+          title="DMSA Pest Control Services"
           width={2048}
           height={1152}
           priority

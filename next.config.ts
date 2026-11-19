@@ -38,9 +38,9 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     // Photos are 1920px wide; 1440px is sharp on screen and keeps every variant small.
     deviceSizes: [640, 750, 828, 1080, 1200, 1440],
-    // 60 for the homepage slides, 50 for job photos. Keeps the JPEG fallback (what crawlers
-    // download) under 100 KB per photo.
-    qualities: [50, 60],
+    // One quality for every photo. Keeps the JPEG fallback (what crawlers download, after
+    // Netlify's image CDN re-encodes it) under 100 KB.
+    qualities: [50],
   },
   async headers() {
     if (process.env.NODE_ENV !== "production") return [];

@@ -118,7 +118,7 @@ export default async function ProvincePage({ params }: Props) {
             description={`DMSA accepts requests from all ${province.towns.length} ${content.townWord} in ${province.name}, covering ${content.barangayCount.toLocaleString("en-PH")} barangays. Linked towns have their own page with completed jobs and local details; for any other town, request a quotation and DMSA confirms the visit.`}
           />
           <TownLinks title="Cities" towns={content.cities} />
-          <TownLinks title="Municipalities" towns={content.municipalities} />
+          <TownLinks title="Towns" towns={content.municipalities} />
         </div>
       </section>
 

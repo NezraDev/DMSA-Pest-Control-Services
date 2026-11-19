@@ -31,7 +31,7 @@ export function LegalPage({
       <section className="section legal-section">
         <div className="site-container legal-layout">
           <nav className="legal-contents" aria-label="On this page">
-            <h2>On this page</h2>
+            <p className="legal-contents-title">On this page</p>
             <ol>
               {sections.map((section) => (
                 <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>

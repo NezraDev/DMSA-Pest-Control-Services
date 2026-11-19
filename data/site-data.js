@@ -25,7 +25,7 @@ export const siteConfig = {
     tiktok: "https://www.tiktok.com/@dmsapestcontrolservices",
     email: "dmsapestcontrolservices@gmail.com",
   },
-  hours: "Monday–Sunday, 8:00 AM–5:00 PM",
+  hours: "Monday to Sunday, 8:00 AM to 5:00 PM",
   serviceAreas: [
     "Bicol Region",
     "Cavite",
@@ -50,22 +50,22 @@ export const siteConfig = {
 export const trustPoints = [
   {
     title: "Effective solutions",
-    detail: "Inspection-led planning",
+    detail: "Plans based on what we find",
     icon: "compass",
   },
   {
     title: "Safe & reliable service",
-    detail: "Considerate service planning",
+    detail: "Careful, well-planned visits",
     icon: "shield",
   },
   {
-    title: "Residential & commercial",
-    detail: "Service for varied properties",
+    title: "Homes & businesses",
+    detail: "Houses, condos, shops and sites",
     icon: "building",
   },
   {
-    title: "Environmentally responsible",
-    detail: "Care for people and surroundings",
+    title: "Care for the environment",
+    detail: "Mindful of people and nature",
     icon: "sprout",
   },
 ];
@@ -74,22 +74,22 @@ export const trustPoints = [
 export const companyValues = [
   {
     title: "Effective solutions",
-    text: "Recommendations begin with inspection findings, pest activity and the conditions present at the property.",
+    text: "We plan each job from what the inspection finds: the pest, where it is and the state of the property.",
     icon: "compass",
   },
   {
     title: "Safe & reliable service",
-    text: "Service is planned with clear preparation, responsible application and dependable follow-up guidance.",
+    text: "Each visit comes with clear prep steps, careful treatment and follow-up advice you can rely on.",
     icon: "shield",
   },
   {
-    title: "Residential & commercial",
-    text: "DMSA supports homes, offices, retail spaces, warehouses, construction sites and other property needs.",
+    title: "Homes & businesses",
+    text: "DMSA serves homes, offices, shops, warehouses, building sites and more.",
     icon: "building",
   },
   {
-    title: "Environmentally responsible",
-    text: "Planning considers occupants, the property and surrounding environment throughout the service process.",
+    title: "Care for the environment",
+    text: "We plan with care for the people in the building, the property and the area around it.",
     icon: "sprout",
   },
 ];
@@ -105,19 +105,19 @@ export const processSteps = [
   {
     number: "02",
     title: "Free ocular inspection",
-    text: "Arrange a free site review for your quotation.",
+    text: "We check your place for free.",
     icon: "search",
   },
   {
     number: "03",
     title: "Review the quotation",
-    text: "Review the approach, schedule and price.",
+    text: "See the plan, the schedule and the price.",
     icon: "clipboard",
   },
   {
     number: "04",
     title: "Service & guidance",
-    text: "Get service and practical prevention guidance.",
+    text: "We treat and share tips to keep pests out.",
     icon: "calendar",
   },
 ];

@@ -21,7 +21,7 @@ import { pageMetadata, pageSchema } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "About DMSA",
   description:
-    "DMSA Pest Control Services provides pest and termite control from San Fernando, Camarines Sur and Los Baños, Laguna, for homes and businesses across Luzon.",
+    "Pest and termite control for homes and businesses in Luzon, from DMSA's offices in San Fernando, Camarines Sur and Los Baños, Laguna. Free inspection.",
   path: "/about",
 });
 
@@ -46,19 +46,18 @@ export default function AboutPage() {
             <strong>Inspect first</strong>
             <span>Plan from what the property shows</span>
             <p>
-              Residential and commercial pest management starts with the actual
-              signs, access points and site conditions.
+              Every job, home or business, starts with the signs, the way pests
+              get in and the state of the site.
             </p>
           </div>
           <div>
             <SectionHeading
               title="Committed to Quality Service and Excellence"
-              description="DMSA helps homeowners, business operators and property teams through effective solutions, safe and reliable service, and environmentally responsible planning."
+              description="DMSA helps homeowners, business owners and property teams with work that is effective, safe, reliable and kind to the environment."
             />
             <p className="body-copy">
-              Each residential and commercial service starts with the property’s
-              actual conditions, with recommendations communicated clearly and
-              matched to the work required.
+              Each job starts with how the property really is. We explain what
+              we suggest in plain words and match it to the work you need.
             </p>
           </div>
         </div>
@@ -89,7 +88,7 @@ export default function AboutPage() {
           <div>
             <SectionHeading
               title="Based in Bicol. Available across key Luzon regions."
-              description="Scheduling depends on location, property needs and the required service scope."
+              description="The schedule depends on where you are and the work you need."
             />
             <ul className="coverage-list">
               {siteConfig.serviceAreas.map((area, index) => (

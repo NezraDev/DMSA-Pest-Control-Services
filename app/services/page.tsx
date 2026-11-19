@@ -47,7 +47,7 @@ export default function ServicesPage() {
         </div>
       </section>
       <section className="safety-note-section">
-        <div className="site-container safety-note"><SearchCheck aria-hidden="true" /><div><h2>Inspection comes before a specific recommendation.</h2><p>Product selection, application method, access needs and preparation depend on the pest, property and site findings. DMSA confirms these details directly; this website does not prescribe chemical treatments.</p></div><CheckCircle2 aria-hidden="true" /></div>
+        <div className="site-container safety-note"><SearchCheck aria-hidden="true" /><div><h2>We inspect first, then recommend.</h2><p>The products, the method, access and prep all depend on the pest and what we find on site. DMSA confirms these with you directly. This website does not give chemical advice.</p></div><CheckCircle2 aria-hidden="true" /></div>
       </section>
       <FinalCta />
     </main>

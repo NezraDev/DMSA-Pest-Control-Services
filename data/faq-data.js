@@ -2,7 +2,7 @@
 export const faqs = [
   {
     question: "What pests does DMSA treat?",
-    answer: "DMSA provides pest control for ants, cockroaches, flies, rodents and termites (anay) in residential and commercial properties.",
+    answer: "DMSA treats ants, cockroaches, flies, rats and mice, and termites (anay) in homes and businesses.",
   },
   {
     question: "Where is DMSA located?",
@@ -10,26 +10,26 @@ export const faqs = [
   },
   {
     question: "Is the ocular inspection really free?",
-    answer: "Yes. The free ocular inspection is included in DMSA’s quotation process and may be arranged to review the property before the scope, schedule and price are confirmed.",
+    answer: "Yes. The ocular inspection is free and part of every quotation. DMSA checks the property before confirming the work, the schedule and the price.",
   },
   {
     question: "How do I know which service to request?",
-    answer: "Choose the closest option in the request form, select Unsure, or use Other. DMSA can confirm the appropriate service after inspecting the property.",
+    answer: "Pick the closest option in the form, or choose Unsure or Other. DMSA confirms the right service after the inspection.",
   },
   {
     question: "Do you serve areas outside Camarines Sur?",
-    answer: "Yes. DMSA serves the Bicol Region, Cavite, Laguna, Batangas, Rizal, Quezon and Metro Manila. Availability depends on the location and required scope.",
+    answer: "Yes. DMSA serves the Bicol Region, Cavite, Laguna, Batangas, Rizal, Quezon and Metro Manila. DMSA confirms the visit once it knows your area and the work needed.",
   },
   {
     question: "What should I prepare before a visit?",
-    answer: "Share the affected areas, pest signs, property type and access considerations. DMSA will provide any specific preparation instructions when the visit is confirmed.",
+    answer: "Tell DMSA where you see pests, what signs you found, the type of property and how to get in. DMSA sends any prep steps when the visit is set.",
   },
   {
     question: "Can I request termite treatment before construction?",
-    answer: "Yes. DMSA provides pre-construction anti-termite soil treatment as well as post-construction inspection and treatment options.",
+    answer: "Yes. DMSA treats the soil against termites before you build, and also inspects and treats finished buildings.",
   },
   {
     question: "Is an online quotation final?",
-    answer: "No. The form starts the review. Final scope, timing and cost are confirmed after DMSA assesses the submitted details and inspection needs.",
+    answer: "No. The form starts the process. DMSA confirms the final work, timing and cost after reviewing your details and the inspection.",
   },
 ];

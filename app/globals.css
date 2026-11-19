@@ -736,7 +736,7 @@ html.dark .brand-crop img { filter: brightness(0) invert(1); }
 .consent-row p a { color: var(--primary-text); text-decoration: underline; text-underline-offset: 3px; }
 .legal-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: var(--space-12); align-items: start; }
 .legal-contents { position: sticky; top: 104px; }
-.legal-contents h2 { margin: 0 0 12px; font-size: var(--text-small); font-weight: 600; }
+.legal-contents h2, .legal-contents .legal-contents-title { margin: 0 0 12px; font-size: var(--text-small); font-weight: 600; }
 .legal-contents ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; border-left: 1px solid var(--border); }
 .legal-contents a { display: block; padding: 6px 0 6px 14px; color: var(--muted-foreground); font-size: var(--text-caption); line-height: 1.45; text-decoration: none; }
 .legal-contents a:hover { color: var(--primary-text); }

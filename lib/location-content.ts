@@ -183,7 +183,7 @@ export type ProvinceContent = {
   metaDescription: string;
   intro: string[];
   officeParagraph: string;
-  /** "cities and municipalities", or "municipalities" for a province with no cities. */
+  /** "cities and towns", or "towns" for a province with no cities. */
   townWord: string;
   cities: LocationTown[];
   municipalities: LocationTown[];
@@ -204,7 +204,8 @@ export function provinceContent(province: LocationProvince): ProvinceContent {
   const farthest = distances.length ? Math.max(...distances) : null;
   const officeTown = province.towns.find((town) => town.hasOffice);
   const townCount = province.towns.length;
-  const townWord = province.towns.some((town) => town.type === "city") ? "cities and municipalities" : "municipalities";
+  // "Towns" is the everyday word for municipalities in the Philippines.
+  const townWord = province.towns.some((town) => town.type === "city") ? "cities and towns" : "towns";
   const officeParagraph = officeTown
     ? `DMSA's ${office.shortLabel} is at ${office.address}. It serves all ${townCount} ${townWord} in ${province.name}${farthest ? `; the farthest is about ${farthest} km away in a straight line` : ""}.`
     : `${province.name} is served from DMSA's ${office.label}, at ${office.address}.${farthest && distances.length ? ` Its ${townCount} ${townWord} are about ${Math.min(...distances)} to ${farthest} km from the office in a straight line.` : ""}`;

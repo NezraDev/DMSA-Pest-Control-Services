@@ -29,7 +29,7 @@ export default function ServiceAreasPage() {
       <JsonLd data={pageSchema({ type: "CollectionPage", name: "Pest and termite control service areas in Luzon", description, path: "/service-areas", breadcrumbs: [{ name: "Home", path: "/" }, { name: "Service areas", path: "/service-areas" }] })} />
       <PageHero
         title="Pest and termite control service areas in Luzon"
-        description={`DMSA serves all ${allTowns.length} cities and municipalities in Laguna, Batangas, Cavite, Rizal, Quezon, Metro Manila and the six Bicol provinces, from its main office in San Fernando, Camarines Sur, and its branch in Los Baños, Laguna.`}
+        description={`DMSA serves all ${allTowns.length} cities and towns in Laguna, Batangas, Cavite, Rizal, Quezon, Metro Manila and the six Bicol provinces, from its main office in San Fernando, Camarines Sur, and its branch in Los Baños, Laguna.`}
         actions={<Button asChild size="lg"><Link href="/request-quote">Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>}
       />
 
@@ -60,7 +60,7 @@ export default function ServiceAreasPage() {
             <div className="site-container">
               <SectionHeading
                 title={region.name === "Metro Manila" ? "Metro Manila (NCR)" : region.name}
-                description={`${regionProvinces.reduce((sum, province) => sum + province.towns.length, 0)} cities and municipalities, served from DMSA's ${offices[regionProvinces[0].servedFrom].label}.`}
+                description={`${regionProvinces.reduce((sum, province) => sum + province.towns.length, 0)} cities and towns, served from DMSA's ${offices[regionProvinces[0].servedFrom].label}.`}
               />
               {regionProvinces.map((province) => (
                 <article key={province.slug} id={province.slug} className="province-block">
@@ -70,7 +70,7 @@ export default function ServiceAreasPage() {
                       : <>Pest control in {province.name}</>}
                   </h3>
                   <p>
-                    {province.towns.length} cities and municipalities.{" "}
+                    {province.towns.length} cities and towns.{" "}
                     {province.launched
                       ? <>Linked towns have their own page. For any town, <Link href={province.path}>see {province.name}</Link> or request a quotation.</>
                       : <>Request a quotation for any town in {province.name}; <Link href="/request-quote">start here</Link>.</>}
@@ -89,11 +89,19 @@ export default function ServiceAreasPage() {
 
       <section className="section">
         <div className="site-container seo-copy">
+          <h2>How to book pest control in your town</h2>
+          <ol>
+            <li>Tell us your town and drop a pin on the map. It takes a few minutes.</li>
+            <li>We look at the spot and call or send you a message.</li>
+            <li>We come to check your place. The check is free.</li>
+            <li>You get the plan, the date and the price. You choose if you want to go ahead.</li>
+            <li>We treat the pests and give you tips to keep them out.</li>
+          </ol>
           <h2>Not sure if DMSA serves your area?</h2>
           <p>
-            Request a quotation and drop a pin on the property. DMSA reviews the location and confirms whether it can be served,
-            then arranges the free ocular inspection. You can also see completed jobs on the{" "}
-            <Link href="/treated-locations">treated-locations map</Link> and read the <Link href="/faq">frequently asked questions</Link>.
+            Send a request with a pin on the map. We will tell you if we can reach your place, then set up the free
+            check. You can also see our past jobs on the <Link href="/treated-locations">treated-locations map</Link> and
+            read the <Link href="/faq">common questions</Link>.
           </p>
         </div>
       </section>

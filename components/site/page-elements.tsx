@@ -67,11 +67,11 @@ export function ProjectVisual({ location, large = false }: { location: GalleryIt
     <div className={`${large ? "project-visual project-visual-large" : "project-visual"}${comparisonImages ? " project-slideshow" : ""}`} role={previewImage ? undefined : "img"} aria-label={previewImage ? undefined : `${location.displayCategory} gallery visual for ${location.generalLocation}`}>
       {comparisonImages ? (
         <>
-          <Image className="fill-image project-slide project-slide-before" src={comparisonImages.before} alt={`${location.heading}: before and after`} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
-          <Image className="fill-image project-slide project-slide-after" src={comparisonImages.after} alt="" width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
+          <Image className="fill-image project-slide project-slide-before" src={comparisonImages.before} alt={`${location.heading}: before treatment`} title={`${location.heading}: before`} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
+          <Image className="fill-image project-slide project-slide-after" src={comparisonImages.after} alt={`${location.heading}: after treatment`} title={`${location.heading}: after`} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
         </>
       ) : previewImage ? (
-        <Image className="fill-image" src={previewImage} alt={location.heading} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
+        <Image className="fill-image" src={previewImage} alt={location.heading} title={location.heading} width={photoWidth} height={photoHeight} quality={50} sizes={imageSizes} />
       ) : (
         <>
           <div className="visual-grid" aria-hidden="true" />
@@ -104,7 +104,7 @@ export function FinalCta() {
       <div className="site-container final-cta-inner">
         <div className="final-cta-copy">
           <h2>Request a quotation with a free ocular inspection.</h2>
-          <p>Share the location and pest concern. DMSA can arrange the included inspection during follow-up before confirming scope and price.</p>
+          <p>Tell us where you are and what pest you see. We set up the free visit, then confirm the work and the price.</p>
         </div>
         <div className="final-cta-actions">
           <Button asChild size="lg" className="light-button"><Link href="/request-quote">Request quotation <ArrowRight aria-hidden="true" /></Link></Button>

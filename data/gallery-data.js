@@ -13,8 +13,8 @@ export const galleryItems = [
   {
     id: "job-001",
     slug: "anos-los-banos-residential-termite-control-treatment",
-    title: "Residential Termite Control and Treatment",
-    heading: "Residential Termite Control in Anos, Los Baños",
+    title: "Home Termite Control and Treatment",
+    heading: "Home Termite Control in Anos, Los Baños",
     metaTitle: "Termite Treatment in Anos, Los Baños, Laguna | DMSA",
     imagePaths: [
       "/brand/anos/1.jpg",
@@ -56,7 +56,7 @@ export const galleryItems = [
   {
     id: "job-002",
     slug: "marymount-village-anos-los-banos-termite-control-soil-poisoning",
-    title: "Residential Termite Control and Soil Poisoning",
+    title: "Home Termite Control and Soil Poisoning",
     heading: "Termite Control and Soil Poisoning in Marymount Village, Los Baños",
     metaTitle: "Soil Poisoning in Marymount Village, Los Baños | DMSA",
     imagePaths: [
@@ -104,7 +104,7 @@ export const galleryItems = [
   {
     id: "job-003",
     slug: "langkiwa-binan-termite-control-soil-poisoning",
-    title: "Residential Termite Control and Soil Poisoning",
+    title: "Home Termite Control and Soil Poisoning",
     heading: "Termite Control and Soil Poisoning in South Langkiwa, Biñan",
     metaTitle: "Soil Poisoning in South Langkiwa, Biñan, Laguna | DMSA",
     imagePaths: [

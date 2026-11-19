@@ -44,7 +44,7 @@ export function GalleryExplorer() {
             </button>
             <div className="project-card-body">
               <div className="project-meta"><span>{location.servicePerformed}</span><span>{location.year}</span></div>
-              <h2>{location.title}</h2>
+              <h2>{location.heading}</h2>
               <p className="location-line"><MapPin aria-hidden="true" />{location.generalLocation}</p>
               <p>{location.shortDescription}</p>
               <Link className="card-link" href={`/gallery/${location.slug}`}>View full details <ArrowRight aria-hidden="true" /></Link>

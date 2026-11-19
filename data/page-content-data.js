@@ -9,11 +9,11 @@ export const homeContent = {
 export const pageHeroes = {
   services: {
     title: "Pest control and termite treatment services.",
-    description: "The right treatment starts with the site. From ants, cockroaches, flies and rodents to pre- and post-construction termite (anay) concerns, DMSA reviews the property before confirming the service plan.",
+    description: "The right treatment starts with the site. Whether it's ants, cockroaches, flies, rats or termites (anay) before or after you build, DMSA checks the property first, then plans the work.",
   },
   about: {
     title: "About DMSA Pest Control Services in Camarines Sur and Laguna",
-    description: "DMSA provides effective pest and termite control and safe, reliable service for residential and commercial properties across key Luzon regions.",
+    description: "DMSA gives safe, reliable pest and termite control for homes and businesses in Bicol, Laguna and nearby provinces.",
   },
   contact: {
     title: "Contact DMSA Pest Control Services.",
@@ -25,10 +25,10 @@ export const pageHeroes = {
   },
   gallery: {
     title: "Termite and pest control work by DMSA.",
-    description: "Browse residential, commercial, termite and general pest-control entries by service and location.",
+    description: "Browse our jobs for homes and businesses by service and place.",
   },
   locations: {
     title: "Pest control service areas across Luzon.",
-    description: "DMSA serves the Bicol Region, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila. Filter generalized locations by region, service, pest concern, customer type and year without exposing exact property addresses.",
+    description: "DMSA serves Bicol, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila. Filter jobs by area, service, pest, client type and year. Pins show the general area only, never the exact address.",
   },
 };

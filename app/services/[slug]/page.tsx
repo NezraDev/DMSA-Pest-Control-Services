@@ -81,9 +81,9 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       <section className="section service-details-section">
         <div className="site-container service-detail-columns">
-          <div><h2 className="seo-column-title"><CircleAlert aria-hidden="true" />Signs to look for</h2><Checklist items={service.signs} /></div>
-          <div><h2 className="seo-column-title"><ClipboardList aria-hidden="true" />How it works</h2><ol className="numbered-list">{service.process.map((step, index) => <li key={step}><span>{index + 1}</span>{step}</li>)}</ol></div>
-          <div><h2 className="seo-column-title"><Lightbulb aria-hidden="true" />Prevention tips</h2><Checklist items={service.prevention} /></div>
+          <div><h2 className="seo-column-title"><CircleAlert aria-hidden="true" />Signs you need {lowerTitle}</h2><Checklist items={service.signs} /></div>
+          <div><h2 className="seo-column-title"><ClipboardList aria-hidden="true" />How {lowerTitle} works</h2><ol className="numbered-list">{service.process.map((step, index) => <li key={step}><span>{index + 1}</span>{step}</li>)}</ol></div>
+          <div><h2 className="seo-column-title"><Lightbulb aria-hidden="true" />Tips after {lowerTitle}</h2><Checklist items={service.prevention} /></div>
         </div>
       </section>
 
