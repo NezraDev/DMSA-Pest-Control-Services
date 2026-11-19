@@ -27,11 +27,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { navigation } from "@/data/navigation-data";
-import { serviceAreas } from "@/data/service-areas-data";
-import { towns } from "@/data/towns-data";
+import { launchedProvinces } from "@/data/locations/provinces";
 import { services } from "@/data/services-data";
 import { siteConfig } from "@/data/site-data";
 import { BrandLogo } from "./brand-logo";
+import { SocialLinks } from "./social-links";
 
 type Theme = "light" | "dark" | "system";
 
@@ -150,7 +150,8 @@ export function SiteHeader() {
   );
 }
 
-export function SiteFooter() {
+/** `towns`: town pages with a DMSA office or completed job, worked out on the server in app/layout.tsx. */
+export function SiteFooter({ towns = [] }: { towns?: { name: string; path: string }[] }) {
   return (
     <footer className="site-footer">
       <div className="site-container footer-grid">
@@ -158,11 +159,15 @@ export function SiteFooter() {
           <BrandLogo compact />
           <p>{siteConfig.description}</p>
           <Link className="text-link inverse-link" href="/request-quote">Request a quotation <ArrowRight aria-hidden="true" /></Link>
+          <SocialLinks className="footer-social" />
         </div>
         <div>
           <h2>Explore</h2>
           <nav aria-label="Footer navigation">
             {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+            <Link href="/pests">Pests we treat</Link>
+            <Link href="/industries">Industries</Link>
+            <Link href="/pest-control-price">Pricing</Link>
             <Link href="/guides">Guides</Link>
             <Link href="/faq">FAQ</Link>
           </nav>
@@ -171,8 +176,8 @@ export function SiteFooter() {
           <h2>Service areas</h2>
           <nav aria-label="Service area links">
             <Link href="/service-areas">All service areas</Link>
-            {serviceAreas.flatMap((area) => (area.page ? [<Link key={area.page.slug} href={`/service-areas/${area.page.slug}`}>{area.name}</Link>] : []))}
-            {towns.map((town) => <Link key={town.slug} href={`/pest-control/${town.slug}`}>{town.name}</Link>)}
+            {launchedProvinces.map((province) => <Link key={province.slug} href={`/pest-control/${province.slug}`}>{province.name}</Link>)}
+            {towns.map((town) => <Link key={town.path} href={town.path}>{town.name}</Link>)}
           </nav>
         </div>
         <div>

@@ -22,8 +22,10 @@ import { processSteps, trustPoints } from "@/data/site-data";
 import { treatedLocations } from "@/data/treated-locations-data";
 import { iconMap } from "@/lib/icon-map";
 import { HomepageSlideshow } from "@/components/site/homepage-slideshow";
+import { TrustFacts } from "@/components/site/trust-facts";
 import { JsonLd } from "@/components/site/json-ld";
 import { serviceAreas } from "@/data/service-areas-data";
+import { areaHref } from "@/data/locations/provinces";
 import { faqSchema, pageMetadata, pageSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site-url";
 
@@ -104,8 +106,8 @@ export default function Home() {
               playsInline
               preload="metadata"
               poster="/brand/video/dmsa-poster.jpg"
-              width={3840}
-              height={2160}
+              width={1920}
+              height={1080}
               aria-label="DMSA Pest Control Services introduction video"
             >
               <source src="/brand/video/dmsa-video.mp4" type="video/mp4" />
@@ -132,6 +134,8 @@ export default function Home() {
           })}
         </div>
       </section>
+
+      <TrustFacts />
 
       <section className="section services-preview" id="services">
         <div className="site-container">
@@ -178,23 +182,28 @@ export default function Home() {
         <div className="site-container seo-copy">
           <h2>Your pest control company for homes and businesses in Luzon</h2>
           <p>
-            DMSA Pest Control Services provides termite control, anay treatment
-            and general pest control for ants, cockroaches, flies and rodents.
-            We work with houses, apartments, condominiums, offices, retail
-            spaces, warehouses and construction sites, including pre-construction
-            anti-termite soil treatment for new builds.
+            DMSA Pest Control Services provides termite control and anay
+            treatment. We also handle ants, cockroaches, flies and rodents.
+            We work in houses, apartments, condominiums, offices, shops,
+            warehouses and construction sites. For new builds, we apply
+            anti-termite soil treatment before the slab is poured.
           </p>
           <p>
-            We are based in San Fernando, Camarines Sur, with a branch in Los
-            Baños, Laguna, and serve{" "}
+            Our main office is in San Fernando, Camarines Sur. Our branch is in
+            Los Baños, Laguna. We serve{" "}
             {serviceAreas.map((area, index) => (
               <span key={area.name}>
                 {index > 0 ? (index === serviceAreas.length - 1 ? " and " : ", ") : null}
-                {area.page ? <Link href={`/service-areas/${area.page.slug}`}>{area.name}</Link> : area.name}
+                <Link href={areaHref(area.name)}>{area.name}</Link>
               </span>
             ))}
-            . Every quotation includes a free ocular inspection, so the
-            recommended treatment is based on what your property actually needs.
+            . Every quotation includes a free ocular inspection. That way, the
+            treatment fits what your property actually needs.
+          </p>
+          <p>
+            Find your town on the <Link href="/service-areas">service areas page</Link>,
+            learn about the <Link href="/pests">pests we treat</Link>, or see{" "}
+            <Link href="/pest-control-price">what affects the price</Link>.
           </p>
         </div>
       </section>

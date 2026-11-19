@@ -12,7 +12,8 @@
     "build:vercel": "next build",
     "start": "next start",
     "test": "node --experimental-strip-types --test --test-concurrency=1 tests/dmsa-contract.test.ts",
-    "lint": "eslint . --ignore-pattern .next --ignore-pattern dist"
+    "lint": "eslint . --ignore-pattern .next --ignore-pattern dist",
+    "seo:locations": "node --experimental-strip-types scripts/seo-locations.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",

@@ -11,6 +11,8 @@ export const defaultShareImage = {
 };
 
 export const organizationId = `${siteUrl}/#organization`;
+/** The Los Baños branch LocalBusiness node, defined in app/layout.tsx. */
+export const branchId = `${siteUrl}/#los-banos-branch`;
 
 type PageSeo = {
   /** Combined with the brand by the root title template. */

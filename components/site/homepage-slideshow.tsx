@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const slides = [
@@ -44,7 +43,6 @@ const slides = [
 
 export function HomepageSlideshow() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [userPaused, setUserPaused] = useState(false);
   const [interacting, setInteracting] = useState(false);
   const slideshowRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +53,8 @@ export function HomepageSlideshow() {
     const syncPlayback = () => {
       window.clearInterval(timer);
       timer = undefined;
-      if (!visible || document.hidden || motion.matches || userPaused || interacting) return;
+      // Pauses while hovered or focused, off screen, in a background tab, or when reduced motion is on.
+      if (!visible || document.hidden || motion.matches || interacting) return;
       timer = window.setInterval(() => {
         setActiveIndex((current) => (current + 1) % slides.length);
       }, 6500);
@@ -73,7 +72,7 @@ export function HomepageSlideshow() {
       document.removeEventListener("visibilitychange", syncPlayback);
       motion.removeEventListener("change", syncPlayback);
     };
-  }, [userPaused, interacting]);
+  }, [interacting]);
 
   const showSlide = (index: number) => {
     setActiveIndex((index + slides.length) % slides.length);
@@ -117,14 +116,6 @@ export function HomepageSlideshow() {
           </div>
           <div className="homepage-slide-controls" role="group" aria-label="Slideshow indicators">
             <div className="homepage-slide-controls">
-              <button
-                type="button"
-                className="homepage-slide-pause"
-                aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
-                onClick={() => setUserPaused((current) => !current)}
-              >
-                {userPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
-              </button>
               <div className="homepage-slide-dots" role="group" aria-label="Choose a photo">
                 {slides.map((slide, index) => (
                   <button

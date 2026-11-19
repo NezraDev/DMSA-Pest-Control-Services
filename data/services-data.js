@@ -152,7 +152,7 @@ export const services = [
     icon: "building",
     quoteService: "Unsure",
     metaTitle: "Commercial Pest Control for Businesses",
-    metaDescription: "Commercial pest control for offices, retail spaces, warehouses and construction sites. Coordinated service with a free ocular inspection and action summary.",
+    metaDescription: "Commercial pest control for offices, shops, warehouses and construction sites, coordinated around your operations. Free ocular inspection.",
     heading: "Commercial pest control for offices, shops and warehouses",
     overviewHeading: "Pest control for offices, shops, warehouses and construction sites",
     overview: [

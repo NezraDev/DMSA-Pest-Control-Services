@@ -5,12 +5,12 @@ import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/site/json-ld";
 import { FinalCta, PageHero, SectionHeading } from "@/components/site/page-elements";
 import { Button } from "@/components/ui/button";
-import { serviceAreas } from "@/data/service-areas-data";
+import { officeTowns, regions } from "@/data/locations/provinces";
 import { siteConfig } from "@/data/site-data";
-import { towns } from "@/data/towns-data";
+import { allTowns, locationProvinces, offices } from "@/lib/locations";
 import { pageMetadata, pageSchema } from "@/lib/seo";
 
-const description = "Pest and termite (anay) control across the Bicol Region, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila, from San Fernando and Los Baños.";
+const description = "Pest and termite (anay) control in Laguna, Batangas, Cavite, Rizal, Quezon, Metro Manila and Bicol: every city and municipality DMSA serves, by province.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Pest Control Service Areas in Luzon",
@@ -19,16 +19,16 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function ServiceAreasPage() {
-  const townsByName = (slug: string) => towns.find((town) => town.slug === slug);
-  const sanFernando = townsByName("san-fernando-camarines-sur");
-  const losBanos = townsByName("los-banos");
+  const branch = officeTowns.find((town) => town.office === "branch");
+  const main = officeTowns.find((town) => town.office === "main");
+  const servedBy = (office: "main" | "branch") => locationProvinces.filter((province) => province.servedFrom === office).map((province) => province.name).join(", ").replace(/, ([^,]*)$/, " and $1");
 
   return (
     <main id="main-content">
-      <JsonLd data={pageSchema({ name: "Pest and termite control service areas in Luzon", description, path: "/service-areas", breadcrumbs: [{ name: "Home", path: "/" }, { name: "Service areas", path: "/service-areas" }] })} />
+      <JsonLd data={pageSchema({ type: "CollectionPage", name: "Pest and termite control service areas in Luzon", description, path: "/service-areas", breadcrumbs: [{ name: "Home", path: "/" }, { name: "Service areas", path: "/service-areas" }] })} />
       <PageHero
         title="Pest and termite control service areas in Luzon"
-        description="DMSA serves homes and businesses from its main office in San Fernando, Camarines Sur, and its branch in Los Baños, Laguna. Find your province or town below."
+        description={`DMSA serves all ${allTowns.length} cities and municipalities in Laguna, Batangas, Cavite, Rizal, Quezon, Metro Manila and the six Bicol provinces, from its main office in San Fernando, Camarines Sur, and its branch in Los Baños, Laguna.`}
         actions={<Button asChild size="lg"><Link href="/request-quote">Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>}
       />
 
@@ -39,46 +39,52 @@ export default function ServiceAreasPage() {
             <article>
               <h3>Main office: San Fernando, Camarines Sur</h3>
               <p>{siteConfig.address}</p>
-              {sanFernando ? <p><Link className="text-link" href={`/pest-control/${sanFernando.slug}`}>Pest control in San Fernando <ArrowRight aria-hidden="true" /></Link></p> : null}
+              <p>Serves {servedBy("main")}.</p>
+              {main ? <p><Link className="text-link" href={main.path}>Pest control in San Fernando <ArrowRight aria-hidden="true" /></Link></p> : null}
             </article>
             <article>
               <h3>Branch: Los Baños, Laguna</h3>
               <p>{siteConfig.additionalLocation}</p>
-              {losBanos ? <p><Link className="text-link" href={`/pest-control/${losBanos.slug}`}>Pest control in Los Baños <ArrowRight aria-hidden="true" /></Link></p> : null}
+              <p>Serves {servedBy("branch")}.</p>
+              {branch ? <p><Link className="text-link" href={branch.path}>Pest control in Los Baños <ArrowRight aria-hidden="true" /></Link></p> : null}
             </article>
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="site-container">
-          <SectionHeading title="Towns with completed work or a DMSA office" description="Each page shows the local office or the jobs DMSA has completed in and near that town." />
-          <div className="area-grid">
-            {towns.map((town) => (
-              <article key={town.slug}>
-                <h3>Pest control in {town.name}, {town.province}</h3>
-                <p>{town.intro[0]}</p>
-                <Link className="text-link" href={`/pest-control/${town.slug}`}>{town.name} details <ArrowRight aria-hidden="true" /></Link>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="site-container">
-          <SectionHeading title="Provinces and regions DMSA serves" description="Availability depends on the location and the work needed." />
-          <div className="area-grid">
-            {serviceAreas.map((area) => (
-              <article key={area.name}>
-                <h3>Pest control in {area.name}</h3>
-                <p>{area.summary}</p>
-                {area.page ? <Link className="text-link" href={`/service-areas/${area.page.slug}`}>{area.name} details <ArrowRight aria-hidden="true" /></Link> : null}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      {regions.map((region) => {
+        const regionProvinces = locationProvinces.filter((province) => province.region === region.name);
+        return (
+          <section key={region.id} id={region.id} className="section town-directory">
+            <div className="site-container">
+              <SectionHeading
+                title={region.name === "Metro Manila" ? "Metro Manila (NCR)" : region.name}
+                description={`${regionProvinces.reduce((sum, province) => sum + province.towns.length, 0)} cities and municipalities, served from DMSA's ${offices[regionProvinces[0].servedFrom].label}.`}
+              />
+              {regionProvinces.map((province) => (
+                <article key={province.slug} id={province.slug} className="province-block">
+                  <h3>
+                    {province.launched
+                      ? <Link href={province.path}>Pest control in {province.name} <ArrowRight aria-hidden="true" /></Link>
+                      : <>Pest control in {province.name}</>}
+                  </h3>
+                  <p>
+                    {province.towns.length} cities and municipalities.{" "}
+                    {province.launched
+                      ? "Choose a town for local details."
+                      : <>Request a quotation for any town in {province.name}; <Link href="/request-quote">start here</Link>.</>}
+                  </p>
+                  <ul className="town-name-list">
+                    {province.towns.map((town) => (
+                      <li key={town.key}>{province.launched ? <Link href={town.path}>{town.name}</Link> : town.name}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
 
       <section className="section">
         <div className="site-container seo-copy">
@@ -86,7 +92,7 @@ export default function ServiceAreasPage() {
           <p>
             Request a quotation and drop a pin on the property. DMSA reviews the location and confirms whether it can be served,
             then arranges the free ocular inspection. You can also see completed jobs on the{" "}
-            <Link href="/treated-locations">treated-locations map</Link>.
+            <Link href="/treated-locations">treated-locations map</Link> and read the <Link href="/faq">frequently asked questions</Link>.
           </p>
         </div>
       </section>

@@ -1,9 +1,20 @@
+// TODO(owner): turn each job into a case study by filling `caseStudy` (see lib/content-types.ts).
+// Each section shows on the job page only once it has text. Questions to answer per job:
+//   problem    - What did the client notice before calling? (mud tubes, damaged cabinet, swarms...)
+//   findings   - What did the inspection find, and where? How far had the termites spread?
+//   treatment  - What was done, step by step? (drilling, injection, soil poisoning, cleanup)
+//   areaTreated - Which rooms, structures or soil areas were treated?
+//   aftercare  - What follow-up or advice was given? Was a follow-up visit scheduled?
+//   customerFeedback - A short quote, only with the client's permission.
+// Never include client names, house numbers or exact addresses.
+
 /** @type {import("../lib/content-types").GalleryItem[]} */
 export const galleryItems = [
   {
     id: "job-001",
     slug: "anos-los-banos-residential-termite-control-treatment",
     title: "Residential Termite Control and Treatment",
+    heading: "Residential Termite Control in Anos, Los Baños",
     metaTitle: "Termite Treatment in Anos, Los Baños, Laguna | DMSA",
     imagePaths: [
       "/brand/anos/1.jpg",
@@ -32,7 +43,7 @@ export const galleryItems = [
       "Residential termite control in Anos, Los Baños, Laguna, treating affected areas and likely entry points, and removing termite-infested soil and debris.",
     customerFeedback: "",
     featured: false,
-    town: "los-banos",
+    town: "laguna/los-banos",
     imageCaptions: [
       "Termite mud tube running down an interior wall corner",
       "Technician drilling injection holes in the floor beside a gate",
@@ -46,6 +57,7 @@ export const galleryItems = [
     id: "job-002",
     slug: "marymount-village-anos-los-banos-termite-control-soil-poisoning",
     title: "Residential Termite Control and Soil Poisoning",
+    heading: "Termite Control and Soil Poisoning in Marymount Village, Los Baños",
     metaTitle: "Soil Poisoning in Marymount Village, Los Baños | DMSA",
     imagePaths: [
       "/brand/marymount/1.jpg",
@@ -76,7 +88,7 @@ export const galleryItems = [
       "Residential termite control involving chemical injection and soil poisoning in Marymount Village, Anos, Los Baños, Laguna.",
     customerFeedback: "",
     featured: false,
-    town: "los-banos",
+    town: "laguna/los-banos",
     imageCaptions: [
       "Termite damage along a wooden beam",
       "DMSA technician reviewing an entrance with the homeowner during inspection",
@@ -93,6 +105,7 @@ export const galleryItems = [
     id: "job-003",
     slug: "langkiwa-binan-termite-control-soil-poisoning",
     title: "Residential Termite Control and Soil Poisoning",
+    heading: "Termite Control and Soil Poisoning in South Langkiwa, Biñan",
     metaTitle: "Soil Poisoning in South Langkiwa, Biñan, Laguna | DMSA",
     imagePaths: [
       "/brand/binan/1.jpg",
@@ -122,7 +135,7 @@ export const galleryItems = [
       "Residential termite control involving chemical injection and soil poisoning in San Antonio, South Langkiwa, Biñan, Laguna.",
     customerFeedback: "",
     featured: false,
-    town: "binan",
+    town: "laguna/binan",
     imageCaptions: [
       "Technician injecting treatment into a wall beside a wooden frame",
       "Technician treating the base of a bare concrete wall",

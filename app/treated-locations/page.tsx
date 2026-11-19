@@ -5,6 +5,7 @@ import { TreatedMapExplorer } from "@/components/maps/treated-map-explorer";
 import { FinalCta, PageHero, SectionHeading } from "@/components/site/page-elements";
 import { pageHeroes } from "@/data/page-content-data";
 import { serviceAreas } from "@/data/service-areas-data";
+import { areaHref } from "@/data/locations/provinces";
 import { JsonLd } from "@/components/site/json-ld";
 import { pageMetadata, pageSchema } from "@/lib/seo";
 
@@ -29,7 +30,7 @@ export default function TreatedLocationsPage() {
               <article key={area.name}>
                 <h3>Pest control in {area.name}</h3>
                 <p>{area.summary}</p>
-                {area.page ? <Link className="text-link" href={`/service-areas/${area.page.slug}`}>{area.name} details</Link> : null}
+                <Link className="text-link" href={areaHref(area.name)}>{area.name} details</Link>
               </article>
             ))}
           </div>

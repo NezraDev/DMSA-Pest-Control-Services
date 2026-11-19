@@ -13,6 +13,7 @@ export const guides = [
     cardSummary: "Mud tubes, hollow wood, discarded wings and other signs, plus what to do when you find them.",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
+    relatedPest: "termites-anay",
     relatedService: "termite-control",
     sections: [
       {
@@ -62,11 +63,83 @@ export const guides = [
         ],
       },
       {
+        id: "sign-checklist",
+        heading: "What each sign means",
+        table: {
+          caption: "Common termite signs, what they usually mean and what to do",
+          head: ["What you find", "What it usually means", "What to do"],
+          rows: [
+            [
+              "Mud tubes on a wall or post",
+              "Subterranean termites travelling between the soil and wood",
+              "Leave it intact, photograph it and book an inspection",
+            ],
+            [
+              "Wood that sounds hollow or crumbles",
+              "Termites have been feeding inside for some time",
+              "Check nearby frames, cabinets and ceilings, then book an inspection",
+            ],
+            [
+              "Piles of identical wings",
+              "A swarm of gamu-gamo has landed and shed wings nearby",
+              "Note where they collect and look for tubes or damage close by",
+            ],
+            [
+              "Small, hard pellets under wood",
+              "Drywood termites inside furniture, frames or roof timber",
+              "Keep the pellets for the technician to see",
+            ],
+            [
+              "Bubbling paint or a sagging ceiling",
+              "Tunnels or moisture behind the surface",
+              "Avoid pressing or breaking it open and book an inspection",
+            ],
+          ],
+        },
+      },
+      {
+        id: "termites-or-something-else",
+        heading: "Is it termites or something else?",
+        paragraphs: [
+          "Some signs have other causes. Dirt on a wall can be left by wasps or by water, but termite mud tubes are hollow, run in fairly straight lines and lead toward wood. Fine sawdust can come from other wood-boring insects, while drywood termite pellets are hard and grain-like. Flying insects around lights after rain may be flying ants rather than termites.",
+          "If you are not sure, a close-up photo helps. The guide to telling anay from ants explains how to compare the waist, antennae and wings.",
+        ],
+      },
+      {
+        id: "rainy-season",
+        heading: "Why signs often appear in the rainy season",
+        paragraphs: [
+          "Termites need moisture, and the start of the rainy season is when many colonies release their gamu-gamo swarms. Damp walls, leaking roofs and clogged gutters also make it easier for termites to reach wood. After the first heavy rains, take a few minutes to check door frames, cabinets under sinks and wooden ceilings, and look for wings on windowsills in the morning.",
+        ],
+      },
+      {
+        id: "what-happens-next",
+        heading: "What happens at the inspection",
+        paragraphs: [
+          "A DMSA technician checks the signs you found and the places termites usually reach first: door and window frames, cabinets, stairs, ceilings, floors and the spots where wood touches soil. They look for mud tubes, hollow wood, wings and droppings, and for the cracks and gaps termites use to get in.",
+          "From there, DMSA recommends a treatment, such as chemical injection in affected areas, wood treatment or soil poisoning, and confirms the areas, schedule and price before any work begins. Having your photos and notes ready makes the visit quicker and more thorough.",
+        ],
+      },
+      {
         id: "when-to-call",
-        heading: "When to call DMSA",
+        heading: "When to call a professional",
         paragraphs: [
           "If you see any of these signs, request a quotation. The ocular inspection is free and included in the quotation process. DMSA checks the extent of the activity and recommends a treatment, such as chemical injection, wood treatment or soil poisoning, before confirming the schedule and price.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can termites get through concrete?",
+        answer: "Termites don't eat concrete, but they enter through cracks, expansion joints and the gaps around pipes, so a concrete house can still have termites in its frames, cabinets and ceilings.",
+      },
+      {
+        question: "Are termites dangerous to people?",
+        answer: "Termites are not known to spread disease to people. The concern is the damage they do to wood, paper and other materials in a building.",
+      },
+      {
+        question: "How fast can termites damage a house?",
+        answer: "It depends on the size of the colony and what it can reach. Because termites feed continuously and out of sight, damage often builds up over months before it is noticed, which is why early inspection helps.",
       },
     ],
     related: ["anay-vs-ants-how-to-tell", "soil-poisoning-before-construction", "what-affects-termite-treatment-cost"],
@@ -75,11 +148,12 @@ export const guides = [
     slug: "soil-poisoning-before-construction",
     title: "Soil poisoning before construction: what it is and when to schedule it",
     metaTitle: "Soil Poisoning Before Construction",
-    metaDescription: "What anti-termite soil poisoning is, when to schedule it during construction, how it works for existing buildings, and how to coordinate with your contractor.",
+    metaDescription: "What anti-termite soil poisoning is, when to schedule it during construction, how it works in existing buildings and how to plan it with your contractor.",
     summary: "Soil poisoning, or anti-termite soil treatment, treats the soil under and around a building to help keep subterranean termites out. For a new build, it is applied during construction, after the ground is prepared and before the floor slab is poured.",
     cardSummary: "How anti-termite soil treatment works, when it fits in the construction schedule, and options for finished buildings.",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
+    relatedPest: "termites-anay",
     relatedService: "termite-control",
     sections: [
       {
@@ -132,11 +206,83 @@ export const guides = [
         ],
       },
       {
+        id: "new-vs-existing",
+        heading: "New build or existing building: how the work differs",
+        table: {
+          caption: "Soil treatment before and after construction",
+          head: ["", "Before the slab is poured", "Existing building"],
+          rows: [
+            [
+              "How the soil is reached",
+              "Applied directly to the prepared ground",
+              "Through small drilled injection points in floors or along walls",
+            ],
+            [
+              "Areas covered",
+              "Under the slab, footings, column bases, edges and pipe penetrations",
+              "Affected areas, entry points and exposed soil such as garden strips",
+            ],
+            ["Timing", "Set by the contractor's schedule", "Arranged after the inspection"],
+            [
+              "Disruption",
+              "Little, since the site is still open",
+              "Some drilling and access to rooms is needed",
+            ],
+          ],
+        },
+      },
+      {
+        id: "questions-for-your-contractor",
+        heading: "Questions to settle with your contractor",
+        list: [
+          "When will excavation, backfilling and compaction be finished?",
+          "When is the floor slab scheduled to be poured, and could the date move?",
+          "Will there be extensions, a garage, a perimeter fence or outbuildings that also need treatment?",
+          "Where will plumbing and electrical lines pass through the slab?",
+          "Who on site will be the contact person on the treatment day?",
+        ],
+        after: [
+          "Having these answers ready makes it easier for DMSA to plan the treatment and confirm the day.",
+        ],
+      },
+      {
+        id: "extensions-and-renovations",
+        heading: "Extensions, renovations and outbuildings",
+        paragraphs: [
+          "Adding a room, a garage or a second structure creates a new footprint on fresh ground, and the gap where new and old foundations meet can give termites a way in. Plan soil treatment for the new section the same way as a new build: after the ground is prepared and before its slab is poured.",
+          "Renovations are also a good time to check for termites. When walls, cabinets or floors are opened up, look for mud tubes and damaged wood before everything is closed again, and ask DMSA to inspect if you find any.",
+        ],
+      },
+      {
+        id: "treatment-day",
+        heading: "Getting ready for the treatment day",
+        list: [
+          "Confirm the date with your contractor once the ground is levelled and compacted.",
+          "Make sure the site is accessible and the areas to be treated are clear of materials.",
+          "Let workers know which areas will be treated, so they stay off them as advised.",
+          "Keep the slab-pouring date close to the treatment date, so treated soil isn't disturbed for long.",
+        ],
+      },
+      {
         id: "when-to-call",
-        heading: "When to call DMSA",
+        heading: "When to call a professional",
         paragraphs: [
           "To plan soil poisoning for a new build or an existing building, request a quotation and choose Termite Control. DMSA reviews the site and construction stage during the free ocular inspection and confirms the method, schedule and price.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Can soil poisoning be done on a house that is already built?",
+        answer: "Yes. In a finished building, treatment is delivered through small drilled injection points in floors or along walls, and exposed soil around the building can be treated directly.",
+      },
+      {
+        question: "What if the treated ground has to be dug up again?",
+        answer: "Avoid disturbing treated soil before the slab is poured, and tell DMSA if digging is planned, so it can advise what to do.",
+      },
+      {
+        question: "Do I still need to watch for termites after soil treatment?",
+        answer: "Yes. Soil treatment is one part of termite protection. Keep wood off the soil, fix leaks and follow the monitoring advice you are given.",
       },
     ],
     related: ["signs-of-anay-termites-in-your-house", "what-affects-termite-treatment-cost", "how-to-prepare-for-pest-control-treatment"],
@@ -150,6 +296,7 @@ export const guides = [
     cardSummary: "Waist, antennae, wings and behaviour: the quick way to tell anay from langgam.",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
+    relatedPest: "termites-anay",
     relatedService: "termite-control",
     sections: [
       {
@@ -185,11 +332,88 @@ export const guides = [
         ],
       },
       {
+        id: "side-by-side",
+        heading: "Termites and ants side by side",
+        table: {
+          caption: "Quick comparison of termites (anay) and ants (langgam)",
+          head: ["Feature", "Termites (anay)", "Ants (langgam)"],
+          rows: [
+            ["Waist", "Thick, no narrow section", "Narrow and pinched"],
+            ["Antennae", "Straight, like a string of beads", "Bent like an elbow"],
+            [
+              "Wings on swarmers",
+              "Two pairs, all the same length, shed easily",
+              "Front wings longer than back wings",
+            ],
+            ["Colour of workers", "Pale cream or white, soft-bodied", "Usually darker and shiny"],
+            [
+              "Where you see them",
+              "Rarely in the open; you see mud tubes or damage",
+              "In visible trails to food",
+            ],
+            [
+              "What they eat",
+              "Wood, paper and other cellulose",
+              "Food scraps, sugar, grease and other insects",
+            ],
+          ],
+        },
+      },
+      {
+        id: "night-swarms",
+        heading: "Flying insects around the light: gamu-gamo or flying ants?",
+        paragraphs: [
+          "On humid evenings, especially after rain, both termites and ants can release winged swarmers that gather around lights. Gamu-gamo, the winged termites, flutter weakly and drop their wings soon after landing, leaving piles of identical wings. Flying ants keep their wings longer and have the pinched waist of an ant.",
+          "Collect a few wings or insects on a piece of tape and look at them closely, or take a sharp photo. That one check tells you whether to look for termite damage or simply to deal with an ant nest.",
+        ],
+      },
+      {
+        id: "what-to-do",
+        heading: "What to do once you know",
+        list: [
+          "Termites: leave mud tubes intact, take photos, move boxes and wood away from the area and book an inspection.",
+          "Ants: wipe the trail with soapy water, remove the food that attracted them and look for where the trail comes from.",
+          "Not sure: choose Unsure in the quotation form and describe what you saw.",
+        ],
+      },
+      {
+        id: "where-to-look",
+        heading: "Where to look for each",
+        paragraphs: [
+          "Where you find the insects is a strong clue. Termites stay hidden and close to their food, so look along the bottom of walls, inside door and window frames, under sinks, in wooden cabinets and around stored boxes or paper. Mud tubes leading up from the floor are the giveaway.",
+          "Ants are easiest to find by following them. Watch a trail in the evening and see where it disappears: into a crack in the wall, under a tile, into a potted plant or out through a window frame. That is roughly where the nest or entry point is.",
+        ],
+      },
+      {
+        id: "good-photo",
+        heading: "How to take a photo that helps",
+        list: [
+          "Get close and use the camera's focus, so the waist, antennae and wings are visible.",
+          "Put a coin or a ruler next to the insect for scale.",
+          "Photograph where you found it, such as the wall, cabinet or window.",
+          "Add a photo of any mud tubes, wings or damaged wood nearby.",
+        ],
+      },
+      {
         id: "when-to-call",
-        heading: "When to call DMSA",
+        heading: "When to call a professional",
         paragraphs: [
           "If you are unsure what you are seeing, take a close-up photo and request a quotation. Choose Unsure in the form and describe where you found them. DMSA identifies the pest during the free ocular inspection.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Are \"white ants\" termites?",
+        answer: "Yes. \"White ants\" is a common name for termites, even though termites are not ants. Their pale colour and ant-like size cause the confusion.",
+      },
+      {
+        question: "Do ants eat wood like termites do?",
+        answer: "Most ants don't eat wood. Some nest in damp or already damaged wood, but wood that is being eaten from the inside usually points to termites.",
+      },
+      {
+        question: "Which is more serious, termites or ants?",
+        answer: "Termites, because they damage door frames, cabinets, floors and roof framing. Ants are mostly a nuisance around food, though they can still need treatment when they keep returning.",
       },
     ],
     related: ["signs-of-anay-termites-in-your-house", "how-to-keep-cockroaches-and-ants-out", "how-to-prepare-for-pest-control-treatment"],
@@ -203,6 +427,7 @@ export const guides = [
     cardSummary: "What to clear, store and share before a pest control or termite visit, for homes and businesses.",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
+    relatedPest: "cockroaches-ipis",
     relatedService: "residential-pest-control",
     sections: [
       {
@@ -253,11 +478,95 @@ export const guides = [
         ],
       },
       {
+        id: "checklist",
+        heading: "Preparation checklist at a glance",
+        table: {
+          caption: "What to do before, on the day of and after a pest control visit",
+          head: ["When", "Homes", "Businesses"],
+          rows: [
+            [
+              "When booking",
+              "Share who lives in the home, pets and any allergies",
+              "Share operating hours, restricted areas and site rules",
+            ],
+            [
+              "The day before",
+              "Store food, dishes and toys; clear under sinks and affected cabinets",
+              "Move or cover stock and food; tell staff which areas will be closed",
+            ],
+            [
+              "On the day",
+              "Keep children and pets away from the areas being treated",
+              "Have the contact person open all areas",
+            ],
+            [
+              "After treatment",
+              "Follow the instructions on cleaning and when to return",
+              "Follow the action summary and keep up cleaning routines",
+            ],
+          ],
+        },
+      },
+      {
+        id: "condominiums",
+        heading: "Preparing a condominium or apartment unit",
+        list: [
+          "Ask building management whether contractors need a gate pass, work permit or escort.",
+          "Check the building's allowed work hours, and book the visit within them.",
+          "Reserve a parking slot or loading area if the team needs one.",
+          "Tell neighbours sharing walls or ceilings if the building asks you to.",
+        ],
+        after: [
+          "Mention these rules when you request a quotation, so the visit can be arranged with building management.",
+        ],
+      },
+      {
+        id: "children-and-pets",
+        heading: "Children, older family members and pets",
+        paragraphs: [
+          "Tell DMSA who lives in the home when you book, including babies, older family members, anyone with asthma or allergies, and pets. The plan takes them into account, and the technician tells you which areas will be treated and when people and pets can return.",
+          "Cover or move aquariums, birdcages and pet bedding as advised, and keep pets' food and water bowls away from treated areas.",
+        ],
+      },
+      {
+        id: "what-to-tell-dmsa",
+        heading: "What to tell DMSA when you book",
+        list: [
+          "The pest you think you have, or Unsure, and where you have seen it.",
+          "The property type: house, apartment, condominium, office, shop, warehouse or construction site.",
+          "Your barangay or subdivision, and a pin on the map.",
+          "Who lives or works there, including children, pets and anyone with allergies.",
+          "Access details, such as gate passes, building rules or preferred days and times.",
+        ],
+      },
+      {
+        id: "first-days-after",
+        heading: "The first days after treatment",
+        paragraphs: [
+          "Follow the technician's instructions on cleaning treated areas and on when people and pets can return. It is normal to see some pests for a short time after treatment as they come out of hiding, so note where and when you see them rather than spraying them yourself.",
+          "Keep up the prevention advice you were given, such as storing food in sealed containers and closing gaps. If activity keeps going or appears in new places, contact DMSA and describe what you are seeing.",
+        ],
+      },
+      {
         id: "when-to-call",
-        heading: "When to call DMSA",
+        heading: "When to call a professional",
         paragraphs: [
           "DMSA gives specific preparation instructions when the visit is confirmed, so check with the team if anything is unclear. To start, request a quotation; the ocular inspection is free and included.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "How long before we can go back into a treated room?",
+        answer: "It depends on the treatment. Follow the specific instructions the technician gives you for your visit.",
+      },
+      {
+        question: "Do I need to empty all my kitchen cabinets?",
+        answer: "Clear the cabinets in the affected areas, and store or cover food, dishes and utensils. DMSA confirms exactly what to clear when the visit is scheduled.",
+      },
+      {
+        question: "Should I spray or clean before the visit?",
+        answer: "Keep up normal cleaning, but don't spray insecticide beforehand, and don't scrape off termite mud tubes. Leaving signs in place helps the technician find the source.",
       },
     ],
     related: ["how-to-keep-cockroaches-and-ants-out", "signs-of-anay-termites-in-your-house", "what-affects-termite-treatment-cost"],
@@ -271,6 +580,7 @@ export const guides = [
     cardSummary: "Food storage, cleaning, garbage and sealing tips that make your home less attractive to ipis and langgam.",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
+    relatedPest: "cockroaches-ipis",
     relatedService: "general-pest-control",
     sections: [
       {
@@ -318,11 +628,97 @@ export const guides = [
         ],
       },
       {
+        id: "room-by-room",
+        heading: "Room-by-room checklist",
+        table: {
+          caption: "Where to focus in each part of the house",
+          head: ["Area", "What to check", "What to do"],
+          rows: [
+            [
+              "Kitchen",
+              "Crumbs, grease, open food, dirty dishes, the space behind appliances",
+              "Clean daily, store food sealed, wash dishes before bed",
+            ],
+            [
+              "Sink and drains",
+              "Leaks, standing water, slime in the drain",
+              "Fix leaks, dry the area, fit drain covers and clean drains",
+            ],
+            [
+              "Bathroom",
+              "Damp corners, floor drains, gaps around pipes",
+              "Keep it dry and seal gaps around pipes",
+            ],
+            [
+              "Storage areas",
+              "Stacked boxes, newspapers, unused items",
+              "Declutter and store items in sealed plastic boxes",
+            ],
+            [
+              "Outside walls",
+              "Plants touching the house, garbage bins near doors",
+              "Trim plants and keep bins closed and away from doors",
+            ],
+          ],
+        },
+      },
+      {
+        id: "why-sprays-fall-short",
+        heading: "Why household sprays fall short",
+        paragraphs: [
+          "Household sprays kill the cockroaches and ants they touch, but most of the population stays hidden: cockroaches in cracks, drains and appliances, and ants in a nest that may be outside the room. Spraying can also scatter some ant colonies into new nests.",
+          "Sprays are best used for a stray insect. For a steady problem, combine the prevention steps in this guide with treatment aimed at where the pests hide and breed.",
+        ],
+      },
+      {
+        id: "rainy-season",
+        heading: "Extra steps in the rainy season",
+        list: [
+          "Keep floor drains covered, since water and pests can come up through them.",
+          "Dry wet shoes, mats and laundry quickly, as damp corners attract cockroaches.",
+          "Check that food storage stays sealed, because ants often move indoors when rain floods their nests.",
+          "Clear gutters and drainage around the house so water does not pool near the walls.",
+        ],
+      },
+      {
+        id: "signs-prevention-isnt-enough",
+        heading: "Signs that prevention isn't enough",
+        list: [
+          "You see cockroaches during the day, which can mean their hiding places are crowded.",
+          "You find egg cases or droppings in drawers and cabinets every week.",
+          "Ants return to the same spot within hours of cleaning.",
+          "Pests appear in several rooms, not just the kitchen.",
+          "The problem started after a renovation, a flood or a neighbour's infestation.",
+        ],
+      },
+      {
+        id: "small-businesses",
+        heading: "Tips for small food businesses",
+        paragraphs: [
+          "Carinderias, food stalls, sari-sari stores and small restaurants face the same pests as homes, but with more food, more waste and more customers watching. Clean cooking and serving areas at the end of every day, keep stock in sealed containers off the floor, empty bins before closing and keep the back door shut.",
+          "Because a single cockroach seen by a customer can cost business, food sellers often benefit from regular checks rather than waiting for a problem. DMSA's commercial service starts with an inspection and an operations review so treatment fits around opening hours.",
+        ],
+      },
+      {
         id: "when-to-call",
-        heading: "When to call DMSA",
+        heading: "When to call a professional",
         paragraphs: [
           "If cockroaches or ants keep returning despite good cleaning, or you see them in many rooms, the source may be inside walls, ceilings or drains. Request a quotation for general pest control. DMSA finds the source during the free ocular inspection and recommends a treatment.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Why do cockroaches come out at night?",
+        answer: "Cockroaches avoid light and hide during the day in cracks, drains and behind appliances, then come out at night to look for food and water.",
+      },
+      {
+        question: "Can ants come from potted plants?",
+        answer: "Yes. Ants sometimes nest in the soil of potted plants, so check pots near windows and doors when you follow a trail.",
+      },
+      {
+        question: "Will cleaning alone get rid of cockroaches?",
+        answer: "Cleaning makes a home less attractive, but an established infestation usually needs treatment where cockroaches hide and breed.",
       },
     ],
     related: ["anay-vs-ants-how-to-tell", "how-to-prepare-for-pest-control-treatment", "signs-of-anay-termites-in-your-house"],
@@ -336,6 +732,7 @@ export const guides = [
     cardSummary: "The factors behind a termite treatment quotation, and practical ways to keep the cost down.",
     datePublished: "2026-11-19",
     dateModified: "2026-11-19",
+    relatedPest: "termites-anay",
     relatedService: "termite-control",
     sections: [
       {
@@ -380,11 +777,86 @@ export const guides = [
         ],
       },
       {
+        id: "example-scenarios",
+        heading: "How the same factors play out on different properties",
+        table: {
+          caption: "What usually drives the work in common situations",
+          head: ["Situation", "What usually drives the work"],
+          rows: [
+            [
+              "New house before the slab is poured",
+              "The building footprint and timing with the contractor",
+            ],
+            [
+              "Termites in one cabinet or door frame",
+              "How far the activity has spread beyond what you can see",
+            ],
+            [
+              "Termites in several rooms or the ceiling",
+              "The number of areas, access to the ceiling and wood treatment",
+            ],
+            [
+              "Tiled or concrete floors throughout",
+              "Drilled injection points needed to reach the soil",
+            ],
+            [
+              "Infested soil or debris in storage areas",
+              "Removal and cleanup on top of the treatment",
+            ],
+          ],
+        },
+        after: [
+          "These are the kinds of questions the inspection answers. The price itself is confirmed in the quotation for your property.",
+        ],
+      },
+      {
+        id: "cost-of-waiting",
+        heading: "The cost of waiting",
+        paragraphs: [
+          "Termites keep feeding until the colony is dealt with, so delay usually means more affected wood and more areas to treat. Damage to frames, cabinets, stairs or roof framing also adds repair costs on top of the treatment. Booking an inspection when you first see signs is usually the cheaper path.",
+        ],
+      },
+      {
+        id: "whats-in-a-quotation",
+        heading: "What DMSA's quotation tells you",
+        list: [
+          "What the inspection found, and where.",
+          "The recommended treatment method, such as chemical injection, wood treatment or soil poisoning.",
+          "The areas that will be treated.",
+          "The schedule, and how to prepare for the visit.",
+          "The price, confirmed before any work begins.",
+        ],
+        after: [
+          "If anything in the quotation is unclear, ask before you agree. The ocular inspection is free, so getting the details right costs nothing.",
+        ],
+      },
+      {
+        id: "before-you-call",
+        heading: "Information that makes the quotation more accurate",
+        paragraphs: [
+          "A few details help DMSA plan the inspection and give a clear recommendation: when you first noticed the signs, which rooms or structures are affected, whether the building is finished or still under construction, the type of floors and ceilings, and photos of mud tubes, damage or wings. For general pests, the price page explains how quotations work for cockroaches, ants, flies and rodents.",
+        ],
+      },
+      {
         id: "when-to-call",
-        heading: "When to call DMSA",
+        heading: "When to call a professional",
         paragraphs: [
           "To get a quotation for your property, request one online and choose Termite Control. DMSA reviews your details, arranges the free ocular inspection and confirms the treatment and price.",
         ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Is the termite inspection free?",
+        answer: "Yes. The ocular inspection is free and included in DMSA's quotation process.",
+      },
+      {
+        question: "Why do quotations differ between companies?",
+        answer: "Companies may propose different methods, cover different areas or include different cleanup and follow-up. Compare what is included, not only the total.",
+      },
+      {
+        question: "Does a bigger house always cost more?",
+        answer: "Size matters, but how far the termites have spread, the method needed and access to the affected areas often matter as much.",
       },
     ],
     related: ["signs-of-anay-termites-in-your-house", "soil-poisoning-before-construction", "how-to-prepare-for-pest-control-treatment"],

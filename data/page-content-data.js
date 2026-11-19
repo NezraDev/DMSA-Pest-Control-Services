@@ -1,6 +1,6 @@
 export const homeContent = {
   title: "Pest & Termite Control for Homes and Businesses",
-  lead: "Committed to quality services, DMSA provides effective pest and anay solutions across Bicol, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila.",
+  lead: "Effective pest and anay solutions for homes and businesses. DMSA serves Bicol, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila.",
   primaryAction: "Request a quotation",
   secondaryAction: "View services",
 };

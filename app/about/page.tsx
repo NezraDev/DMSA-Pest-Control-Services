@@ -7,9 +7,13 @@ import {
   PageHero,
   SectionHeading,
 } from "@/components/site/page-elements";
+import { TrustFacts } from "@/components/site/trust-facts";
 import { Button } from "@/components/ui/button";
 import { pageHeroes } from "@/data/page-content-data";
 import { companyValues, siteConfig } from "@/data/site-data";
+import { galleryItems } from "@/data/gallery-data";
+import { launchedProvinces, officeTowns } from "@/data/locations/provinces";
+import { services } from "@/data/services-data";
 import { iconMap } from "@/lib/icon-map";
 import { JsonLd } from "@/components/site/json-ld";
 import { pageMetadata, pageSchema } from "@/lib/seo";
@@ -59,6 +63,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <TrustFacts />
       <section className="section values-section">
         <div className="site-container">
           <SectionHeading
@@ -126,6 +131,35 @@ export default function AboutPage() {
               </Button>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="site-container seo-copy">
+          <h2>What DMSA does</h2>
+          <p>
+            DMSA Pest Control Services treats termites (anay) and the common pests that disrupt homes and workplaces: cockroaches (ipis),
+            ants (langgam), flies (langaw), and rats and mice (daga). Every job starts with a free ocular inspection, and the scope,
+            schedule and price are confirmed before work begins.
+          </p>
+          <ul>
+            {services.map((service) => <li key={service.slug}><Link href={`/services/${service.slug}`}>{service.title}</Link>: {service.description}</li>)}
+          </ul>
+          <h2>Completed work</h2>
+          <p>Recent jobs are documented with photos in the gallery, with locations generalized to protect client privacy:</p>
+          <ul>
+            {galleryItems.map((item) => <li key={item.slug}><Link href={`/gallery/${item.slug}`}>{item.heading}</Link> ({item.servicePerformed.toLowerCase()})</li>)}
+          </ul>
+          <h2>Where DMSA works</h2>
+          <p>
+            The main office in San Fernando, Camarines Sur, serves the Bicol Region. The branch in Los Baños, Laguna, serves Laguna and the
+            surrounding provinces. See{" "}
+            {launchedProvinces.map((province, index) => (
+              <span key={province.slug}>{index > 0 ? " and " : null}<Link href={`/pest-control/${province.slug}`}>{province.name}</Link></span>
+            ))}, the office towns of{" "}
+            {officeTowns.map((town, index) => (
+              <span key={town.path}>{index > 0 ? " and " : null}<Link href={town.path}>{town.name.split(",")[0]}</Link></span>
+            ))}, or <Link href="/service-areas">every city and municipality DMSA serves</Link>.
+          </p>
         </div>
       </section>
       <FinalCta />

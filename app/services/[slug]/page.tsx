@@ -6,13 +6,16 @@ import { ArrowRight, CircleAlert, ClipboardList, Lightbulb } from "lucide-react"
 import { FaqSection } from "@/components/site/faq-section";
 import { JsonLd } from "@/components/site/json-ld";
 import { BackLink, Checklist, FinalCta, ProjectCard, SectionHeading } from "@/components/site/page-elements";
+import { TrustFacts } from "@/components/site/trust-facts";
 import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/gallery-data";
 import { guides } from "@/data/guides-data";
+import { industries } from "@/data/industries-data";
+import { pests } from "@/data/pests-data";
 import { serviceAreas } from "@/data/service-areas-data";
 import { services } from "@/data/services-data";
 import { siteConfig } from "@/data/site-data";
-import { towns } from "@/data/towns-data";
+import { launchedProvinces, officeTowns } from "@/data/locations/provinces";
 import { pageMetadata, pageSchema, serviceSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -106,6 +109,8 @@ export default async function ServiceDetailPage({ params }: Props) {
         </section>
       ) : null}
 
+      <TrustFacts />
+
       <FaqSection title={`${service.title}: frequently asked questions`} faqs={service.faqs} path={path} />
 
       <section className="section">
@@ -113,12 +118,28 @@ export default async function ServiceDetailPage({ params }: Props) {
           <h2>Where {lowerTitle} is available</h2>
           <p>
             DMSA serves {serviceAreas.map(({ name }) => name).join(", ").replace(/, ([^,]*)$/, " and $1")}. Availability depends on the location and required scope.{" "}
-            <Link href="/service-areas">See all service areas</Link>.
+            <Link href="/service-areas">See every city and municipality served</Link>.
           </p>
           <ul>
-            {towns.map((town) => (
-              <li key={town.slug}><Link href={`/pest-control/${town.slug}`}>Pest control in {town.name}, {town.province}</Link></li>
+            {launchedProvinces.map((province) => (
+              <li key={province.slug}><Link href={`/pest-control/${province.slug}`}>{service.shortTitle.replace(/^./, (letter) => letter.toUpperCase())} in {province.name}</Link></li>
             ))}
+            {officeTowns.map((town) => (
+              <li key={town.path}><Link href={town.path}>Pest control in {town.name}</Link></li>
+            ))}
+          </ul>
+          <h2>Learn more</h2>
+          <ul>
+            {(service.slug === "termite-control" ? pests.filter((pest) => pest.slug === "termites-anay") : service.slug === "commercial-pest-control" ? [] : pests.filter((pest) => pest.slug !== "termites-anay")).map((pest) => (
+              <li key={pest.slug}><Link href={`/pests/${pest.slug}`}>{pest.name} ({pest.localName}): signs and treatment</Link></li>
+            ))}
+            {service.slug === "commercial-pest-control" || service.slug === "termite-control"
+              ? industries.filter((industry) => service.slug === "commercial-pest-control" || industry.slug === "construction-sites").map((industry) => (
+                <li key={industry.slug}><Link href={`/industries/${industry.slug}`}>{industry.title.replace(/^./, (letter) => letter.toUpperCase())}</Link></li>
+              ))
+              : null}
+            {service.slug === "termite-control" ? <li><Link href="/termite-inspection">What the free termite inspection covers</Link></li> : null}
+            <li><Link href="/pest-control-price">What affects the price of pest control</Link></li>
           </ul>
           <h2>Explore our other services</h2>
           <ul>

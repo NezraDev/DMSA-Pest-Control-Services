@@ -5,7 +5,7 @@ import { FaqSection } from "@/components/site/faq-section";
 import { JsonLd } from "@/components/site/json-ld";
 import { FinalCta, PageHero } from "@/components/site/page-elements";
 import { faqs } from "@/data/faq-data";
-import { serviceAreas } from "@/data/service-areas-data";
+import { provinces } from "@/data/locations/provinces";
 import { services } from "@/data/services-data";
 import type { Faq } from "@/lib/content-types";
 import { faqSchema, pageMetadata, pageSchema } from "@/lib/seo";
@@ -19,7 +19,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const serviceFaqs = (slug: string) => services.find((service) => service.slug === slug)?.faqs ?? [];
-const lagunaFaqs = serviceAreas.find((area) => area.page?.slug === "laguna")?.page?.faqs ?? [];
+const lagunaFaqs = provinces.find((province) => province.slug === "laguna")?.faqs ?? [];
 
 /** Looks a question up by its exact text, so a renamed question fails the build instead of disappearing. */
 function pick(list: Faq[], question: string): Faq {

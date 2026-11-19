@@ -5,10 +5,12 @@ import Script from "next/script";
 import { MobileActionBar, SiteFooter, SiteHeader } from "@/components/site/site-chrome";
 import { Chatbot } from "@/components/site/chatbot";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
-import { siteConfig } from "@/data/site-data";
+import { siteConfig, trustFacts } from "@/data/site-data";
 import { services } from "@/data/services-data";
-import { towns } from "@/data/towns-data";
-import { defaultShareImage, organizationId, websiteId } from "@/lib/seo";
+import { galleryItems } from "@/data/gallery-data";
+import { officeTowns, provinces } from "@/data/locations/provinces";
+import { townByKey } from "@/lib/locations";
+import { branchId, defaultShareImage, organizationId, websiteId } from "@/lib/seo";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
@@ -59,8 +61,6 @@ const themeScript = `
   })();
 `;
 
-const branchId = `${siteUrl}/#los-banos-branch`;
-
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -92,16 +92,14 @@ const structuredData = {
         addressCountry: "PH",
       },
       department: { "@id": branchId },
+      ...(trustFacts.foundedYear ? { foundingDate: trustFacts.foundedYear } : {}),
       knowsAbout: ["Pest control", "Termite control", "Anay treatment", "Soil poisoning", "Anti-termite soil treatment", "Cockroach control", "Ant control", "Rodent control"],
       geo: {
         "@type": "GeoCoordinates",
         longitude: siteConfig.hqCoordinates[0],
         latitude: siteConfig.hqCoordinates[1],
       },
-      areaServed: [
-        ...siteConfig.serviceAreas.map((name) => ({ "@type": "AdministrativeArea", name })),
-        ...towns.map((town) => ({ "@type": "City", name: `${town.name}, ${town.province}` })),
-      ],
+      areaServed: provinces.map((province) => ({ "@type": "AdministrativeArea", name: province.name })),
       sameAs: Object.values(siteConfig.socialLinks).filter((value) => /^https?:\/\//.test(value)),
       openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
@@ -123,7 +121,7 @@ const structuredData = {
       "@id": branchId,
       name: `${siteConfig.name} - Los Baños Branch`,
       parentOrganization: { "@id": organizationId },
-      url: absoluteUrl("/pest-control/los-banos"),
+      url: absoluteUrl("/pest-control/laguna/los-banos"),
       image: absoluteUrl(defaultShareImage.url),
       telephone: siteConfig.phoneViberHref,
       address: {
@@ -133,7 +131,7 @@ const structuredData = {
         addressRegion: "Laguna",
         addressCountry: "PH",
       },
-      areaServed: { "@type": "AdministrativeArea", name: "Laguna" },
+      areaServed: provinces.filter((province) => province.servedFrom === "branch").map((province) => ({ "@type": "AdministrativeArea", name: province.name })),
       openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -143,6 +141,16 @@ const structuredData = {
     },
   ],
 };
+
+// Footer links to every town page with a DMSA office or a completed job (the indexable ones).
+const footerTowns = [
+  ...new Map(
+    [...officeTowns.map((town) => town.path.replace("/pest-control/", "")), ...galleryItems.flatMap((item) => (item.town ? [item.town] : []))]
+      .map((key) => townByKey(key))
+      .filter((town) => town !== undefined)
+      .map((town) => [town.path, { name: town.name, path: town.path }] as const),
+  ).values(),
+];
 
 export default function RootLayout({
   children,
@@ -160,7 +168,7 @@ export default function RootLayout({
         <SiteHeader />
         <ScrollReveal />
         {children}
-        <SiteFooter />
+        <SiteFooter towns={footerTowns} />
         <MobileActionBar />
         <Chatbot />
       </body>

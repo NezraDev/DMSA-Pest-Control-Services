@@ -7,10 +7,17 @@ import { isValidLngLat } from "../lib/map-coordinates.ts";
 import { formOptions } from "../data/form-options-data.js";
 import { galleryItems } from "../data/gallery-data.js";
 import { guides } from "../data/guides-data.js";
-import { serviceAreas } from "../data/service-areas-data.js";
 import { services } from "../data/services-data.js";
-import { siteConfig } from "../data/site-data.js";
-import { towns } from "../data/towns-data.js";
+import { guideDrafts } from "../data/guide-drafts.js";
+import { industries } from "../data/industries-data.js";
+import { officeTowns } from "../data/locations/provinces.js";
+import { psgcProvinces } from "../data/locations/psgc-data.js";
+import { townNotes } from "../data/locations/town-notes.js";
+import { pests } from "../data/pests-data.js";
+import { siteConfig, trustFacts } from "../data/site-data.js";
+import { provinceContent, townContent } from "../lib/location-content.ts";
+import { maxSimilarity, minNoteWords, minUniqueWords, townQualityReport } from "../lib/location-quality.ts";
+import { allTowns, launchedLocationProvinces, launchedTowns, locationProvinces, townByKey, townJobs } from "../lib/locations.ts";
 
 const baseQuote = {
   type: "quote",
@@ -275,40 +282,135 @@ test("MapLibre uses the CARTO Voyager basemap with complete attribution", async 
 // Titles rendered through the layout template get this suffix.
 const titleSuffix = " | DMSA Pest Control";
 
+const launchedTownContent = launchedTowns.map((town) => ({ town, content: townContent(town) }));
+const launchedProvinceContent = launchedLocationProvinces.map((province) => ({ province, content: provinceContent(province) }));
+
+const words = (...texts: (string | undefined)[]) => texts.filter(Boolean).join(" ").split(/\s+/).filter(Boolean).length;
+const sectionWords = (sections: { heading: string; paragraphs?: string[]; list?: string[]; after?: string[]; table?: { caption: string; head: string[]; rows: string[][] } }[]) =>
+  words(...sections.flatMap((section) => [section.heading, ...(section.paragraphs ?? []), ...(section.list ?? []), ...(section.after ?? []), ...(section.table ? [section.table.caption, ...section.table.head, ...section.table.rows.flat()] : [])]));
+
 test("data-driven page titles fit in 60 characters and are unique", () => {
   const titles = [
     ...services.map((service) => service.metaTitle + titleSuffix),
-    ...serviceAreas.flatMap((area) => (area.page ? [area.page.metaTitle + titleSuffix] : [])),
-    ...towns.map((town) => town.metaTitle + titleSuffix),
+    ...launchedProvinceContent.map(({ content }) => content.title.full),
+    ...launchedTownContent.map(({ content }) => content.title.full),
     ...guides.map((guide) => guide.metaTitle + titleSuffix),
+    ...pests.map((pest) => pest.metaTitle + titleSuffix),
+    ...industries.map((industry) => industry.metaTitle + titleSuffix),
     ...galleryItems.map((item) => item.metaTitle),
   ];
   for (const title of titles) assert.ok(title.length <= 60, `${title} is ${title.length} characters`);
   assert.equal(new Set(titles).size, titles.length, "titles must be unique");
 });
 
-test("data-driven meta descriptions are 120 to 160 characters", () => {
+test("every town title fits in 60 characters, launched or not", () => {
+  for (const town of allTowns) {
+    const { title } = townContent(town);
+    assert.ok(title.full.length <= 60, `${town.key}: ${title.full}`);
+  }
+  for (const province of locationProvinces) assert.ok(province.metaTitle.length + titleSuffix.length <= 60, province.metaTitle);
+});
+
+test("data-driven meta descriptions are 120 to 155 characters and unique", () => {
   const descriptions = [
     ...services.map((service) => service.metaDescription),
-    ...serviceAreas.flatMap((area) => (area.page ? [area.page.metaDescription] : [])),
-    ...towns.map((town) => town.metaDescription),
+    ...locationProvinces.map((province) => province.metaDescription),
+    ...allTowns.map((town) => townContent(town).metaDescription),
     ...guides.map((guide) => guide.metaDescription),
+    ...pests.map((pest) => pest.metaDescription),
+    ...industries.map((industry) => industry.metaDescription),
   ];
   for (const description of descriptions) {
-    assert.ok(description.length >= 120 && description.length <= 160, `${description.length}: ${description}`);
+    assert.ok(description.length >= 120 && description.length <= 155, `${description.length}: ${description}`);
+  }
+  assert.equal(new Set(descriptions).size, descriptions.length, "descriptions must be unique");
+});
+
+test("page H1s are unique across the site", () => {
+  const headings = [
+    ...services.map((service) => service.heading),
+    ...launchedProvinceContent.map(({ content }) => content.heading),
+    ...launchedTownContent.map(({ content }) => content.heading),
+    ...guides.map((guide) => guide.title),
+    ...pests.map((pest) => pest.title),
+    ...industries.map((industry) => industry.title),
+    ...galleryItems.map((item) => item.heading),
+  ].map((heading) => heading.toLowerCase());
+  assert.equal(new Set(headings).size, headings.length, "H1s must be unique");
+});
+
+test("every PSGC city and municipality has exactly one town page", () => {
+  assert.equal(psgcProvinces.length, 12);
+  assert.equal(allTowns.length, psgcProvinces.reduce((sum, province) => sum + province.towns.length, 0));
+  assert.equal(allTowns.length, 273, "Laguna, Batangas, Cavite, Rizal, Quezon, NCR and six Bicol provinces have 273 LGUs");
+  for (const province of locationProvinces) {
+    const slugs = province.towns.map((town) => town.slug);
+    assert.equal(new Set(slugs).size, slugs.length, `${province.slug} town slugs must be unique`);
+    for (const town of province.towns) {
+      assert.match(town.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, town.key);
+      assert.ok(town.coordinates, `${town.key} needs coordinates (scripts/fetch-coordinates.mjs)`);
+      assert.ok(town.barangays.length > 0, `${town.key} needs barangays`);
+    }
+  }
+  assert.ok(launchedTowns.length > 0, "at least one province must be launched");
+});
+
+test("town notes, gallery jobs and office towns point to real town pages", () => {
+  for (const key of Object.keys(townNotes)) assert.ok(townByKey(key), `town-notes.js key ${key} has no town`);
+  for (const item of galleryItems) {
+    if (item.town) assert.ok(townByKey(item.town), `${item.slug} links to unknown town ${item.town}`);
+  }
+  for (const office of officeTowns) {
+    const town = allTowns.find((item) => item.path === office.path);
+    assert.ok(town?.hasOffice, `${office.path} must be an office town`);
+    assert.ok(town.province.launched, `${office.path} must be in a launched province`);
   }
 });
 
-test("town pages exist only where DMSA has an office or a completed job", () => {
-  for (const town of towns) {
-    const hasJob = galleryItems.some((item) => item.town === town.slug);
-    const hasOffice = town.servedFrom === "main" ? siteConfig.address.includes(town.name) : siteConfig.additionalLocation.includes(town.name);
-    assert.ok(hasJob || hasOffice, `${town.slug} has no office or job; don't publish a copy-paste town page`);
-    assert.ok(serviceAreas.some((area) => area.name === town.region), `${town.slug} region must match a service area`);
-    for (const slug of town.nearby) assert.ok(towns.some((item) => item.slug === slug), `${town.slug} links to unknown town ${slug}`);
+test("every launched town page links to its province hub and at least 6 nearby towns", async () => {
+  const page = await readFile(new URL("../app/pest-control/[province]/[town]/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /href=\{province\.path\}/);
+  for (const { town, content } of launchedTownContent) {
+    assert.ok(content.neighbours.length >= 6, `${town.key} has ${content.neighbours.length} neighbours`);
+    for (const neighbour of content.neighbours) assert.ok(launchedTowns.some((item) => item.path === neighbour.path), `${town.key} links to unlaunched ${neighbour.path}`);
+    assert.ok(content.faqs.length >= 4, `${town.key} needs at least 4 FAQs`);
   }
-  for (const item of galleryItems) {
-    if (item.town) assert.ok(towns.some((town) => town.slug === item.town), `${item.slug} links to unknown town ${item.town}`);
+});
+
+test("only town pages with real local content are indexable", () => {
+  const report = townQualityReport();
+  for (const town of allTowns) {
+    const quality = report.get(town.key);
+    assert.ok(quality, town.key);
+    if (!quality.indexable) continue;
+    const content = townContent(town);
+    const local = town.hasOffice || townJobs(town).length > 0 || content.noteWords >= minNoteWords;
+    const unique = quality.similarity < maxSimilarity && quality.words >= minUniqueWords;
+    assert.ok(local || unique, `${town.key} is indexable without local or unique content`);
+  }
+  for (const office of officeTowns) assert.ok(report.get(office.path.replace("/pest-control/", ""))?.indexable, `${office.path} must be indexable`);
+});
+
+test("noindex town pages stay out of the sitemap, and town pages never claim a local address", async () => {
+  const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
+  assert.match(sitemap, /launchedTowns\.filter\(isTownIndexable\)/);
+  const page = await readFile(new URL("../app/pest-control/[province]/[town]/page.tsx", import.meta.url), "utf8");
+  assert.match(page, /noindex: !isTownIndexable\(town\)/);
+  assert.doesNotMatch(page, /LocalBusiness|PostalAddress/);
+});
+
+test("no internal link points at a redirected URL", async () => {
+  const config = await readFile(new URL("../next.config.ts", import.meta.url), "utf8");
+  const redirected = [...config.matchAll(/source: "([^"]+)"/g)].map((match) => match[1]);
+  assert.ok(redirected.length >= 5);
+  const files = [
+    "app/layout.tsx", "app/page.tsx", "app/sitemap.ts", "app/about/page.tsx", "app/contact/page.tsx", "app/faq/page.tsx",
+    "app/service-areas/page.tsx", "app/treated-locations/page.tsx", "app/gallery/[slug]/page.tsx", "app/services/[slug]/page.tsx",
+    "app/guides/[slug]/page.tsx", "components/site/site-chrome.tsx", "data/locations/provinces.js", "data/chatbot-knowledge.ts",
+  ];
+  for (const file of files) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
+    for (const path of redirected) assert.ok(!source.includes(`"${path}"`) && !source.includes(`\`${path}\``), `${file} links to redirected ${path}`);
   }
 });
 
@@ -319,18 +421,72 @@ test("every gallery photo has a caption", () => {
   }
 });
 
-test("guides link to real services and guides, and end with a call to action", () => {
-  for (const guide of guides) {
-    assert.ok(services.some((service) => service.slug === guide.relatedService), `${guide.slug} relatedService`);
-    for (const slug of guide.related) assert.ok(guides.some((item) => item.slug === slug && slug !== guide.slug), `${guide.slug} related ${slug}`);
-    assert.equal(guide.sections.at(-1)?.id, "when-to-call");
-    assert.match(guide.dateModified, /^\d{4}-\d{2}-\d{2}$/);
+test("gallery case studies reach 500 words once three sections are filled", () => {
+  for (const item of galleryItems) {
+    const study = item.caseStudy ?? {};
+    const filled = [study.problem, study.findings, study.treatment, study.areaTreated, study.aftercare].filter((value) => (Array.isArray(value) ? value.length > 0 : Boolean(value)));
+    if (filled.length < 3) continue;
+    const total = words(item.description, ...(study.problem ?? []), ...(study.findings ?? []), ...(study.treatment ?? []), study.areaTreated, ...(study.aftercare ?? []));
+    assert.ok(total >= 500, `${item.slug} case study has ${total} words`);
   }
 });
 
-test("sitemap lists the hub, town, guide and FAQ pages", async () => {
+test("guides link to real services, pests and guides, and end with a call to action", () => {
+  for (const guide of guides) {
+    assert.ok(services.some((service) => service.slug === guide.relatedService), `${guide.slug} relatedService`);
+    assert.ok(pests.some((pest) => pest.slug === guide.relatedPest), `${guide.slug} relatedPest`);
+    for (const slug of guide.related) assert.ok(guides.some((item) => item.slug === slug && slug !== guide.slug), `${guide.slug} related ${slug}`);
+    assert.equal(guide.sections.at(-1)?.id, "when-to-call");
+    assert.ok(guide.sections.some((section) => section.table || (section.list?.length ?? 0) >= 4), `${guide.slug} needs a table or checklist`);
+    assert.equal(guide.faqs.length, 3, `${guide.slug} needs 3 FAQs`);
+    assert.match(guide.dateModified, /^\d{4}-\d{2}-\d{2}$/);
+    const total = words(guide.summary, ...guide.faqs.flatMap((faq) => [faq.question, faq.answer])) + sectionWords(guide.sections);
+    assert.ok(total >= 750, `${guide.slug} has ${total} words of guide content`);
+  }
+});
+
+test("every guide is linked from the location pages", () => {
+  for (const guide of guides) {
+    const links = launchedTownContent.filter(({ content }) => content.guides.some((item) => item.slug === guide.slug)).length
+      + launchedProvinceContent.filter(({ content }) => content.guides.some((item) => item.slug === guide.slug)).length;
+    assert.ok(links >= 12, `${guide.slug} is linked from only ${links} location pages`);
+  }
+});
+
+test("pest and industry pages are substantial and link to real pages", () => {
+  for (const pest of pests) {
+    assert.ok(services.some((service) => service.slug === pest.relatedService), `${pest.slug} relatedService`);
+    for (const slug of pest.relatedGuides) assert.ok(guides.some((guide) => guide.slug === slug), `${pest.slug} guide ${slug}`);
+    assert.ok(pest.faqs.length >= 5, `${pest.slug} needs 5 FAQs`);
+    const total = words(pest.summary, ...pest.faqs.flatMap((faq) => [faq.question, faq.answer])) + sectionWords(pest.sections);
+    assert.ok(total >= 800, `${pest.slug} has ${total} words`);
+  }
+  for (const industry of industries) {
+    for (const slug of industry.relatedPests) assert.ok(pests.some((pest) => pest.slug === slug), `${industry.slug} pest ${slug}`);
+    for (const slug of industry.relatedGuides) assert.ok(guides.some((guide) => guide.slug === slug), `${industry.slug} guide ${slug}`);
+    const total = words(industry.summary, ...industry.faqs.flatMap((faq) => [faq.question, faq.answer])) + sectionWords(industry.sections);
+    assert.ok(total >= 600, `${industry.slug} has ${total} words`);
+  }
+});
+
+test("guide drafts are never built into pages", async () => {
+  assert.ok(guideDrafts.length >= 12);
+  for (const draft of guideDrafts) assert.ok(draft.ownerToConfirm.length > 0, draft.title);
+  for (const file of ["app/sitemap.ts", "app/guides/page.tsx", "app/guides/[slug]/page.tsx"]) {
+    const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /guide-drafts/, `${file} must not import drafts`);
+  }
+});
+
+test("trust facts stay hidden until DMSA fills them in", async () => {
+  const component = await readFile(new URL("../components/site/trust-facts.tsx", import.meta.url), "utf8");
+  assert.match(component, /if \(items\.length === 0\) return null;/);
+  for (const value of Object.values(trustFacts)) assert.equal(typeof value, "string");
+});
+
+test("sitemap lists the hubs, towns, pests, industries, guides and money pages", async () => {
   const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
-  for (const route of ['"/service-areas"', "`/pest-control/${slug}`", '"/guides"', "`/guides/${guide.slug}`", '"/faq"']) {
+  for (const route of ['"/service-areas"', "launchedLocationProvinces", "isTownIndexable", '"/pests"', "`/pests/${slug}`", '"/industries"', "`/industries/${slug}`", '"/pest-control-price"', '"/termite-inspection"', '"/guides"', "`/guides/${guide.slug}`", '"/faq"']) {
     assert.ok(sitemap.includes(route), `sitemap is missing ${route}`);
   }
 });

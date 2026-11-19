@@ -113,3 +113,23 @@ export const processSteps = [
     icon: "calendar",
   },
 ];
+
+// TODO(owner): fill in these facts. Each one appears on the site (home, about, service,
+// price and town pages, plus the business schema) only once it has a value, so nothing
+// unconfirmed is ever published. Leave a fact as "" until it is confirmed.
+/** @type {import("../lib/content-types").TrustFacts} */
+export const trustFacts = {
+  /** Year DMSA started operating, e.g. "2015". */
+  foundedYear: "",
+  /** Completed jobs, as you want it shown, e.g. "500+". */
+  jobsCompleted: "",
+  /** Warranty or re-treatment policy in one sentence. */
+  warranty: "",
+  /** The kind of products used, in one sentence. */
+  products: "",
+};
+
+// TODO(owner): optional starting price ranges for /pest-control-price, e.g.
+// { service: "General pest control, condo unit", range: "From ₱X" }. Leave empty to show no prices.
+/** @type {{ service: string; range: string; note?: string }[]} */
+export const priceRanges = [];

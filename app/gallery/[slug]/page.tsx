@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/gallery-data";
 import { JsonLd } from "@/components/site/json-ld";
 import { services } from "@/data/services-data";
-import { towns } from "@/data/towns-data";
+import { townByKey } from "@/lib/locations";
 import { organizationId, pageMetadata, pageSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site-url";
 
@@ -87,8 +87,25 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
       : `${location.servicePerformed} in ${location.generalLocation}, photo ${index + 1}`,
   }));
   const path = `/gallery/${location.slug}`;
+  const study = location.caseStudy ?? {};
+  const caseSections = [
+    { title: "What the client noticed", items: study.problem ?? [] },
+    { title: "What the inspection found", items: study.findings ?? [] },
+    { title: "How DMSA treated it", items: study.treatment ?? [], ordered: true },
+    { title: "Areas treated", items: study.areaTreated ? [study.areaTreated] : [] },
+    { title: "Follow-up and advice", items: study.aftercare ?? [] },
+  ].filter((section) => section.items.length > 0);
+  const performed = location.servicePerformed.toLowerCase();
+  const methodNotes = [
+    performed.includes("injection")
+      ? "Chemical injection delivers treatment through small drilled points in floors, walls and frames, so it reaches the routes termites use behind finished surfaces."
+      : "Termite control in a finished home targets the affected areas and likely entry points, such as cracks in floors and walls, door frames and cabinets.",
+    ...(performed.includes("soil poisoning") ? ["Soil poisoning treats the soil along and under the structure, such as garden strips beside the walls, to help keep subterranean termites from reaching the building."] : []),
+    "Removing termite-infested soil and debris is part of the cleanup, so old tunnels and nesting material are not left behind.",
+    `Every DMSA job starts with a free ocular inspection. The treatment above was chosen for this property after that inspection; yours may differ.`,
+  ];
   const service = services.find((item) => item.slug === (location.category === "Termite Control" ? "termite-control" : "general-pest-control"));
-  const town = towns.find((item) => item.slug === location.town);
+  const town = location.town ? townByKey(location.town) : undefined;
   const photoSchema = {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
@@ -111,13 +128,13 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
 
   return (
     <main id="main-content">
-      <JsonLd data={pageSchema({ name: `${location.title} in ${location.generalLocation}`, description: location.shortDescription, path, breadcrumbs: [{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }, { name: location.title, path }] })} />
+      <JsonLd data={pageSchema({ name: `${location.title} in ${location.generalLocation}`, description: location.shortDescription, path, breadcrumbs: [{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }, { name: location.heading, path }] })} />
       <JsonLd data={photoSchema} />
       <section className="detail-hero">
         <div className="site-container">
           <BackLink href="/gallery">Back to gallery</BackLink>
           <div className="detail-hero-grid">
-            <div className="detail-hero-copy"><h1>{location.title}</h1><p>{location.shortDescription}</p><Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(location.servicePerformed)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button></div>
+            <div className="detail-hero-copy"><h1>{location.heading}</h1><p>{location.shortDescription}</p><Button asChild size="lg"><Link href={`/request-quote?service=${encodeURIComponent(location.servicePerformed)}`}>Request quotation <ArrowRight aria-hidden="true" /></Link></Button></div>
             <ProjectVisual location={location} large />
           </div>
         </div>
@@ -148,6 +165,7 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
             images={treatmentImages}
           />
           <div className="project-detail-grid">
+            <div className="detail-main">
             <div className="treatment-overview">
               <h2>Treatment overview</h2>
               <p>{location.description}</p>
@@ -159,8 +177,44 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
               </dl>
               <p className="detail-links">
                 {service ? <Link className="text-link" href={`/services/${service.slug}`}>About {service.title.toLowerCase()} <ArrowRight aria-hidden="true" /></Link> : null}
-                {town ? <Link className="text-link" href={`/pest-control/${town.slug}`}>Pest control in {town.name} <ArrowRight aria-hidden="true" /></Link> : null}
+                {town ? <Link className="text-link" href={town.path}>Pest control in {town.name} <ArrowRight aria-hidden="true" /></Link> : null}
+                {town ? <Link className="text-link" href={town.province.path}>Pest control in {town.province.name} <ArrowRight aria-hidden="true" /></Link> : null}
               </p>
+            </div>
+            {caseSections.length > 0 ? (
+              <div className="treatment-overview case-study">
+                <h2>Case study</h2>
+                {caseSections.map((section) => (
+                  <section key={section.title} aria-label={section.title}>
+                    <h3>{section.title}</h3>
+                    {section.ordered
+                      ? <ol>{section.items.map((item) => <li key={item}>{item}</li>)}</ol>
+                      : section.items.map((item) => <p key={item}>{item}</p>)}
+                  </section>
+                ))}
+              </div>
+            ) : null}
+            <div className="treatment-overview">
+              <h2>Seeing the same signs at home?</h2>
+              <ol className="next-steps">
+                <li>Leave mud tubes and damaged wood as they are, and do not spray them, so the source can still be traced.</li>
+                <li>Take photos and note where you found each sign.</li>
+                <li>Move boxes and stored items away from the affected area.</li>
+                <li>Request a quotation with a pin on the map. The ocular inspection is free and included.</li>
+              </ol>
+              <p className="detail-links">
+                <Link className="text-link" href={`/request-quote?service=${encodeURIComponent("Termite Control")}`}>Request a quotation <ArrowRight aria-hidden="true" /></Link>
+                <Link className="text-link" href="/guides/signs-of-anay-termites-in-your-house">Signs of anay in your house <ArrowRight aria-hidden="true" /></Link>
+              </p>
+            </div>
+            <div className="treatment-overview">
+              <h2>About the methods used</h2>
+              {methodNotes.map((note) => <p key={note}>{note}</p>)}
+              <p className="detail-links">
+                <Link className="text-link" href="/pests/termites-anay">How to recognise anay <ArrowRight aria-hidden="true" /></Link>
+                <Link className="text-link" href="/termite-inspection">The free termite inspection <ArrowRight aria-hidden="true" /></Link>
+              </p>
+            </div>
             </div>
             <aside className="feedback-card"><Quote aria-hidden="true" /><h2>Customer feedback</h2><p>{location.customerFeedback || "Customer feedback is not available for this entry."}</p>{location.customerFeedback ? <cite>Published with customer permission</cite> : null}</aside>
           </div>
