@@ -27,6 +27,8 @@ const baseQuote = {
   longitude: 123.18,
   preferredDate: "2026-09-20",
   details: "Recurring activity near the kitchen area.",
+  referralSource: "Facebook Page",
+  referralSourceOther: "",
   consent: true,
   website: "",
   startedAt: Date.now() - 5000,
@@ -57,6 +59,16 @@ test("Other options are still checked while consent is unticked, as on the early
   assert.ok(paths.includes("consent"));
 });
 
+test("quotation requests must say how the client heard about DMSA", () => {
+  const { referralSource, ...withoutSource } = baseQuote;
+  assert.equal(referralSource, "Facebook Page");
+  assert.equal(quoteSchema.safeParse(withoutSource).success, false);
+  assert.equal(quoteSchema.safeParse({ ...baseQuote, referralSource: "" }).success, false);
+  for (const source of formOptions.referralSource.slice(0, -1)) {
+    assert.equal(quoteSchema.safeParse({ ...baseQuote, referralSource: source }).success, true, source);
+  }
+});
+
 test("every selected Other option requires its specification", () => {
   for (const [choice, detail] of [
     ["preferredContact", "preferredContactOther"],
@@ -64,6 +76,7 @@ test("every selected Other option requires its specification", () => {
     ["service", "serviceOther"],
     ["pest", "pestOther"],
     ["propertyType", "propertyTypeOther"],
+    ["referralSource", "referralSourceOther"],
   ]) {
     const invalid = quoteSchema.safeParse({ ...baseQuote, [choice]: "Other", [detail]: "" });
     assert.equal(invalid.success, false, `${detail} should be required`);
@@ -73,7 +86,7 @@ test("every selected Other option requires its specification", () => {
 });
 
 test("every applicable option list keeps Other at the end", () => {
-  for (const key of ["preferredContact", "customerType", "service", "pest", "propertyType"] as const) {
+  for (const key of ["preferredContact", "customerType", "service", "pest", "propertyType", "referralSource"] as const) {
     assert.equal(formOptions[key].at(-1), "Other", `${key} must keep Other last`);
   }
 });

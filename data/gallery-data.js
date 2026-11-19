@@ -68,4 +68,38 @@ export const galleryItems = [
     customerFeedback: "",
     featured: false,
   },
+  {
+    id: "job-003",
+    slug: "langkiwa-binan-termite-control-soil-poisoning",
+    title: "Residential Termite Control and Soil Poisoning",
+    metaTitle: "Soil Poisoning in South Langkiwa, Biñan, Laguna | DMSA",
+    imagePaths: [
+      "/brand/binan/1.png",
+      "/brand/binan/2.png",
+      "/brand/binan/3.png",
+      "/brand/binan/4.png",
+      "/brand/binan/5.png",
+    ],
+    beforeImage: false,
+    afterImage: false,
+    category: "Termite Control",
+    displayCategory: "Termite Control and Treatment",
+    propertyType: "Residential",
+    servicePerformed: "Termite Control, Chemical Injection, and Soil Poisoning",
+    generalLocation: "San Antonio, South Langkiwa, Biñan, Laguna",
+    // Only the month is confirmed.
+    treatmentDate: "2026-11",
+    year: 2026,
+    // General Langkiwa area, not the property itself.
+    coordinates: [121.0597, 14.299],
+    region: "Laguna",
+    pest: "Termites",
+    customerType: "Residential",
+    description:
+      "Residential termite control carried out in San Antonio, South Langkiwa, Biñan, Laguna. The service involved chemical injection in termite-affected areas and soil poisoning to help control termite activity and address potential termite entry points. Termite-infested soil and debris were also removed as part of the cleanup process.",
+    shortDescription:
+      "Residential termite control involving chemical injection and soil poisoning in San Antonio, South Langkiwa, Biñan, Laguna.",
+    customerFeedback: "",
+    featured: false,
+  },
 ];

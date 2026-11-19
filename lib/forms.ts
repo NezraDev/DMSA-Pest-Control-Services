@@ -27,6 +27,10 @@ export const quoteSchema = z
     longitude: z.coerce.number().min(-180).max(180),
     preferredDate: z.string().min(1, "Choose a preferred date."),
     details: z.string().trim().min(10, "Tell us a little more about the concern.").max(2000),
+    referralSource: z.enum(asEnum(formOptions.referralSource), {
+      errorMap: () => ({ message: "Choose how you heard about DMSA." }),
+    }),
+    referralSourceOther: optionalText,
     // A refine, not z.literal(true): a failed literal stops the "Other" checks below
     // from running, and consent stays unticked until the last step of the form.
     consent: z.boolean().refine((value) => value, "Consent is required to submit."),
@@ -40,6 +44,7 @@ export const quoteSchema = z
       [data.service === "Other", data.serviceOther, "serviceOther"],
       [data.pest === "Other", data.pestOther, "pestOther"],
       [data.propertyType === "Other", data.propertyTypeOther, "propertyTypeOther"],
+      [data.referralSource === "Other", data.referralSourceOther, "referralSourceOther"],
     ];
     checks.forEach(([required, value, path]) => {
       if (required && !String(value ?? "").trim()) {

@@ -100,6 +100,7 @@ export type GalleryItem = {
   propertyType: string;
   servicePerformed: string;
   generalLocation: string;
+  /** "YYYY-MM-DD", or "YYYY-MM" when only the month is known. */
   treatmentDate: string;
   year: number;
   coordinates: [number, number];

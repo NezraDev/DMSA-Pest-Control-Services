@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, LoaderCircle, Send } from "lucide-react";
 import { useState } from "react";
@@ -55,7 +56,7 @@ export function ContactForm() {
       <div className="form-field"><Label htmlFor="subject">Subject</Label><Input id="subject" {...register("subject")} aria-invalid={Boolean(errors.subject)} /><FieldError message={errors.subject?.message} /></div>
       <div className="form-field"><Label htmlFor="message">Message</Label><Textarea id="message" rows={6} {...register("message")} aria-invalid={Boolean(errors.message)} /><FieldError message={errors.message?.message} /></div>
       <Controller name="consent" control={control} render={({ field }) => (
-        <div className="consent-row"><Checkbox id="contactConsent" checked={field.value} onCheckedChange={(checked) => field.onChange(checked === true)} aria-invalid={Boolean(errors.consent)} /><div><Label htmlFor="contactConsent">I consent to DMSA using these details to respond to my message.</Label><FieldError message={errors.consent?.message} /></div></div>
+        <div className="consent-row"><Checkbox id="contactConsent" checked={field.value} onCheckedChange={(checked) => field.onChange(checked === true)} aria-invalid={Boolean(errors.consent)} /><div><Label htmlFor="contactConsent">I consent to DMSA using these details to respond to my message.</Label><p>Read the <Link href="/privacy-policy" target="_blank">Privacy Policy</Link>.</p><FieldError message={errors.consent?.message} /></div></div>
       )} />
       <div className="honeypot" aria-hidden="true"><Label htmlFor="contactWebsite">Website</Label><Input id="contactWebsite" tabIndex={-1} autoComplete="off" {...register("website")} /></div>
       <input type="hidden" {...register("startedAt")} /><input type="hidden" {...register("type")} />

@@ -12,6 +12,15 @@ import { JsonLd } from "@/components/site/json-ld";
 import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 function formatTreatmentDate(value: string) {
+  // A month-only date ("2026-11") is shown as "November 2026".
+  const monthOnly = /^(\d{4})-(\d{2})$/.exec(value);
+  if (monthOnly) {
+    const monthIndex = Number(monthOnly[2]) - 1;
+    if (monthIndex < 0 || monthIndex > 11) return value;
+    return new Intl.DateTimeFormat("en-PH", { month: "long", year: "numeric", timeZone: "UTC" })
+      .format(new Date(Date.UTC(Number(monthOnly[1]), monthIndex, 1)));
+  }
+
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
   if (!match) return value;
 

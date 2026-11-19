@@ -76,7 +76,7 @@ const rules: KnowledgeRule[] = [
     priority: 122,
     triggers: ["privacy", "personal information", "my data", "store my information", "save my details", "what happens to my information", "is my data stored", "data protection"],
     text: "Details submitted through the quotation form are emailed to DMSA and are not stored by this website. You can use a general location in the form if you prefer, then confirm exact property details privately with the team.",
-    actions: [quoteAction, contactAction],
+    actions: [{ label: "Read the privacy policy", href: "/privacy-policy" }, contactAction],
   },
   {
     id: "request-quotation",

@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/request-quote",
     "/contact",
+    "/privacy-policy",
+    "/terms-of-service",
     // The testimonials page stays out of search until it has real reviews.
     ...(testimonials.length > 0 ? ["/testimonials"] : []),
   ];

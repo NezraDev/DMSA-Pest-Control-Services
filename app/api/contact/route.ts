@@ -134,6 +134,7 @@ function quoteEmailHtml(
       fields: [
         { label: "Preferred service date", value: data.preferredDate, fullWidth: true },
         { label: "What are you seeing?", value: data.details, fullWidth: true },
+        ...optionFields("Heard about DMSA from", data.referralSource, "Other source", data.referralSourceOther),
         { label: "Consent", value: "Confirmed", fullWidth: true },
       ],
     },
@@ -287,6 +288,10 @@ export async function POST(request: Request) {
       ["Map", mapUrl],
       ["Preferred date", data.preferredDate],
       ["Details", data.details],
+      [
+        "Heard about DMSA from",
+        displayOption(data.referralSource, data.referralSourceOther),
+      ],
       ["Consent", "Confirmed"],
     ];
     subject = `Quotation request — ${data.fullName}`.slice(0, 180);

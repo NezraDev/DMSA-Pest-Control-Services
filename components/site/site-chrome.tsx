@@ -180,6 +180,10 @@ export function SiteFooter() {
       </div>
       <div className="site-container footer-bottom">
         <p>© {new Date().getFullYear()} DMSA Pest Control Services. All rights reserved.</p>
+        <nav className="footer-legal" aria-label="Legal">
+          <Link href="/privacy-policy">Privacy Policy</Link>
+          <Link href="/terms-of-service">Terms of Service</Link>
+        </nav>
         <p>Map locations are generalized to protect customer privacy.</p>
       </div>
     </footer>

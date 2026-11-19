@@ -5,6 +5,8 @@ import { AlertCircle, ArrowLeft, ArrowRight, Check, LoaderCircle, MapPin, Search
 import { type FormEvent, type KeyboardEvent, type MouseEvent, useCallback, useEffect, useRef, useState } from "react";
 import { Controller, type FieldErrors, type FieldPath, useForm, useWatch } from "react-hook-form";
 
+import Link from "next/link";
+
 import { SubmissionSuccessDialog } from "@/components/forms/submission-success-dialog";
 import { MapCanvas } from "@/components/maps/map-canvas";
 import { Button } from "@/components/ui/button";
@@ -46,6 +48,8 @@ const fieldLabels: Partial<Record<keyof QuoteFormValues, string>> = {
   longitude: "Longitude",
   preferredDate: "Preferred service date",
   details: "What you are seeing",
+  referralSource: "How you heard about DMSA",
+  referralSourceOther: "Other source",
   consent: "Consent",
 };
 
@@ -72,7 +76,7 @@ const steps: Array<{ label: string; title: string; description: string; fields: 
     label: "Message",
     title: "Tell DMSA about the concern",
     description: "Provide enough context for an initial review.",
-    fields: ["details", "consent"],
+    fields: ["details", "referralSource", "referralSourceOther", "consent"],
   },
 ];
 
@@ -92,9 +96,11 @@ function SelectField({
   options,
   control,
   error,
+  placeholder,
 }: {
   name: FieldPath<QuoteFormValues>;
   label: string;
+  placeholder?: string;
   options: readonly string[];
   control: ReturnType<typeof useForm<QuoteFormValues>>["control"];
   error?: string;
@@ -108,7 +114,7 @@ function SelectField({
         render={({ field }) => (
           <Select value={String(field.value ?? "")} onValueChange={field.onChange}>
             <SelectTrigger id={name} className="form-select" aria-invalid={Boolean(error)}>
-              <SelectValue placeholder={`Select ${label.toLowerCase()}`} />
+              <SelectValue placeholder={placeholder ?? `Select ${label.toLowerCase()}`} />
             </SelectTrigger>
             <SelectContent>
               {options.map((option, index) => (
@@ -167,6 +173,8 @@ export function QuoteForm({
       latitude: siteConfig.hqCoordinates[1],
       preferredDate: "",
       details: "",
+      referralSource: "",
+      referralSourceOther: "",
       consent: false,
       website: "",
       startedAt,
@@ -178,6 +186,7 @@ export function QuoteForm({
   const service = useWatch({ control, name: "service" });
   const pest = useWatch({ control, name: "pest" });
   const propertyType = useWatch({ control, name: "propertyType" });
+  const referralSource = useWatch({ control, name: "referralSource" });
   const longitude = Number(useWatch({ control, name: "longitude" }));
   const latitude = Number(useWatch({ control, name: "latitude" }));
 
@@ -186,12 +195,19 @@ export function QuoteForm({
     setValue("latitude", Number(next[1].toFixed(6)), { shouldValidate: true });
   }, [setValue]);
 
+  // Error markers can render a frame or two after validation reports, so look for a few frames.
   const focusFirstInvalid = useCallback(() => {
-    requestAnimationFrame(() => {
+    let attempts = 0;
+    const tryFocus = () => {
       const field = document.getElementById("quotation-request-form")?.querySelector<HTMLElement>('[aria-invalid="true"]');
-      field?.focus({ preventScroll: true });
-      field?.scrollIntoView({ block: "center" });
-    });
+      if (field) {
+        field.focus({ preventScroll: true });
+        field.scrollIntoView({ block: "center" });
+      } else if (++attempts < 10) {
+        requestAnimationFrame(tryFocus);
+      }
+    };
+    requestAnimationFrame(tryFocus);
   }, []);
 
   // Runs after a new step has rendered, so its fields exist to receive focus.
@@ -377,13 +393,19 @@ export function QuoteForm({
           <Textarea id="details" rows={5} placeholder="Describe the affected areas, when the issue started and any access considerations." {...register("details")} aria-invalid={Boolean(errors.details)} />
           <ErrorText message={errors.details?.message} />
         </div>
+        <div className="form-grid two-columns referral-grid">
+          <SelectField name="referralSource" label="How did you hear about DMSA?" placeholder="Select an option" options={formOptions.referralSource} control={control} error={errors.referralSource?.message} />
+          {referralSource === "Other" ? (
+            <div className="form-field conditional-field"><Label htmlFor="referralSourceOther">Where did you hear about DMSA?</Label><Input id="referralSourceOther" {...register("referralSourceOther")} aria-invalid={Boolean(errors.referralSourceOther)} /><ErrorText message={errors.referralSourceOther?.message} /></div>
+          ) : null}
+        </div>
         <Controller
           name="consent"
           control={control}
           render={({ field }) => (
             <div className="consent-row">
               <Checkbox id="consent" checked={field.value} onCheckedChange={(checked) => field.onChange(checked === true)} aria-invalid={Boolean(errors.consent)} />
-              <div><Label htmlFor="consent">I consent to DMSA using these details to respond to my request.</Label><p>No booking is confirmed until DMSA follows up.</p><ErrorText message={errors.consent?.message} /></div>
+              <div><Label htmlFor="consent">I consent to DMSA using these details to respond to my request.</Label><p>No booking is confirmed until DMSA follows up. Read the <Link href="/privacy-policy" target="_blank">Privacy Policy</Link> and <Link href="/terms-of-service" target="_blank">Terms of Service</Link>.</p><ErrorText message={errors.consent?.message} /></div>
             </div>
           )}
         />
