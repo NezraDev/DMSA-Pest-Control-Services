@@ -11,6 +11,13 @@ import { pageHeroes } from "@/data/page-content-data";
 import { siteConfig } from "@/data/site-data";
 import { officeTowns, provinces } from "@/data/locations/provinces";
 
+const { main: mainProfile, branch: branchProfile } = siteConfig.googleProfiles;
+const googleLinks = [
+  ...(mainProfile ? [{ href: mainProfile.mapsUrl, label: "San Fernando main office on Google Maps", icon: "map" }] : []),
+  ...(branchProfile ? [{ href: branchProfile.mapsUrl, label: "Los Baños branch on Google Maps", icon: "map" }] : []),
+  ...[mainProfile?.reviewUrl ?? branchProfile?.reviewUrl].filter((href): href is string => Boolean(href)).map((href) => ({ href, label: "Leave a Google review", icon: "star" })),
+];
+
 const servedBy = (office: "main" | "branch") => provinces.filter((province) => province.servedFrom === office).map((province) => province.name).join(", ").replace(/, ([^,]*)$/, " and $1");
 import { JsonLd } from "@/components/site/json-ld";
 import { pageMetadata, pageSchema } from "@/lib/seo";
@@ -43,10 +50,13 @@ export default function ContactPage() {
             <div className="contact-social"><p>Follow DMSA on Facebook, Instagram and TikTok</p><SocialLinks /></div>
             <MapCanvas mode="hq" coordinates={siteConfig.hqCoordinates} className="contact-map" />
             <p className="map-caption">Main office pin is approximate. Contact DMSA for visit directions.</p>
-            {siteConfig.googleMapsUrl || siteConfig.googleReviewUrl ? (
+            {googleLinks.length > 0 ? (
               <div className="google-profile-links">
-                {siteConfig.googleMapsUrl ? <Button asChild variant="outline"><a href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer"><MapPin aria-hidden="true" /> View the main office on Google Maps</a></Button> : null}
-                {siteConfig.googleReviewUrl ? <Button asChild variant="outline"><a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true" /> Leave a Google review</a></Button> : null}
+                {googleLinks.map((link) => (
+                  <Button asChild variant="outline" key={link.href}>
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">{link.icon === "map" ? <MapPin aria-hidden="true" /> : <Star aria-hidden="true" />} {link.label}</a>
+                  </Button>
+                ))}
               </div>
             ) : null}
           </div>

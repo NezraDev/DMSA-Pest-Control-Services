@@ -51,11 +51,13 @@ When the other offices have profiles, move each area to its nearest office.
 
 **Posts:** one a week. A finished job ("Termite treatment in [barangay], [town]"), a tip from the guides, or a rainy-season reminder about gamu-gamo. Link each post to the matching page on the website.
 
-**Status (November 2026):** the San Fernando main office profile is live.
+**Status (November 2026):** the **Los Baños branch** profile is live.
 - Maps link: https://share.google/lmiBH1J2hpkeuoI4U
 - Review link: https://g.page/r/CY61rhsMxv0sECE/review
 
-Both links are now on the website. The Maps link is in the business data (`hasMap`) and on the contact page and Bicol town pages. The review link is on the contact and testimonials pages and in the footer. When the Los Baños branch profile is verified, send its Maps link too.
+Both links are now on the website. The Maps link is on the Los Baños branch in the business data (`hasMap`), on the contact page and on the town pages the branch serves. The review link is on the contact and testimonials pages and in the footer.
+
+**Still to do:** create the separate **San Fernando main office** profile (Zone 3, Pamukid, San Fernando, Camarines Sur), then send its own Maps and review links. Each office needs its own profile; one profile can't cover two addresses.
 
 ## 3. Asking for reviews
 
@@ -77,8 +79,8 @@ Once there are real reviews, send me a few to publish (with the customer's permi
 
 | Done | Listing | Notes |
 |---|---|---|
-| ☑ | Google Business Profile, San Fernando | Live. Linked from the website. |
-| ☐ | Google Business Profile, Los Baños | Same name and phone, branch address |
+| ☐ | Google Business Profile, San Fernando | Not created yet. Primary category: Pest control service |
+| ☑ | Google Business Profile, Los Baños | Live. Linked from the website. |
 | ☐ | Facebook page "About" | Same NAP, website link, hours, short description |
 | ☐ | Instagram and TikTok bios | Website link plus "Free ocular inspection" |
 | ☐ | Bing Places for Business | Can import from Google Business Profile |

@@ -52,6 +52,7 @@ export default async function TownPage({ params }: Props) {
   const content = townContent(town);
   const { province } = town;
   const { named, numbered } = content.barangayList;
+  const officeProfile = siteConfig.googleProfiles[town.servedFrom];
 
   return (
     <main id="main-content">
@@ -87,10 +88,10 @@ export default async function TownPage({ params }: Props) {
         <div className="site-container seo-copy">
           <h2>{content.officeHeading}</h2>
           {content.officeParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-          {town.servedFrom === "main" && siteConfig.googleMapsUrl ? (
+          {officeProfile ? (
             <p>
-              <a href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer">See DMSA&apos;s main office on Google Maps</a>
-              {siteConfig.googleReviewUrl ? <> · <a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer">Leave a Google review</a></> : null}
+              <a href={officeProfile.mapsUrl} target="_blank" rel="noopener noreferrer">See DMSA&apos;s {town.servedFrom === "main" ? "San Fernando main office" : "Los Baños branch"} on Google Maps</a>
+              {" · "}<a href={officeProfile.reviewUrl} target="_blank" rel="noopener noreferrer">Leave a Google review</a>
             </p>
           ) : null}
           <h2>{content.overviewHeading}</h2>

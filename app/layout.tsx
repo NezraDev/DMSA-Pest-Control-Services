@@ -92,7 +92,7 @@ const structuredData = {
         addressCountry: "PH",
       },
       department: { "@id": branchId },
-      ...(siteConfig.googleMapsUrl ? { hasMap: siteConfig.googleMapsUrl } : {}),
+      ...(siteConfig.googleProfiles.main ? { hasMap: siteConfig.googleProfiles.main.mapsUrl } : {}),
       ...(trustFacts.foundedYear ? { foundingDate: trustFacts.foundedYear } : {}),
       knowsAbout: ["Pest control", "Termite control", "Anay treatment", "Soil poisoning", "Anti-termite soil treatment", "Cockroach control", "Ant control", "Rodent control"],
       geo: {
@@ -122,6 +122,7 @@ const structuredData = {
       "@id": branchId,
       name: `${siteConfig.name} - Los Baños Branch`,
       parentOrganization: { "@id": organizationId },
+      ...(siteConfig.googleProfiles.branch ? { hasMap: siteConfig.googleProfiles.branch.mapsUrl } : {}),
       url: absoluteUrl("/pest-control/laguna/los-banos"),
       image: absoluteUrl(defaultShareImage.url),
       telephone: siteConfig.phoneViberHref,

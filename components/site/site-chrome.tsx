@@ -153,6 +153,7 @@ export function SiteHeader() {
 
 /** `towns`: town pages with a DMSA office or completed job, worked out on the server in app/layout.tsx. */
 export function SiteFooter({ towns = [] }: { towns?: { name: string; path: string }[] }) {
+  const reviewUrl = (siteConfig.googleProfiles.main ?? siteConfig.googleProfiles.branch)?.reviewUrl;
   return (
     <footer className="site-footer">
       <div className="site-container footer-grid">
@@ -195,7 +196,7 @@ export function SiteFooter({ towns = [] }: { towns?: { name: string; path: strin
           <a href={`tel:${siteConfig.phoneMobileHref}`}><Phone aria-hidden="true" /><span>{siteConfig.phoneMobile}</span></a>
           {siteConfig.publicEmail ? <a href={`mailto:${siteConfig.publicEmail}`}><MessageCircle aria-hidden="true" /><span>{siteConfig.publicEmail}</span></a> : null}
           <p><Clock3 aria-hidden="true" /><span>{siteConfig.hours}</span></p>
-          {siteConfig.googleReviewUrl ? <a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true" /><span>Review DMSA on Google</span></a> : null}
+          {reviewUrl ? <a href={reviewUrl} target="_blank" rel="noopener noreferrer"><Star aria-hidden="true" /><span>Review DMSA on Google</span></a> : null}
         </div>
       </div>
       <div className="site-container footer-bottom">

@@ -31,6 +31,8 @@ function RatingStars({ rating }: { rating: number }) {
   );
 }
 
+const profile = siteConfig.googleProfiles.main ?? siteConfig.googleProfiles.branch;
+
 export default function TestimonialsPage() {
   return (
     <main id="main-content">
@@ -63,20 +65,20 @@ export default function TestimonialsPage() {
                   service they can trust.
                 </p>
                 <div className="hero-actions">
-                  {siteConfig.googleReviewUrl ? (
+                  {profile ? (
                     <Button asChild size="lg">
-                      <a href={siteConfig.googleReviewUrl} target="_blank" rel="noopener noreferrer">
+                      <a href={profile.reviewUrl} target="_blank" rel="noopener noreferrer">
                         <Star aria-hidden="true" /> Leave a Google review
                       </a>
                     </Button>
                   ) : null}
-                  <Button asChild size="lg" variant={siteConfig.googleReviewUrl ? "outline" : "default"}>
+                  <Button asChild size="lg" variant={profile ? "outline" : "default"}>
                     <Link href="/request-quote">
                       Request a quotation <ArrowRight aria-hidden="true" />
                     </Link>
                   </Button>
                 </div>
-                {siteConfig.googleMapsUrl ? <p><a className="text-link" href={siteConfig.googleMapsUrl} target="_blank" rel="noopener noreferrer">Read DMSA reviews on Google <ArrowRight aria-hidden="true" /></a></p> : null}
+                {profile ? <p><a className="text-link" href={profile.mapsUrl} target="_blank" rel="noopener noreferrer">Read DMSA reviews on Google <ArrowRight aria-hidden="true" /></a></p> : null}
               </div>
               <aside className="testimonial-format" aria-label="Review display format">
                 <span className="testimonial-format-label">Review format</span>

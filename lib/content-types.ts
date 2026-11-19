@@ -37,10 +37,8 @@ export type SiteConfig = {
   hours: string;
   serviceAreas: string[];
   hqCoordinates: [number, number];
-  /** Google Maps link of the main office's Business Profile. */
-  googleMapsUrl?: string;
-  /** "Write a review" link from the Business Profile. */
-  googleReviewUrl?: string;
+  /** Google Business Profile links per office ("main" = San Fernando, "branch" = Los Baños). */
+  googleProfiles: Partial<Record<"main" | "branch", { mapsUrl: string; reviewUrl: string }>>;
 };
 
 export type TrustFacts = {

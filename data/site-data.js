@@ -36,10 +36,14 @@ export const siteConfig = {
     "Metro Manila",
   ],
   hqCoordinates: [123.145, 13.574],
-  // Google Business Profile of the San Fernando main office (verified November 2026).
-  // Add the Los Baños branch profile here too once it exists.
-  googleMapsUrl: "https://share.google/lmiBH1J2hpkeuoI4U",
-  googleReviewUrl: "https://g.page/r/CY61rhsMxv0sECE/review",
+  // Google Business Profiles, one per office. Los Baños branch: live (November 2026).
+  // TODO(owner): add `main` with the San Fernando profile's Maps and review links once it exists.
+  googleProfiles: {
+    branch: {
+      mapsUrl: "https://share.google/lmiBH1J2hpkeuoI4U",
+      reviewUrl: "https://g.page/r/CY61rhsMxv0sECE/review",
+    },
+  },
 };
 
 /** @type {import("../lib/content-types").ContentPoint[]} */
