@@ -71,3 +71,71 @@ export function serviceSchema({ name, description, path, areaServed }: { name: s
     areaServed: areaServed.map((area) => ({ "@type": "AdministrativeArea", name: area })),
   };
 }
+
+export const websiteId = `${siteUrl}/#website`;
+
+type Crumb = { name: string; path: string };
+
+/** WebPage plus its BreadcrumbList, in one graph. Every indexable page should render this. */
+export function pageSchema({ name, description, path, breadcrumbs, type = "WebPage" }: { name: string; description: string; path: string; breadcrumbs?: Crumb[]; type?: string }) {
+  const url = absoluteUrl(path);
+  const graph: Record<string, unknown>[] = [
+    {
+      "@type": type,
+      "@id": `${url}#webpage`,
+      url,
+      name,
+      description,
+      inLanguage: "en-PH",
+      isPartOf: { "@id": websiteId },
+      about: { "@id": organizationId },
+      ...(breadcrumbs ? { breadcrumb: { "@id": `${url}#breadcrumb` } } : {}),
+    },
+  ];
+  if (breadcrumbs) {
+    graph.push({
+      "@type": "BreadcrumbList",
+      "@id": `${url}#breadcrumb`,
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.name,
+        item: absoluteUrl(crumb.path),
+      })),
+    });
+  }
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+/** FAQPage markup. Pass exactly the questions and answers shown on the page. */
+export function faqSchema(faqs: { question: string; answer: string }[], path: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${absoluteUrl(path)}#faq`,
+    mainEntity: faqs.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  };
+}
+
+export function articleSchema({ headline, description, path, datePublished, dateModified, image }: { headline: string; description: string; path: string; datePublished: string; dateModified: string; image?: string }) {
+  const url = absoluteUrl(path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline,
+    description,
+    url,
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    datePublished,
+    dateModified,
+    inLanguage: "en-PH",
+    image: absoluteUrl(image ?? defaultShareImage.url),
+    author: { "@id": organizationId },
+    publisher: { "@id": organizationId },
+  };
+}

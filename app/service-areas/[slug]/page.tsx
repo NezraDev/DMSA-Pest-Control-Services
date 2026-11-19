@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
+import { FaqSection } from "@/components/site/faq-section";
 import { JsonLd } from "@/components/site/json-ld";
 import { BackLink, FinalCta, ProjectCard, SectionHeading } from "@/components/site/page-elements";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,8 @@ import { galleryItems } from "@/data/gallery-data";
 import { serviceAreas } from "@/data/service-areas-data";
 import { services } from "@/data/services-data";
 import { siteConfig } from "@/data/site-data";
-import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+import { towns } from "@/data/towns-data";
+import { pageMetadata, pageSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -39,13 +41,14 @@ export default async function ServiceAreaPage({ params }: Props) {
 
   const path = `/service-areas/${page.slug}`;
   const jobs = galleryItems.filter((item) => item.region === area.name);
+  const areaTowns = towns.filter((town) => town.region === area.name);
 
   return (
     <main id="main-content">
-      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Service areas", path: "/treated-locations" }, { name: area.name, path }])} />
+      <JsonLd data={pageSchema({ name: page.heading, description: page.metaDescription, path, breadcrumbs: [{ name: "Home", path: "/" }, { name: "Service areas", path: "/service-areas" }, { name: area.name, path }] })} />
       <section className="page-hero">
         <div className="site-container page-hero-inner">
-          <BackLink href="/treated-locations">All service areas</BackLink>
+          <BackLink href="/service-areas">All service areas</BackLink>
           <h1>{page.heading}</h1>
           <p>{page.intro[0]}</p>
           <div className="hero-actions">
@@ -63,6 +66,16 @@ export default async function ServiceAreaPage({ params }: Props) {
               <li key={service.slug}><Link href={`/services/${service.slug}`}>{service.title}</Link>: {service.description}</li>
             ))}
           </ul>
+          {areaTowns.length > 0 ? (
+            <>
+              <h2>Towns in {area.name}</h2>
+              <ul>
+                {areaTowns.map((town) => (
+                  <li key={town.slug}><Link href={`/pest-control/${town.slug}`}>Pest control in {town.name}</Link></li>
+                ))}
+              </ul>
+            </>
+          ) : null}
           <h2>Contact DMSA</h2>
           <p>
             Call <a href={`tel:${siteConfig.phoneMobileHref}`}>{siteConfig.phoneMobile}</a> or message{" "}
@@ -81,6 +94,8 @@ export default async function ServiceAreaPage({ params }: Props) {
           </div>
         </section>
       ) : null}
+
+      <FaqSection title={`Pest control questions in ${area.name}`} faqs={page.faqs} path={path} />
 
       <FinalCta />
     </main>

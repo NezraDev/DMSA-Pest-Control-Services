@@ -3,19 +3,26 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, CircleAlert, ClipboardList, Lightbulb } from "lucide-react";
 
+import { FaqSection } from "@/components/site/faq-section";
 import { JsonLd } from "@/components/site/json-ld";
 import { BackLink, Checklist, FinalCta, ProjectCard, SectionHeading } from "@/components/site/page-elements";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/gallery-data";
+import { guides } from "@/data/guides-data";
 import { serviceAreas } from "@/data/service-areas-data";
 import { services } from "@/data/services-data";
 import { siteConfig } from "@/data/site-data";
-import { breadcrumbSchema, pageMetadata, serviceSchema } from "@/lib/seo";
+import { towns } from "@/data/towns-data";
+import { pageMetadata, pageSchema, serviceSchema } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export const dynamicParams = false;
+
+// Services with no guide of their own point to the guides closest to their customers' questions.
+const fallbackGuides: Record<string, string[]> = {
+  "commercial-pest-control": ["how-to-prepare-for-pest-control-treatment", "soil-poisoning-before-construction"],
+};
 
 export function generateStaticParams() {
   return services.map(({ slug }) => ({ slug }));
@@ -40,11 +47,17 @@ export default async function ServiceDetailPage({ params }: Props) {
     if (service.slug === "residential-pest-control") return item.customerType === "Residential";
     return item.customerType === "Commercial";
   });
+  const ownGuides = guides.filter((guide) => guide.relatedService === service.slug);
+  const relatedGuides = ownGuides.length > 0
+    ? ownGuides
+    : guides.filter((guide) => fallbackGuides[service.slug]?.includes(guide.slug));
+  const otherServices = services.filter((item) => item.slug !== service.slug);
+  const lowerTitle = service.title.toLowerCase();
 
   return (
     <main id="main-content">
       <JsonLd data={serviceSchema({ name: service.title, description: service.metaDescription, path, areaServed: siteConfig.serviceAreas })} />
-      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.title, path }])} />
+      <JsonLd data={pageSchema({ name: service.heading, description: service.metaDescription, path, breadcrumbs: [{ name: "Home", path: "/" }, { name: "Services", path: "/services" }, { name: service.title, path }] })} />
       <section className="page-hero">
         <div className="site-container page-hero-inner">
           <BackLink href="/services">All services</BackLink>
@@ -58,7 +71,7 @@ export default async function ServiceDetailPage({ params }: Props) {
 
       <section className="section">
         <div className="site-container seo-copy">
-          <h2>About this service</h2>
+          <h2>{service.overviewHeading}</h2>
           {service.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
@@ -68,6 +81,17 @@ export default async function ServiceDetailPage({ params }: Props) {
           <div><h2 className="seo-column-title"><CircleAlert aria-hidden="true" />Signs to look for</h2><Checklist items={service.signs} /></div>
           <div><h2 className="seo-column-title"><ClipboardList aria-hidden="true" />How it works</h2><ol className="numbered-list">{service.process.map((step, index) => <li key={step}><span>{index + 1}</span>{step}</li>)}</ol></div>
           <div><h2 className="seo-column-title"><Lightbulb aria-hidden="true" />Prevention tips</h2><Checklist items={service.prevention} /></div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="site-container seo-copy">
+          <h2>What to expect from the inspection and treatment</h2>
+          {service.visit.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          <h2>Preparing for {lowerTitle}</h2>
+          <ul>{service.preparation.map((item) => <li key={item}>{item}</li>)}</ul>
+          <h2>{service.note.title}</h2>
+          {service.note.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
 
@@ -82,24 +106,36 @@ export default async function ServiceDetailPage({ params }: Props) {
         </section>
       ) : null}
 
-      <section className="section faq-section">
-        <div className="site-container faq-grid">
-          <SectionHeading title={`${service.title}: frequently asked questions`} />
-          <Accordion type="single" collapsible className="faq-accordion">
-            {service.faqs.map((faq, index) => (
-              <AccordionItem key={faq.question} value={`faq-${index}`}>
-                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent><p>{faq.answer}</p></AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
+      <FaqSection title={`${service.title}: frequently asked questions`} faqs={service.faqs} path={path} />
 
       <section className="section">
         <div className="site-container seo-copy">
-          <h2>Where this service is available</h2>
-          <p>DMSA serves {serviceAreas.map(({ name }) => name).join(", ").replace(/, ([^,]*)$/, " and $1")}. Availability depends on the location and required scope. <Link href="/treated-locations">See all service areas</Link>.</p>
+          <h2>Where {lowerTitle} is available</h2>
+          <p>
+            DMSA serves {serviceAreas.map(({ name }) => name).join(", ").replace(/, ([^,]*)$/, " and $1")}. Availability depends on the location and required scope.{" "}
+            <Link href="/service-areas">See all service areas</Link>.
+          </p>
+          <ul>
+            {towns.map((town) => (
+              <li key={town.slug}><Link href={`/pest-control/${town.slug}`}>Pest control in {town.name}, {town.province}</Link></li>
+            ))}
+          </ul>
+          <h2>Explore our other services</h2>
+          <ul>
+            {otherServices.map((item) => (
+              <li key={item.slug}><Link href={`/services/${item.slug}`}>{item.title}</Link>: {item.description}</li>
+            ))}
+          </ul>
+          {relatedGuides.length > 0 ? (
+            <>
+              <h2>Related guides</h2>
+              <ul>
+                {relatedGuides.map((guide) => (
+                  <li key={guide.slug}><Link href={`/guides/${guide.slug}`}>{guide.title.replace(/^./, (letter) => letter.toUpperCase())}</Link></li>
+                ))}
+              </ul>
+            </>
+          ) : null}
         </div>
       </section>
 

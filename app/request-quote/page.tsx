@@ -6,7 +6,8 @@ import { PageHero } from "@/components/site/page-elements";
 import { formOptions } from "@/data/form-options-data";
 import { pageHeroes } from "@/data/page-content-data";
 import { siteConfig } from "@/data/site-data";
-import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/site/json-ld";
+import { pageMetadata, pageSchema } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Request a Pest Control Quotation",
@@ -26,6 +27,7 @@ export default async function RequestQuotePage({
 
   return (
     <main id="main-content">
+      <JsonLd data={pageSchema({ name: pageHeroes.request.title, description: pageHeroes.request.description, path: "/request-quote", breadcrumbs: [{ name: "Home", path: "/" }, { name: "Request a quotation", path: "/request-quote" }] })} />
       <PageHero {...pageHeroes.request} />
       <section className="section quote-page-section">
         <div className="site-container quote-layout">

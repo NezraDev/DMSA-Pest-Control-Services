@@ -24,11 +24,11 @@ import { iconMap } from "@/lib/icon-map";
 import { HomepageSlideshow } from "@/components/site/homepage-slideshow";
 import { JsonLd } from "@/components/site/json-ld";
 import { serviceAreas } from "@/data/service-areas-data";
-import { pageMetadata } from "@/lib/seo";
+import { faqSchema, pageMetadata, pageSchema } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = pageMetadata({
-  absoluteTitle: "DMSA Pest Control Services | Pest & Termite (Anay) Control",
+  absoluteTitle: "Pest Control & Anay Treatment in Laguna & Bicol | DMSA",
   description:
     "Pest and termite (anay) control for homes and businesses in Bicol, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila. Free ocular inspection.",
   path: "/",
@@ -47,6 +47,8 @@ const videoSchema = {
 export default function Home() {
   return (
     <main id="main-content">
+      <JsonLd data={pageSchema({ name: "DMSA Pest Control Services", description: "Pest and termite (anay) control for homes and businesses in Bicol, Laguna, Cavite, Batangas, Rizal, Quezon and Metro Manila.", path: "/" })} />
+      <JsonLd data={faqSchema(faqs, "/")} />
       <JsonLd data={videoSchema} />
       <section className="home-hero home-hero-cinematic">
         <HomepageSlideshow />
@@ -204,11 +206,16 @@ export default function Home() {
               title="Pest control service locations by region."
               description="Location pins are generalized to protect property and customer privacy."
             />
-            <Button asChild variant="outline">
-              <Link href="/treated-locations">
-                Open full map <ArrowRight aria-hidden="true" />
+            <div className="heading-row-actions">
+              <Link className="text-link" href="/service-areas">
+                All service areas <ArrowRight aria-hidden="true" />
               </Link>
-            </Button>
+              <Button asChild variant="outline">
+                <Link href="/treated-locations">
+                  Open full map <ArrowRight aria-hidden="true" />
+                </Link>
+              </Button>
+            </div>
           </div>
           <TreatedMapExplorer compact />
         </div>
@@ -246,7 +253,8 @@ export default function Home() {
             />
             <p className="faq-contact">
               Need a different answer? <Link href="/contact">Contact DMSA</Link>
-              .
+              , see <Link href="/faq">all FAQs</Link> or read our{" "}
+              <Link href="/guides">pest control guides</Link>.
             </p>
           </div>
           <Accordion type="single" collapsible className="faq-accordion">

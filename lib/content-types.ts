@@ -41,6 +41,8 @@ export type SiteConfig = {
 
 export type NavigationItem = { href: string; label: string };
 
+export type ServiceNote = { title: string; paragraphs: string[] };
+
 export type Service = {
   slug: string;
   title: string;
@@ -56,6 +58,10 @@ export type Service = {
   metaDescription: string;
   heading: string;
   overview: string[];
+  overviewHeading: string;
+  visit: string[];
+  preparation: string[];
+  note: ServiceNote;
   faqs: Faq[];
 };
 
@@ -68,7 +74,42 @@ export type ServiceArea = {
     metaDescription: string;
     heading: string;
     intro: string[];
+    faqs: Faq[];
   };
+};
+
+export type Town = {
+  slug: string;
+  name: string;
+  province: string;
+  /** Must match a ServiceArea name. */
+  region: string;
+  /** Approximate town centre, used only to sort nearby jobs. */
+  coordinates: [number, number];
+  servedFrom: "main" | "branch";
+  metaTitle: string;
+  metaDescription: string;
+  heading: string;
+  intro: string[];
+  local: string[];
+  faqs: Faq[];
+  nearby: string[];
+};
+
+export type GuideSection = { id: string; heading: string; paragraphs?: string[]; list?: string[]; after?: string[] };
+
+export type Guide = {
+  slug: string;
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+  summary: string;
+  cardSummary: string;
+  datePublished: string;
+  dateModified: string;
+  relatedService: string;
+  sections: GuideSection[];
+  related: string[];
 };
 
 export type ContentPoint = {
@@ -119,6 +160,12 @@ export type GalleryItem = {
   shortDescription: string;
   customerFeedback: string;
   featured: boolean;
+  /** Slug of the matching /pest-control/<town> page, when one exists. */
+  town?: string;
+  /** One caption per entry in imagePaths, describing what the photo shows. */
+  imageCaptions?: string[];
+  /** Captions for the before and after images. */
+  comparisonCaptions?: [string, string];
 };
 
 export type PageHeroContent = {

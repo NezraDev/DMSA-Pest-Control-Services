@@ -7,7 +7,8 @@ import { Chatbot } from "@/components/site/chatbot";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
 import { siteConfig } from "@/data/site-data";
 import { services } from "@/data/services-data";
-import { defaultShareImage, organizationId } from "@/lib/seo";
+import { towns } from "@/data/towns-data";
+import { defaultShareImage, organizationId, websiteId } from "@/lib/seo";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./globals.css";
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: "DMSA Pest Control Services",
-    template: "%s | DMSA Pest Control Services",
+    template: "%s | DMSA Pest Control",
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
@@ -58,12 +59,14 @@ const themeScript = `
   })();
 `;
 
+const branchId = `${siteUrl}/#los-banos-branch`;
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": `${siteUrl}/#website`,
+      "@id": websiteId,
       url: siteUrl,
       name: siteConfig.name,
       alternateName: ["DMSA Pest Control", siteConfig.shortName],
@@ -88,27 +91,17 @@ const structuredData = {
         addressRegion: "Camarines Sur",
         addressCountry: "PH",
       },
-      department: {
-        "@type": "LocalBusiness",
-        "@id": `${siteUrl}/#los-banos-branch`,
-        name: `${siteConfig.name} - Los Baños Branch`,
-        url: absoluteUrl("/service-areas/laguna"),
-        image: absoluteUrl(defaultShareImage.url),
-        telephone: siteConfig.phoneViberHref,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "San Antonio",
-          addressLocality: "Los Baños",
-          addressRegion: "Laguna",
-          addressCountry: "PH",
-        },
-      },
+      department: { "@id": branchId },
+      knowsAbout: ["Pest control", "Termite control", "Anay treatment", "Soil poisoning", "Anti-termite soil treatment", "Cockroach control", "Ant control", "Rodent control"],
       geo: {
         "@type": "GeoCoordinates",
         longitude: siteConfig.hqCoordinates[0],
         latitude: siteConfig.hqCoordinates[1],
       },
-      areaServed: siteConfig.serviceAreas.map((name) => ({ "@type": "AdministrativeArea", name })),
+      areaServed: [
+        ...siteConfig.serviceAreas.map((name) => ({ "@type": "AdministrativeArea", name })),
+        ...towns.map((town) => ({ "@type": "City", name: `${town.name}, ${town.province}` })),
+      ],
       sameAs: Object.values(siteConfig.socialLinks).filter((value) => /^https?:\/\//.test(value)),
       openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
@@ -123,6 +116,29 @@ const structuredData = {
           "@type": "Offer",
           itemOffered: { "@type": "Service", name: service.title, description: service.description, url: absoluteUrl(`/services/${service.slug}`) },
         })),
+      },
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": branchId,
+      name: `${siteConfig.name} - Los Baños Branch`,
+      parentOrganization: { "@id": organizationId },
+      url: absoluteUrl("/pest-control/los-banos"),
+      image: absoluteUrl(defaultShareImage.url),
+      telephone: siteConfig.phoneViberHref,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "San Antonio",
+        addressLocality: "Los Baños",
+        addressRegion: "Laguna",
+        addressCountry: "PH",
+      },
+      areaServed: { "@type": "AdministrativeArea", name: "Laguna" },
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        opens: "08:00",
+        closes: "17:00",
       },
     },
   ],

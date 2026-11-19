@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-elements";
+import { pageSchema } from "@/lib/seo";
 
 export type LegalSection = {
   id: string;
@@ -14,14 +16,17 @@ export function LegalPage({
   description,
   updated,
   sections,
+  path,
 }: {
   title: string;
   description: string;
   updated: string;
   sections: LegalSection[];
+  path: string;
 }) {
   return (
     <main id="main-content">
+      <JsonLd data={pageSchema({ name: title, description, path, breadcrumbs: [{ name: "Home", path: "/" }, { name: title, path }] })} />
       <PageHero title={title} description={description} />
       <section className="section legal-section">
         <div className="site-container legal-layout">

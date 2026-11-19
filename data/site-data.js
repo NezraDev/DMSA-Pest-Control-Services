@@ -10,8 +10,9 @@ export const siteConfig = {
     website: "/brand/dmsa-logo-red-profile.png",
     pageIcon: "/brand/dmsa-logo-red.png",
   },
-  address:
-    "Zone 3, Pamukid, San Fernando, Camarines Sur, Philippines, Los Baños Branch: San Antonio, Los Baños, Laguna",
+  // Main office. The Los Baños branch is additionalLocation. Keep both exactly as they
+  // appear on the Google Business Profiles.
+  address: "Zone 3, Pamukid, San Fernando, Camarines Sur, Philippines",
   additionalLocation: "San Antonio, Los Baños, Laguna, Philippines",
   phoneViber: "0918 299 5218",
   phoneViberHref: "+639182995218",

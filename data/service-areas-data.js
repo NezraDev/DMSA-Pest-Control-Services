@@ -1,5 +1,5 @@
-// Every area appears on /treated-locations. Set `page` only when there is real local
-// information to publish, such as an office or completed jobs. Near-identical town
+// Every area appears on /service-areas and /treated-locations. Set `page` only when there is
+// real local information to publish, such as an office or completed jobs. Near-identical
 // pages can be treated by Google as doorway pages and hurt rankings.
 
 /** @type {import("../lib/content-types").ServiceArea[]} */
@@ -16,19 +16,29 @@ export const serviceAreas = [
         "DMSA Pest Control Services is based in Zone 3, Pamukid, San Fernando, Camarines Sur. From here, DMSA provides pest control and termite (anay) treatment for residential and commercial properties in Camarines Sur and the wider Bicol Region.",
         "Whether you have termite damage in a house, cockroaches or rodents in a shop, or a building project that needs pre-construction anti-termite soil treatment, you can request a quotation with a free ocular inspection. Availability depends on the location and required scope.",
       ],
+      faqs: [
+        { question: "Where is DMSA's office in Camarines Sur?", answer: "DMSA's main office is in Zone 3, Pamukid, San Fernando, Camarines Sur." },
+        { question: "Does DMSA serve areas outside San Fernando?", answer: "Yes. DMSA serves homes and businesses across Camarines Sur and the wider Bicol Region. Availability depends on the location and required scope." },
+        { question: "Is the ocular inspection free in the Bicol Region?", answer: "Yes. The free ocular inspection is included in the quotation process for properties DMSA can serve." },
+      ],
     },
   },
   {
     name: "Laguna",
-    summary: "DMSA's Los Baños branch is in San Antonio, Los Baños, and the team has completed residential termite treatment in Anos and Marymount Village.",
+    summary: "DMSA's Los Baños branch is in San Antonio, Los Baños, and the team has completed termite treatment in Anos, Marymount Village and South Langkiwa, Biñan.",
     page: {
       slug: "laguna",
-      metaTitle: "Pest & Termite Control in Los Baños, Laguna",
-      metaDescription: "Pest control and termite (anay) treatment in Laguna from DMSA's Los Baños branch, with completed work in Anos and Marymount Village. Free inspection.",
+      metaTitle: "Pest & Termite Control in Laguna",
+      metaDescription: "Pest control and termite (anay) treatment in Laguna from DMSA's Los Baños branch, with completed jobs in Los Baños and Biñan. Free ocular inspection.",
       heading: "Pest and termite control in Los Baños and Laguna",
       intro: [
         "DMSA Pest Control Services has a branch in San Antonio, Los Baños, and provides pest control and termite (anay) treatment for homes and businesses in Laguna.",
-        "Completed work in the area includes residential termite control in Anos, Los Baños, and termite control with chemical injection and soil poisoning in Marymount Village. Both jobs are shown below with photos. To discuss your property, request a quotation with a free ocular inspection.",
+        "Completed work in the province includes residential termite control in Anos, Los Baños; termite control with chemical injection and soil poisoning in Marymount Village, Los Baños; and the same treatment in San Antonio, South Langkiwa, Biñan. All three jobs are shown below with photos. To discuss your property, request a quotation with a free ocular inspection.",
+      ],
+      faqs: [
+        { question: "Does DMSA have a branch in Laguna?", answer: "Yes. DMSA's Laguna branch is in San Antonio, Los Baños. Call 0955 562 9226 or message 0918 299 5218 on Viber." },
+        { question: "Which towns in Laguna has DMSA worked in?", answer: "Completed jobs shown on this site include Anos and Marymount Village in Los Baños, and South Langkiwa in Biñan. For other towns, request a quotation; availability depends on the location and scope." },
+        { question: "Does DMSA do soil poisoning in Laguna?", answer: "Yes. DMSA has carried out soil poisoning together with chemical injection in Marymount Village, Los Baños, and in South Langkiwa, Biñan." },
       ],
     },
   },

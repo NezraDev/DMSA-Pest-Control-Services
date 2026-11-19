@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 import { pageHeroes } from "@/data/page-content-data";
 import { companyValues, siteConfig } from "@/data/site-data";
 import { iconMap } from "@/lib/icon-map";
-import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/site/json-ld";
+import { pageMetadata, pageSchema } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "About DMSA",
@@ -23,6 +24,7 @@ export const metadata: Metadata = pageMetadata({
 export default function AboutPage() {
   return (
     <main id="main-content">
+      <JsonLd data={pageSchema({ type: "AboutPage", name: pageHeroes.about.title, description: pageHeroes.about.description, path: "/about", breadcrumbs: [{ name: "Home", path: "/" }, { name: "About", path: "/about" }] })} />
       <PageHero
         {...pageHeroes.about}
         actions={
@@ -99,9 +101,9 @@ export default function AboutPage() {
               <span className="hq-icon">
                 <MapPinned aria-hidden="true" />
               </span>
-              <p>Headquarters</p>
-              <h2>Los Baños, Laguna</h2>
-              <address>{siteConfig.additionalLocation}</address>
+              <p>Main office</p>
+              <h2>San Fernando, Camarines Sur</h2>
+              <address>{siteConfig.address}</address>
               <p>{siteConfig.hours}</p>
               <Button asChild variant="outline">
                 <Link href="/contact">
@@ -113,9 +115,9 @@ export default function AboutPage() {
               <span className="hq-icon">
                 <MapPinned aria-hidden="true" />
               </span>
-              <p>Headquarters</p>
-              <h2>San Fernando, Camarines Sur</h2>
-              <address>{siteConfig.address}</address>
+              <p>Branch</p>
+              <h2>Los Baños, Laguna</h2>
+              <address>{siteConfig.additionalLocation}</address>
               <p>{siteConfig.hours}</p>
               <Button asChild variant="outline">
                 <Link href="/contact">

@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { pageHeroes } from "@/data/page-content-data";
 import { services } from "@/data/services-data";
 import { iconMap } from "@/lib/icon-map";
-import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/site/json-ld";
+import { pageMetadata, pageSchema } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Pest & Termite Control Services",
@@ -18,6 +19,7 @@ export const metadata: Metadata = pageMetadata({
 export default function ServicesPage() {
   return (
     <main id="main-content">
+      <JsonLd data={pageSchema({ type: "CollectionPage", name: pageHeroes.services.title, description: pageHeroes.services.description, path: "/services", breadcrumbs: [{ name: "Home", path: "/" }, { name: "Services", path: "/services" }] })} />
       <PageHero {...pageHeroes.services} actions={<Button asChild size="lg"><Link href="/request-quote">Request a quotation <ArrowRight aria-hidden="true" /></Link></Button>} />
       <section className="section service-details-section">
         <div className="site-container service-detail-list">

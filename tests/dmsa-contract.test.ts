@@ -6,6 +6,11 @@ import { quoteSchema } from "../lib/forms.ts";
 import { isValidLngLat } from "../lib/map-coordinates.ts";
 import { formOptions } from "../data/form-options-data.js";
 import { galleryItems } from "../data/gallery-data.js";
+import { guides } from "../data/guides-data.js";
+import { serviceAreas } from "../data/service-areas-data.js";
+import { services } from "../data/services-data.js";
+import { siteConfig } from "../data/site-data.js";
+import { towns } from "../data/towns-data.js";
 
 const baseQuote = {
   type: "quote",
@@ -212,10 +217,10 @@ test("website logo and page icon are independently configurable", async () => {
   assert.match(manifest, /siteConfig\.logos\.pageIcon/);
 });
 
-test("route titles use the DMSA Pest Control Services title template", async () => {
+test("route titles use the short DMSA Pest Control title template", async () => {
   const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
   const about = await readFile(new URL("../app/about/page.tsx", import.meta.url), "utf8");
-  assert.match(layout, /template:\s*"%s \| DMSA Pest Control Services"/);
+  assert.match(layout, /template:\s*"%s \| DMSA Pest Control"/);
   assert.match(about, /title:\s*"About DMSA"/);
 });
 
@@ -265,4 +270,72 @@ test("MapLibre uses the CARTO Voyager basemap with complete attribution", async 
   assert.match(map, /© OpenStreetMap contributors/);
   assert.doesNotMatch(map, /tile\.openstreetmap\.org/);
   assert.match(envExample, /NEXT_PUBLIC_CARTO_BASEMAP_KEY=/);
+});
+
+// Titles rendered through the layout template get this suffix.
+const titleSuffix = " | DMSA Pest Control";
+
+test("data-driven page titles fit in 60 characters and are unique", () => {
+  const titles = [
+    ...services.map((service) => service.metaTitle + titleSuffix),
+    ...serviceAreas.flatMap((area) => (area.page ? [area.page.metaTitle + titleSuffix] : [])),
+    ...towns.map((town) => town.metaTitle + titleSuffix),
+    ...guides.map((guide) => guide.metaTitle + titleSuffix),
+    ...galleryItems.map((item) => item.metaTitle),
+  ];
+  for (const title of titles) assert.ok(title.length <= 60, `${title} is ${title.length} characters`);
+  assert.equal(new Set(titles).size, titles.length, "titles must be unique");
+});
+
+test("data-driven meta descriptions are 120 to 160 characters", () => {
+  const descriptions = [
+    ...services.map((service) => service.metaDescription),
+    ...serviceAreas.flatMap((area) => (area.page ? [area.page.metaDescription] : [])),
+    ...towns.map((town) => town.metaDescription),
+    ...guides.map((guide) => guide.metaDescription),
+  ];
+  for (const description of descriptions) {
+    assert.ok(description.length >= 120 && description.length <= 160, `${description.length}: ${description}`);
+  }
+});
+
+test("town pages exist only where DMSA has an office or a completed job", () => {
+  for (const town of towns) {
+    const hasJob = galleryItems.some((item) => item.town === town.slug);
+    const hasOffice = town.servedFrom === "main" ? siteConfig.address.includes(town.name) : siteConfig.additionalLocation.includes(town.name);
+    assert.ok(hasJob || hasOffice, `${town.slug} has no office or job; don't publish a copy-paste town page`);
+    assert.ok(serviceAreas.some((area) => area.name === town.region), `${town.slug} region must match a service area`);
+    for (const slug of town.nearby) assert.ok(towns.some((item) => item.slug === slug), `${town.slug} links to unknown town ${slug}`);
+  }
+  for (const item of galleryItems) {
+    if (item.town) assert.ok(towns.some((town) => town.slug === item.town), `${item.slug} links to unknown town ${item.town}`);
+  }
+});
+
+test("every gallery photo has a caption", () => {
+  for (const item of galleryItems) {
+    assert.equal(item.imageCaptions?.length, item.imagePaths.length, `${item.slug} needs one caption per photo`);
+    if (item.beforeImage && item.afterImage) assert.equal(item.comparisonCaptions?.length, 2, `${item.slug} needs before and after captions`);
+  }
+});
+
+test("guides link to real services and guides, and end with a call to action", () => {
+  for (const guide of guides) {
+    assert.ok(services.some((service) => service.slug === guide.relatedService), `${guide.slug} relatedService`);
+    for (const slug of guide.related) assert.ok(guides.some((item) => item.slug === slug && slug !== guide.slug), `${guide.slug} related ${slug}`);
+    assert.equal(guide.sections.at(-1)?.id, "when-to-call");
+    assert.match(guide.dateModified, /^\d{4}-\d{2}-\d{2}$/);
+  }
+});
+
+test("sitemap lists the hub, town, guide and FAQ pages", async () => {
+  const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
+  for (const route of ['"/service-areas"', "`/pest-control/${slug}`", '"/guides"', "`/guides/${guide.slug}`", '"/faq"']) {
+    assert.ok(sitemap.includes(route), `sitemap is missing ${route}`);
+  }
+});
+
+test("the main office and branch addresses are kept separate", () => {
+  assert.doesNotMatch(siteConfig.address, /Los Baños/);
+  assert.match(siteConfig.additionalLocation, /Los Baños/);
 });

@@ -12,7 +12,7 @@ export const pageHeroes = {
     description: "The right treatment starts with the site. From ants, cockroaches, flies and rodents to pre- and post-construction termite (anay) concerns, DMSA reviews the property before confirming the service plan.",
   },
   about: {
-    title: "A pest control company guided by practical responsibility.",
+    title: "About DMSA Pest Control Services in Camarines Sur and Laguna",
     description: "DMSA provides effective pest and termite control and safe, reliable service for residential and commercial properties across key Luzon regions.",
   },
   contact: {

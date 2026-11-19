@@ -193,7 +193,7 @@ export function MapCanvas({
               "aria-label",
               mode === "picker"
                 ? "Selected property location"
-                : "DMSA headquarters",
+                : "DMSA main office",
             );
             markerElement.innerHTML = '<span aria-hidden="true"></span>';
             markerRef.current = new maplibregl.Marker({
@@ -492,7 +492,7 @@ export function MapCanvas({
           mode === "picker"
             ? "Property location map"
             : mode === "hq"
-              ? "DMSA headquarters map"
+              ? "DMSA main office map"
               : "DMSA treated locations map"
         }
       />

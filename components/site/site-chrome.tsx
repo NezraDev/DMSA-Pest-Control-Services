@@ -27,6 +27,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { navigation } from "@/data/navigation-data";
+import { serviceAreas } from "@/data/service-areas-data";
+import { towns } from "@/data/towns-data";
 import { services } from "@/data/services-data";
 import { siteConfig } from "@/data/site-data";
 import { BrandLogo } from "./brand-logo";
@@ -161,6 +163,16 @@ export function SiteFooter() {
           <h2>Explore</h2>
           <nav aria-label="Footer navigation">
             {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+            <Link href="/guides">Guides</Link>
+            <Link href="/faq">FAQ</Link>
+          </nav>
+        </div>
+        <div>
+          <h2>Service areas</h2>
+          <nav aria-label="Service area links">
+            <Link href="/service-areas">All service areas</Link>
+            {serviceAreas.flatMap((area) => (area.page ? [<Link key={area.page.slug} href={`/service-areas/${area.page.slug}`}>{area.name}</Link>] : []))}
+            {towns.map((town) => <Link key={town.slug} href={`/pest-control/${town.slug}`}>{town.name}</Link>)}
           </nav>
         </div>
         <div>
@@ -171,7 +183,8 @@ export function SiteFooter() {
         </div>
         <div className="footer-contact">
           <h2>Contact</h2>
-          <p><MapPin aria-hidden="true" /><span>{siteConfig.address}</span></p>
+          <p><MapPin aria-hidden="true" /><span>Main office: {siteConfig.address}</span></p>
+          <p><MapPin aria-hidden="true" /><span>Branch: {siteConfig.additionalLocation}</span></p>
           <a href={`tel:${siteConfig.phoneViberHref}`}><Phone aria-hidden="true" /><span>{siteConfig.phoneViber} · Viber</span></a>
           <a href={`tel:${siteConfig.phoneMobileHref}`}><Phone aria-hidden="true" /><span>{siteConfig.phoneMobile}</span></a>
           {siteConfig.publicEmail ? <a href={`mailto:${siteConfig.publicEmail}`}><MessageCircle aria-hidden="true" /><span>{siteConfig.publicEmail}</span></a> : null}

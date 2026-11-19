@@ -186,6 +186,7 @@ export default function PrivacyPolicyPage() {
       title="Privacy Policy"
       description="What DMSA collects when you request a quotation or send a message, and how it is used and protected."
       updated="November 19, 2026"
+      path="/privacy-policy"
       sections={sections}
     />
   );

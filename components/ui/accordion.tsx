@@ -52,10 +52,13 @@ function AccordionContent({
   children,
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+  // forceMount keeps closed answers in the server HTML (hidden until opened), so search
+  // engines can read them and they match the FAQPage structured data.
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
       className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+      forceMount
       {...props}
     >
       <div className={cn("pt-0 pb-4", className)}>{children}</div>

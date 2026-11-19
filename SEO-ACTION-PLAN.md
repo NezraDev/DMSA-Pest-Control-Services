@@ -4,6 +4,36 @@ Audited **November 19, 2026** against the live site, https://dmsapestcontrolserv
 
 This file lists everything that needs to change for DMSA to rank as high as possible on Google. Section 4 covers the work only the owner can do. Section 5 covers website changes, each with a prompt you can paste into Claude Code.
 
+## Implementation status (updated November 19, 2026)
+
+**Done on the website:**
+- **0.1 Deploy:** Privacy Policy, Terms of Service, the "How did you hear about DMSA?" field and the Biñan job.
+- **1.1 Titles:** short `| DMSA Pest Control` suffix, keyword-first homepage title, and a test that keeps every title at 60 characters or fewer and unique.
+- **1.2 Headings:** About H1 names the service area, and service pages have keyword headings.
+- **1.3 FAQ markup:** on the homepage, service, area, town and FAQ pages. FAQ answers are now in the page HTML; before, they only loaded when someone opened them.
+- **1.4 Business markup (partly):**
+  - Done: the Los Baños branch as its own business entry, towns served, `knowsAbout`, WebPage + breadcrumbs on every page, and photo markup on gallery jobs.
+  - Waiting on O.1 and O.7: `hasMap` and postal codes.
+- **1.5 Address details:** main office and branch are separate everywhere. The wrong "Headquarters" labels are fixed.
+- **1.6 Speed (partly):**
+  - Done: gallery photos converted from PNG to JPG, 32.7 MB down to 3.6 MB.
+  - Still to do: the 34 MB video, which needs HandBrake. It doesn't block page load, because it only loads its details until played.
+- **2.1 Service pages:** now 740–960 words, with inspection, preparation, topic and other-services sections.
+- **2.2 Gallery jobs:** a caption for every photo, plus links to the service and town pages. Problem, steps and duration fields wait on details from DMSA.
+- **3.1 Service-areas hub:** `/service-areas`.
+- **3.2 Town pages:** `/pest-control/los-banos`, `/pest-control/binan` and `/pest-control/san-fernando-camarines-sur`, the towns where DMSA has an office or a documented job. More towns wait on O.7.
+- **3.3 Footer:** service-area links. Internal links are now 22–29 per page.
+- **4.1 Guides:** 6 guides at `/guides` with Article markup.
+- **4.2 FAQ page:** `/faq`.
+- **4.3 Filipino search words:** anay, ipis, langgam and daga used in guides and FAQs.
+
+**Still to do:**
+- **Owner tasks:** O.1–O.7.
+- **Domain move (0.2):** after O.3.
+- **Reviews (5.1):** after O.2.
+- **More town pages:** once O.7 confirms the towns.
+- **Video compression:** see 1.6.
+
 ---
 
 ## 1. Read this first: what "Top 1 on Google" really takes

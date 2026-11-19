@@ -154,6 +154,7 @@ export default function TermsOfServicePage() {
       title="Terms of Service"
       description="The terms for using this website and for how quotation requests, inspections and bookings work."
       updated="November 19, 2026"
+      path="/terms-of-service"
       sections={sections}
     />
   );

@@ -14,14 +14,37 @@ export const services = [
     metaTitle: "Ant, Cockroach & Rodent Control",
     metaDescription: "Pest control for ants, cockroaches, flies and rodents in homes and businesses across Bicol, Laguna, Cavite and Metro Manila. Free ocular inspection.",
     heading: "General pest control for ants, cockroaches, flies and rodents",
+    overviewHeading: "Pest control for ants, cockroaches, flies and rodents",
     overview: [
       "DMSA Pest Control Services treats the common pests that disrupt homes and workplaces: ants (langgam), cockroaches (ipis), flies (langaw), and rodents such as rats and mice (daga). If you are looking for a pest control company or pest exterminator for a house, apartment, condominium, office, shop or warehouse, the first step is a quotation request with a free ocular inspection.",
       "Treatment depends on what the inspection finds, including the type of pest, where activity is concentrated and how the property is used. DMSA then explains the recommended approach, schedule and price, and shares prevention guidance to help keep pests from returning.",
     ],
+    visit: [
+      "The visit starts with the free ocular inspection. A DMSA technician looks at where activity is concentrated, such as kitchens, drains, storage rooms, ceilings and garbage areas, and checks for droppings, trails, nesting material and the gaps pests use to get in.",
+      "Based on what the inspection finds, DMSA explains the recommended treatment, the areas it will cover, the schedule and the price before any work begins. Treatment is aimed at the places where pests hide and travel, not only where they are seen.",
+      "After treatment, the technician shares prevention guidance for the property, such as which entry points to close and how to store food and waste, and tells you whether a follow-up check is advised.",
+    ],
+    preparation: [
+      "Note where and when you see pests, and take photos if you can.",
+      "Clear access to the affected areas, such as under sinks, inside cabinets and along storage shelves.",
+      "Store or cover food, dishes and utensils in the areas to be treated.",
+      "Plan where children and pets will stay, and follow the technician's instructions on when to return to treated areas.",
+      "Tell DMSA about any allergies, sensitivities or pets when you book. DMSA confirms any specific preparation when the visit is scheduled.",
+    ],
+    note: {
+      title: "Different pests need different treatment",
+      paragraphs: [
+        "Cockroaches (ipis) hide in warm, damp gaps near kitchens and drains. Ants (langgam) follow scent trails back to a nest that may be outside the room where you see them. Flies (langaw) breed in waste and other organic matter, and rats and mice (daga) look for food, shelter and entry points in ceilings, walls and storage areas.",
+        "Because each pest behaves differently, DMSA identifies the pest and its source during the inspection before recommending a treatment. This is also why an online request cannot give a final price.",
+      ],
+    },
     faqs: [
       { question: "Which pests does general pest control cover?", answer: "General pest control covers common pests such as ants, cockroaches, flies and rodents. If you are unsure what you are seeing, select Unsure in the quotation form and describe the signs." },
       { question: "Can DMSA treat both homes and businesses?", answer: "Yes. DMSA provides pest control for houses, apartments and condominiums, as well as offices, retail spaces, warehouses and other commercial properties." },
       { question: "How much does pest control cost?", answer: "The price is confirmed after DMSA reviews the property, because cost depends on the pest, the property and the scope of work. The ocular inspection is free and included in the quotation process." },
+      { question: "Do you handle rats and mice?", answer: "Yes. Rodents such as rats and mice (daga) are part of general pest control. The inspection looks for droppings, gnaw marks and entry points so treatment and prevention can be planned." },
+      { question: "How often should pest control be done?", answer: "It depends on the pest, how serious the problem is and how the property is used. DMSA advises whether follow-up checks are needed after the inspection and treatment." },
+      { question: "Can we stay in the property during treatment?", answer: "Follow the instructions DMSA gives for your treatment. You may be asked to keep people and pets away from treated areas for a time. Mention small children, pets or allergies during the inspection so the plan can account for them." },
     ],
   },
   {
@@ -38,14 +61,37 @@ export const services = [
     metaTitle: "Termite Control & Anay Treatment",
     metaDescription: "Termite control and anay treatment for homes, businesses and construction sites: soil poisoning, wood treatment and inspection. Free ocular inspection.",
     heading: "Termite control and anay treatment",
+    overviewHeading: "Termite (anay) control and treatment",
     overview: [
       "Termites, known locally as anay, can damage timber and other wood in a property. DMSA Pest Control Services provides termite inspection and treatment for existing homes and commercial buildings, along with pre-construction anti-termite soil treatment for properties still being built.",
       "Depending on the site and construction stage, treatment options include anti-termite soil treatment or soil poisoning, chemical injection in affected areas, wood treatment and colony-focused systems. The approach is confirmed after a free ocular inspection, and DMSA gives monitoring advice once treatment is done.",
     ],
+    visit: [
+      "Termite work starts with the free ocular inspection. DMSA checks for mud tubes, damaged or hollow-sounding wood, discarded wings and other signs, and looks for where termites may be getting in, such as cracks in floors and walls, door frames, cabinets and places where wood touches soil.",
+      "In finished buildings, treatment can include chemical injection, where small holes are drilled at affected areas and along walls or floors so the treatment reaches the routes termites use, together with treatment of affected wood. With soil poisoning, the soil around or under the structure is treated to help control termite activity.",
+      "Where termites have left infested soil and debris, the team removes it as part of the cleanup, as shown in DMSA's completed jobs. Once treatment is done, DMSA gives monitoring advice so you know which signs to watch for.",
+    ],
+    preparation: [
+      "Don't scrape off mud tubes or spray insecticide on termites before the inspection. Disturbing them makes the activity harder to trace.",
+      "Note where you have seen mud tubes, damaged wood or swarming insects, and take photos.",
+      "Clear items away from affected walls, cabinets and wooden structures so the team can reach them.",
+      "For a building under construction, share the construction stage and schedule so soil treatment can be planned at the right time.",
+      "Plan where children and pets will stay, and follow DMSA's instructions on when to return to treated areas.",
+    ],
+    note: {
+      title: "Termite treatment before construction and in existing buildings",
+      paragraphs: [
+        "Soil treatment is easiest to apply during construction, before the floor slab is poured, when the soil under and around the building can be treated directly. DMSA provides pre-construction anti-termite soil treatment for homes and commercial buildings, timed with the contractor's schedule.",
+        "In a finished building, the soil is under concrete and tiles, so treatment is delivered through drilled injection points and by treating affected areas and exposed soil, such as garden strips along the walls. The inspection decides which method suits the property.",
+      ],
+    },
     faqs: [
       { question: "What are the signs of termites (anay)?", answer: "Common signs include mud tubes on walls, posts or foundations, hollow-sounding or damaged timber, and discarded wings or swarming insects." },
       { question: "Can termite treatment be done before construction?", answer: "Yes. DMSA provides pre-construction anti-termite soil treatment, as well as post-construction inspection and treatment options." },
       { question: "What is soil poisoning for termites?", answer: "Soil poisoning is a soil treatment used to help control termite activity and address potential entry points. DMSA confirms whether it suits your property after an inspection." },
+      { question: "How can I tell termites from ants?", answer: "Termites (anay) are usually pale, avoid light, build mud tubes and have straight antennae and a thick waist. Ants have a narrow waist and bent antennae, and often move in the open." },
+      { question: "Does termite treatment involve drilling?", answer: "In finished buildings, treatment is often delivered through small drilled injection points in floors or walls so it can reach where termites travel. DMSA explains the method and the areas involved after the inspection." },
+      { question: "Can termites come back after treatment?", answer: "Treatment helps control termite activity, but new activity can appear, especially if damp areas or wood-to-soil contact remain. DMSA gives monitoring advice after treatment so new signs can be caught early." },
     ],
   },
   {
@@ -62,14 +108,36 @@ export const services = [
     metaTitle: "Home Pest Control for Houses & Condos",
     metaDescription: "Home pest control for houses, apartments and condominiums. Treatment for termites, ants, cockroaches and rodents, starting with a free ocular inspection.",
     heading: "Home pest control for houses, apartments and condominiums",
+    overviewHeading: "Pest control for houses, apartments and condominiums",
     overview: [
       "Pests at home can show up as repeated sightings, noises in the ceiling or activity around the kitchen and garden. DMSA Pest Control Services provides residential pest control for houses, apartments and condominiums, covering termites (anay), ants, cockroaches, flies and rodents.",
       "Service is planned around your household. A free ocular inspection comes first, followed by a clear recommendation, any preparation you need to do before the visit and an after-care briefing for the people living in the home.",
     ],
+    visit: [
+      "A home visit starts with the free ocular inspection. DMSA asks where you have seen pests, checks kitchens, bathrooms, ceilings, cabinets and the garden, and looks for signs such as droppings, mud tubes or damaged wood.",
+      "DMSA then explains the recommended treatment, the areas involved, the schedule and the price. The plan takes the household into account, including children, older family members and pets, and you get preparation instructions before the visit and an after-care briefing afterwards.",
+      "For condominiums and apartments, mention any building rules on contractor access and work hours when you request a quotation, so the visit can be arranged with building management.",
+    ],
+    preparation: [
+      "Tell DMSA who lives in the home, including children, older family members and pets.",
+      "Store or cover food, dishes and utensils, and put away children's toys in the areas to be treated.",
+      "Clear access to cabinets, the space under sinks and the corners of affected rooms.",
+      "For a condominium, arrange a gate pass or work permit with building management if one is required.",
+      "Follow the after-care briefing on when the family and pets can return to treated areas.",
+    ],
+    note: {
+      title: "Common pest problems at home",
+      paragraphs: [
+        "Common concerns in Philippine homes include termites (anay) in door frames, cabinets and wooden ceilings; cockroaches (ipis) in kitchens and drains; ants (langgam) along counters; and rats and mice (daga) in ceilings and storage areas.",
+        "Many of these problems start small, so it helps to request an inspection when you first notice signs. Finding the source early makes treatment simpler and helps limit damage, especially with termites.",
+      ],
+    },
     faqs: [
       { question: "What should I prepare before a home visit?", answer: "Note the affected areas, pest signs and any access considerations. DMSA will give you specific preparation instructions when the visit is confirmed." },
       { question: "Do you treat condominiums and apartments?", answer: "Yes. Residential service covers houses, apartments and condominiums." },
       { question: "Is the ocular inspection free for homeowners?", answer: "Yes. The free ocular inspection is included in the quotation process, so the property can be reviewed before scope, schedule and price are confirmed." },
+      { question: "Can you treat a house while we live in it?", answer: "Yes. Treatment is planned around the household. DMSA tells you which areas will be treated, how to keep people and pets away from them and when it is fine to return." },
+      { question: "Do you treat termites in cabinets and door frames?", answer: "Yes. Termite activity in built-in wood such as door frames, cabinets and ceilings is handled as part of termite control. Point out any affected furniture during the inspection so it can be assessed." },
     ],
   },
   {
@@ -86,14 +154,36 @@ export const services = [
     metaTitle: "Commercial Pest Control for Businesses",
     metaDescription: "Commercial pest control for offices, retail spaces, warehouses and construction sites. Coordinated service with a free ocular inspection and action summary.",
     heading: "Commercial pest control for offices, shops and warehouses",
+    overviewHeading: "Pest control for offices, shops, warehouses and construction sites",
     overview: [
       "Pests in a workplace can damage stock and wiring and lead to repeated complaints from staff and visitors. DMSA Pest Control Services provides commercial pest control for offices, retail spaces, warehouses, construction sites and other business properties.",
       "Service begins with a free ocular inspection and a review of how the site operates, so that treatment can be coordinated with your operations. Afterwards, DMSA provides an action summary and practical guidance on stock rotation, cleaning routines and closing structural access points.",
     ],
+    visit: [
+      "Commercial service starts with the free ocular inspection and a review of how the site operates: opening hours, staff and customer areas, storage, waste handling and any areas where food or goods are kept.",
+      "DMSA then recommends a treatment plan for the site. Share your preferred schedule and access needs, and the visit is coordinated around your operations where possible. Scope, schedule and price are confirmed before work begins.",
+      "After service, DMSA provides an action summary covering what was treated, with practical steps for staff such as stock rotation, cleaning routines and closing access points.",
+    ],
+    preparation: [
+      "Name a contact person who can give the team access to all areas.",
+      "Share operating hours, restricted areas and any site safety rules.",
+      "Move or cover stock, food and equipment in the areas to be treated, as advised.",
+      "Let staff know the schedule and which areas will be off-limits.",
+      "For a construction site, share the construction stage so soil treatment can be timed correctly.",
+    ],
+    note: {
+      title: "Businesses DMSA serves",
+      paragraphs: [
+        "DMSA works with offices, retail spaces, warehouses, construction sites and other commercial properties. Each has different risks: stock and packaging in warehouses, food and waste areas in shops, and termite protection for buildings that are still being built.",
+        "Because operations differ, the inspection and operations review come first, so the treatment fits the site and disrupts work as little as possible.",
+      ],
+    },
     faqs: [
       { question: "What types of businesses does DMSA serve?", answer: "DMSA serves offices, retail spaces, warehouses, construction sites and other commercial properties." },
       { question: "Can treatment be coordinated around our operations?", answer: "Service is coordinated after an operations review. Share any access or scheduling needs when you request a quotation." },
       { question: "Do you offer termite treatment for construction sites?", answer: "Yes. DMSA provides pre-construction anti-termite soil treatment, along with post-construction inspection and treatment options." },
+      { question: "What do we receive after the service?", answer: "DMSA provides an action summary after service, with practical guidance on stock rotation, cleaning routines and closing structural access points." },
+      { question: "Do we need to close during treatment?", answer: "It depends on the treatment and the areas involved. Share your operating hours and access needs when you request a quotation, and DMSA recommends a schedule after the inspection and operations review." },
     ],
   },
 ];

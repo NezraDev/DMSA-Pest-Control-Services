@@ -9,7 +9,10 @@ import { ProofCarousel } from "@/components/site/proof-carousel";
 import { Button } from "@/components/ui/button";
 import { galleryItems } from "@/data/gallery-data";
 import { JsonLd } from "@/components/site/json-ld";
-import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
+import { services } from "@/data/services-data";
+import { towns } from "@/data/towns-data";
+import { organizationId, pageMetadata, pageSchema } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/site-url";
 
 function formatTreatmentDate(value: string) {
   // A month-only date ("2026-11") is shown as "November 2026".
@@ -75,15 +78,41 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
     typeof location.beforeImage === "string" && typeof location.afterImage === "string"
       ? { before: location.beforeImage, after: location.afterImage }
       : null;
+  const captionFor = (index: number) => location.imageCaptions?.[index];
   const treatmentImages = location.imagePaths.map((src, index) => ({
     src,
-    label: location.title,
-    alt: `${location.servicePerformed} in ${location.generalLocation}, photo ${index + 1}`,
+    label: captionFor(index) ?? location.title,
+    alt: captionFor(index)
+      ? `${captionFor(index)}, ${location.generalLocation}`
+      : `${location.servicePerformed} in ${location.generalLocation}, photo ${index + 1}`,
   }));
+  const path = `/gallery/${location.slug}`;
+  const service = services.find((item) => item.slug === (location.category === "Termite Control" ? "termite-control" : "general-pest-control"));
+  const town = towns.find((item) => item.slug === location.town);
+  const photoSchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "@id": `${absoluteUrl(path)}#photos`,
+    name: `${location.title} in ${location.generalLocation}`,
+    about: { "@id": organizationId },
+    image: [
+      ...location.imagePaths.map((src, index) => ({ src, caption: captionFor(index) })),
+      ...(comparisonImages
+        ? [{ src: comparisonImages.before, caption: location.comparisonCaptions?.[0] }, { src: comparisonImages.after, caption: location.comparisonCaptions?.[1] }]
+        : []),
+    ].map(({ src, caption }) => ({
+      "@type": "ImageObject",
+      contentUrl: absoluteUrl(src),
+      caption: caption ?? `${location.title} in ${location.generalLocation}`,
+      contentLocation: { "@type": "Place", name: location.generalLocation },
+      creator: { "@id": organizationId },
+    })),
+  };
 
   return (
     <main id="main-content">
-      <JsonLd data={breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }, { name: location.title, path: `/gallery/${location.slug}` }])} />
+      <JsonLd data={pageSchema({ name: `${location.title} in ${location.generalLocation}`, description: location.shortDescription, path, breadcrumbs: [{ name: "Home", path: "/" }, { name: "Gallery", path: "/gallery" }, { name: location.title, path }] })} />
+      <JsonLd data={photoSchema} />
       <section className="detail-hero">
         <div className="site-container">
           <BackLink href="/gallery">Back to gallery</BackLink>
@@ -103,11 +132,11 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
                 </div>
                 <div className="before-after-grid">
                   <figure>
-                    <div className="before-after-image"><Image src={comparisonImages.before} alt={`Before treatment image for ${location.title}`} fill sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
+                    <div className="before-after-image"><Image src={comparisonImages.before} alt={location.comparisonCaptions?.[0] ?? `Before treatment image for ${location.title}`} fill sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
                     <figcaption>Before image</figcaption>
                   </figure>
                   <figure>
-                    <div className="before-after-image"><Image src={comparisonImages.after} alt={`After treatment image for ${location.title}`} fill sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
+                    <div className="before-after-image"><Image src={comparisonImages.after} alt={location.comparisonCaptions?.[1] ?? `After treatment image for ${location.title}`} fill sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1180px) calc(50vw - 34px), 570px" /></div>
                     <figcaption>After image</figcaption>
                   </figure>
                 </div>
@@ -128,6 +157,10 @@ export default async function GalleryDetailPage({ params }: { params: Promise<{ 
               <div><Tag aria-hidden="true" /><dt>Pest / property</dt><dd>{location.pest} · {location.propertyType}</dd></div>
               <div><CalendarDays aria-hidden="true" /><dt>Date</dt><dd>{formatTreatmentDate(location.treatmentDate)}</dd></div>
               </dl>
+              <p className="detail-links">
+                {service ? <Link className="text-link" href={`/services/${service.slug}`}>About {service.title.toLowerCase()} <ArrowRight aria-hidden="true" /></Link> : null}
+                {town ? <Link className="text-link" href={`/pest-control/${town.slug}`}>Pest control in {town.name} <ArrowRight aria-hidden="true" /></Link> : null}
+              </p>
             </div>
             <aside className="feedback-card"><Quote aria-hidden="true" /><h2>Customer feedback</h2><p>{location.customerFeedback || "Customer feedback is not available for this entry."}</p>{location.customerFeedback ? <cite>Published with customer permission</cite> : null}</aside>
           </div>
