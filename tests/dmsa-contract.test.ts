@@ -18,6 +18,8 @@ import { siteConfig, trustFacts } from "../data/site-data.js";
 import { provinceContent, townContent } from "../lib/location-content.ts";
 import { isTownIndexable, maxSimilarity, minNoteWords, minUniqueWords, publishedTowns, townQualityReport } from "../lib/location-quality.ts";
 import { photoAlt } from "../lib/alt-text.ts";
+import imageLoader from "../lib/image-loader.ts";
+import { imageWidths } from "../lib/image-widths.js";
 import { allTowns, launchedLocationProvinces, launchedTowns, locationProvinces, townByKey, townJobs } from "../lib/locations.ts";
 
 const baseQuote = {
@@ -492,7 +494,9 @@ test("production responses send security headers and images stay light", async (
   for (const header of ["Content-Security-Policy", "X-Frame-Options", "Referrer-Policy", "Permissions-Policy"]) assert.match(config, new RegExp(header));
   assert.match(config, /basemaps\.cartocdn\.com/, "CSP must allow the CARTO map tiles");
   assert.match(config, /deviceSizes: \[640, 750, 828, 1080, 1200, 1440\]/);
-  assert.match(config, /qualities: \[50\]/);
+  assert.match(config, /loaderFile: "\.\/lib\/image-loader\.ts"/);
+  const toml = await readFile(new URL("../netlify.toml", import.meta.url), "utf8");
+  for (const path of ["/_next/*", "/opt/*", "/brand/*", "/slide/*"]) assert.ok(toml.includes(`for = "${path}"`), `netlify.toml must send headers for ${path}`);
   for (const file of ["components/site/homepage-slideshow.tsx", "components/site/page-elements.tsx", "components/site/proof-carousel.tsx", "app/gallery/[slug]/page.tsx"]) {
     const source = await readFile(new URL(`../${file}`, import.meta.url), "utf8");
     assert.doesNotMatch(source, /<Image\b[^>]*\sfill\b/, `${file}: use width/height with .fill-image instead of fill`);
@@ -512,6 +516,23 @@ test("pest and industry pages are substantial and link to real pages", () => {
     for (const slug of industry.relatedGuides) assert.ok(guides.some((guide) => guide.slug === slug), `${industry.slug} guide ${slug}`);
     const total = words(industry.summary, ...industry.faqs.flatMap((faq) => [faq.question, faq.answer])) + sectionWords(industry.sections);
     assert.ok(total >= 600, `${industry.slug} has ${total} words`);
+  }
+});
+
+test("every photo has pre-built WebP versions under 100 KB", async () => {
+  const { stat } = await import("node:fs/promises");
+  const photos = new Set([
+    ...[1, 2, 3, 4, 5, 6, 7].map((n) => `/slide/slide-${n}.jpg`),
+    ...galleryItems.flatMap((item) => [...item.imagePaths, item.beforeImage, item.afterImage].filter((src): src is string => typeof src === "string")),
+  ]);
+  for (const src of photos) {
+    for (const width of imageWidths) {
+      const url = imageLoader({ src, width });
+      assert.match(url, /^\/opt\/.+\.webp$/, src);
+      const file = await stat(new URL(`../public${url}`, import.meta.url)).catch(() => null);
+      assert.ok(file, `${url} is missing: run node scripts/optimize-images.mjs`);
+      assert.ok(file.size < 100 * 1024, `${url} is ${Math.round(file.size / 1024)} KB`);
+    }
   }
 });
 

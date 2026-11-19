@@ -34,12 +34,13 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
-    // Smaller modern formats for browsers that support them.
-    formats: ["image/avif", "image/webp"],
+    // Photos are served as pre-built WebP files from public/opt (scripts/optimize-images.mjs)
+    // instead of an image CDN, so every image response carries the security headers and has a
+    // fixed size under 100 KB.
+    loader: "custom",
+    loaderFile: "./lib/image-loader.ts",
     // Photos are 1920px wide; 1440px is sharp on screen and keeps every variant small.
     deviceSizes: [640, 750, 828, 1080, 1200, 1440],
-    // One quality for every photo. Keeps the JPEG fallback (what crawlers download, after
-    // Netlify's image CDN re-encodes it) under 100 KB.
     qualities: [50],
   },
   async headers() {

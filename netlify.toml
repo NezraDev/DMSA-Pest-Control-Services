@@ -10,7 +10,7 @@
     X-Frame-Options = "SAMEORIGIN"
 
 [[headers]]
-  for = "/.netlify/images"
+  for = "/opt/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"

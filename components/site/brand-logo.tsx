@@ -11,6 +11,8 @@ export function BrandLogo({ compact = false }: { compact?: boolean }) {
           src={siteConfig.logos.website}
           alt="DMSA Pest Control Services"
           title="DMSA Pest Control Services"
+          // A 13 KB file already sized for the header, served as it is.
+          unoptimized
           width={2048}
           height={1152}
           priority
